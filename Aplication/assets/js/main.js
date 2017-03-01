@@ -147,7 +147,7 @@ var main = (function($) { var _ = {
 
 		// Viewer.
 			_.$viewer = $(
-				'<div id="viewer">' +
+				'<div id="viewer" ng-controller="controller">' +
 					'<div class="inner">' +
 						'<div class="nav-next"></div>' +
 						'<div class="nav-previous"></div>' +
