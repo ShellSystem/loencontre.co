@@ -1,22 +1,11 @@
 <!DOCTYPE HTML>
-<!--
-	Lens by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html lang="es" ng-app="mainModule">
 	<head>
 		<title>loencontre.com por SHELLSYSTEM</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
-
 	</head>
 	<body class="is-loading-0 is-loading-1 is-loading-2" ng-controller="controller">
 
@@ -37,10 +26,10 @@
 
 				<!-- Thumbnail -->
 					<section id="thumbnails">
-						<article ng-repeat="post in posts">
+						<article ng-repeat="post in posts" ng-click="view(post)">
 							<a class="thumbnail" href="images/fulls/{{post.image}}.jpg">
 							<img src="images/thumbs/{{post.image}}.jpg" alt="" /></a>
-							<h2>{{2+2}}</h2>
+							<h2></h2>
 							<p><a href="https://www.facebook.com/photo.php?{{post.link}}">Ir al post</a></p>
 						</article>
 					</section>
@@ -51,15 +40,14 @@
 							<li>&copy; loencontre.con. Diseño: <a href="uptc.edu.co">ShellSystem</a>.</li>
 						</ul>
 					</footer>
-
 			</div>
 
 		<!-- Scripts -->
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+			<script src="angular/main.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/skel.min.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-			<script src="angular/main.js"></script>
-
+			
 	</body>
 </html>
