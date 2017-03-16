@@ -544,7 +544,7 @@
 
 		// Get slides.
 		var	oldSlide = (_.current !== null ? _.slides[_.current] : null),
-		newSlide = _.slides[index];
+  		newSlide = _.slides[index];
 
 		// Update current.
 		_.current = index;

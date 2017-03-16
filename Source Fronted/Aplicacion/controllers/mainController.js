@@ -1,11 +1,10 @@
 class MainController {
 
   constructor() {
-    this.init();
-
+    this.initData();
   }
   
-  init(){
+  initData(){
     $.ajax({
           dataType: "json",
           url: "http://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
@@ -44,6 +43,4 @@ function setPost(data) {
 }
 
 
-$(document).ready(function() {
-  var controller = new MainController();
-});
+var controller = new MainController();
