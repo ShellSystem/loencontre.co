@@ -6,7 +6,6 @@ class MainController {
   
   initData(){
     firtTime();
-
     $.ajax({
       dataType: "json",
       url: "http://entregascontinuas.goodfirmcolombia.co/pagination"
@@ -36,26 +35,29 @@ function setPost(data) {
       '<p><a href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">Ir al post</a></p>' +
       '</article>');
   }
+  main.init();
   return true;
 }
 
 function firtTime() {
   $.ajax({
-          dataType: "json",
-          url: "http://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
-        }).done(function(data) {
-          setPost(data);
-        });
+    dataType: "json",
+    url: "http://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
+  }).done(function(data) {
+    setPost(data);
+  });
 
-    return true;
+  return true;
 }
 
 
 
 var controller = new MainController()
+//test(controller);
 
-var countPass = 0;
-var countNoPass = 0;
+function test(controller) {
+  var countPass = 0;
+  var countNoPass = 0;
 
 //TEST 1
 if(controller){
@@ -100,3 +102,4 @@ else{
 console.log("Units Pass: " + countPass);
 console.log("Units No Pass: " + countNoPass);
 console.log("Units Evaluate: " + (countPass + countNoPass));
+}
