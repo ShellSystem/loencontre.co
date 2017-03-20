@@ -1,14 +1,13 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-	<title>loencontre.co</title>
+	<title id="title"></title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
 <body>
-
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -19,16 +18,16 @@
 			</div>
 			<div class="content">
 				<div class="inner">
-					<h1>loencontre.co</h1>
-					<p>Contacta al propietario del carné que encontraste</p>																
+					<h1 id="title"></h1>
+					<p id="description"></p>															
 				</div>
 			</div>
 			<nav>
 				<ul>
-					<li><a href="#intro">¿Qué es?</a></li>
-					<li><a href="#work">¿Cómo?</a></li>
-					<li><a href="Aplicacion">Pruebalo</a></li>
-					<li><a href="#contact">Contacto</a></li>
+					<li><a id="section01_title" href="#intro"></a></li>
+					<li><a id="section02_title" href="#work"></a></li>
+					<li><a id="section03_title" href="Aplicacion"></a></li>
+					<li><a id="section04_title" href="#contact"></a></li>
 				</ul>
 			</nav>
 		</header>
@@ -38,42 +37,25 @@
 
 			<!-- Intro -->
 			<article id="intro">
-				<h2 class="major">¿Qué es?</h2>
+				<h2 id="section01_title" class="major"></h2>
 				<span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-				<p style = "text-align : justify">
-					loencontre.co es una apliacación para que alguna persona que encuentre extraviado un carné de alguien perteneciente a la Universidad Pedagógica y Tecnológica
-					de Colombia (UPTC), pueda publicar una fotografía del mismo,y contacte al dueño de dicho documento.
-					El proyecto surge debido a que personas pertenecientes a la UPTC, principalmente estudiantes, pierden constantemente sus carnés, en muchas ocasiones éstos 
-					son extraviados dentro del campus universitario por lo que existe una gran probabilidad de que sea encontrado por otra persona perteneciente a la universidad. Cuando esto ocurre, se ha visto que pueden suceder dos cosas: 1) el carné es llevado a alguna dependencia de la universidad para ser entregado, o 2)  se hace una publicación en los diferentes grupos de facebook que están formados en su mayoría por estudiantes de la universidad. Hacer una publicación en los grupos de facebook resulta para nuestro criterio ser la mejor opción pero tiene algunas inconvenientes, el algoritmo que usa facebook para determinar el orden en que se muestran las publicaciones puede llevar que el dueño del carné sea de los usuario que nunca vio la publicación, por lo que una aplicación que se encargue reconocer el nombre del dueño del carné y buscar coincidencias para posteriormente avisar a la mejor opcionada resulta siendo una aplicación oportuna.
+				<p id="section01_text" style = "text-align : justify">
+					
 				</p>
 			</article>
 
 			<!-- Work -->
 			<article id="work">
-				<h2 class="major">¿Comó?</h2>
+				<h2 id="section02_title" class="major"></h2>
 				<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-				<p style = "text-align : justify">
-					Permitiendo a un usuario una fácil publicación de la fotografía del carné encontrado. Una vez publicada, intentaremos encontrar al dueño del carné, 
-					en primera medida buscando conincidencias con el nombre que aparece en el documento y los nombre de los miembros pertenecientes a los diferentes grupos de Facebook cuyos 
-					integrantes sean principalmente personas vinculadas a la UPTC, como segunda medida intentaremos mejorar el perfil de los opcionados a dueño del carné, mediante el analisis 
-					de la fotografía que aparece en el carné con las fotografías publicas de los opcionados.									
-				</p>
-			</article>
-
-			<!-- About -->
-			<article id="about">
-				<h2 class="major">Contacto</h2>
-				<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-				<p style = "text-align : center">
-					larry.portocarrerro@uptc.edu.co </br>
-					alvaro.hernandez@uptc.edu.co </br>
-					andresmauricio.gomez.edu.co </br>
+				<p id="section02_text" style = "text-align : justify">
+					
 				</p>
 			</article>
 
 			<!-- Contact -->
 			<article id="contact">
-				<h2 class="major">Contacto</h2>
+				<h2 id="section04_title" class="major"></h2>
 								<!--<form method="post" action="#">
 									<div class="field half first">
 										<label for="name">Nombre</label>
@@ -105,7 +87,12 @@
 
 						<!-- Footer -->
 						<footer id="footer">
-							<p class="copyright">&copy; loencontre.co <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</p>
+							<p class="copyright">&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">shellsystem</a>.</p>
+							<div>
+								<a href="#" onclick="setLanguage('es');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ESP </a>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#" onclick="setLanguage('en');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ENG </a>
+							</div>
 						</footer>
 
 					</div>
@@ -118,6 +105,9 @@
 					<script src="assets/js/skel.min.js"></script>
 					<script src="assets/js/util.js"></script>
 					<script src="assets/js/main.js"></script>
-
+					<script src="assets/js/jquery.i18n.min.js"></script>
+					<script src="assets/js/language/es.js"></script>
+					<script src="assets/js/language/en.js"></script>
+					<script src="assets/js/language/init.js"></script>
 				</body>
 				</html>
