@@ -8,14 +8,14 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "http://entregascontinuas.goodfirmcolombia.co/pagination"
+      url: "https://entregascontinuas.goodfirmcolombia.co/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "http://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber="+num
+          url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -42,7 +42,7 @@ function setPost(data) {
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "http://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
+    url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
