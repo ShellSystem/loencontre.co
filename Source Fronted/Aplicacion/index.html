@@ -1,48 +1,57 @@
 <!DOCTYPE HTML>
 <html lang="es">
-	<head>
-		<title>loencontre.co por SHELLSYSTEM</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<!--<body class="is-loading-0 is-loading-1 is-loading-2">-->
-	<body class="">
+<head>
+	<title id="title"></title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
+<!--<body class="is-loading-0 is-loading-1 is-loading-2">-->
+<body class="">
 
-		<!-- Main -->
-			<div id="main">
+	<!-- Main -->
+	<div id="main">
 
-				<!-- Header -->
-					<header id="header">
-						<a href="../"><h1>loencontre.co</h1></a>
-						<p>Contacta al propietario del carné que encontraste.</p>
-						<ul class="icons">
-							<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
-							<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
-							<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-						</ul>
-					</header>
+		<!-- Header -->
+		<header id="header">
+			<a href="../"><h1 id="title"></h1></a>
+			<p id="description"></p>
+			<ul class="icons">
+				<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+			</ul>
+		</header>
 
-				<!-- Thumbnail -->
-					<section id="thumbnails"></section>
-					<section id="pagination-here"></section>
-					
+		<!-- Thumbnail -->
+		<section id="thumbnails"></section>
+		<section id="pagination-here"></section>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; loencontre.con. Diseño: <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</li>
-						</ul>
-					</footer>
-			</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/jquery.bootpag.min.js"></script>
-			<!--<script src="controllers/dataBase.js"></script>-->
-			<script src="assets/js/main.js"></script>			
-			<script src="controllers/mainController.js"></script>
-	</body>
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="copyright">
+				<li>&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</li>
+				<li>
+					<a href="#" onclick="setLanguage('es');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ESP </a>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<a href="#" onclick="setLanguage('en');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ENG </a>
+				</li>
+			</ul>
+		</footer>	
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/jquery.bootpag.min.js"></script>
+	<!--<script src="controllers/dataBase.js"></script>-->
+	<script src="assets/js/jquery.i18n.min.js"></script>
+	<script src="assets/js/language/es.js"></script>
+	<script src="assets/js/language/en.js"></script>
+	<script src="assets/js/language/init.js"></script>
+	<script src="assets/js/main.js"></script>			
+	<script src="controllers/mainController.js"></script>
+</body>
 </html>

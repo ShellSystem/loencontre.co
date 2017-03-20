@@ -32,7 +32,7 @@ function setPost(data) {
     $("#thumbnails").append('<article>' +
       '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+post.date+'</h2>' +
-      '<p><a href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">Ir al post</a></p>' +
+      '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
       '</article>');
   }
   main.init();
