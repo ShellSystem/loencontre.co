@@ -6,10 +6,8 @@ para crear la base de datos debemos tener creado un usuario con el nombre goodFi
 **/
 
 $ruta_servidor = 'localhost';
-#$usuario = 'goodfirm_usuario';
-$usuario = 'root';
-#$contrasena = ',eE_qW$Sh5KR';
-$contrasena = '';
+$usuario = 'goodfirm_usuario';
+$contrasena = ',eE_qW$Sh5KR';
 $conexion = mysql_connect($ruta_servidor, $usuario, $contrasena);
 if($conexion){
 	print("conexión exitosa <br/>");

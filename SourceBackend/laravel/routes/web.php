@@ -13,13 +13,11 @@
 
 //**********************////////////////////////////////////administrar/////////////////////////////////////////////*********************
 //************************************Articulo
-Route::any('/', 'PostController@index');//pide la pagina de añadir archivos
-Route::get('pagination', 'PostController@pagination');//pide la pagina 
-Route::get('get-page', 'PostController@getPage');
+Route::any('/', 'MainController@index');//pide la pagina de añadir archivos
+Route::get('pagination', 'MainController@pagination');//pide la pagina 
+Route::get('get-page', 'MainController@getPage');
 
-Route::any('load-file', 'PostController@addFromFile');
-
-Route::any('add-post', 'PostController@addPost');
+Route::post('load-file', 'MainController@addFromFile');
 
 
 
