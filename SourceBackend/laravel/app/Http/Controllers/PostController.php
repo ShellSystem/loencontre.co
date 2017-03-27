@@ -10,7 +10,7 @@ use goodfirmLaravel\Http\Requests;
 use App\Post;
 use Validator;
 
-class MainController extends Controller{
+class PostController extends Controller{
 
   public $postAmountPerPage = 6;
   
@@ -93,7 +93,8 @@ class MainController extends Controller{
     #return  json_encode($request->input());
     if ($request->pageNumber){
      
-      $posts = Post::all(); # Pide todos los posts a la base de datos
+      #$posts = Post::all()->sortByDesc('Date'); # Pide todos los posts a la base de datos
+      $posts = Post::orderBy('date', 'desc')->get();
       
       $amount = (int)(sizeof($posts) / $this->postAmountPerPage); # Cantidad  de paginas
       if((sizeof($posts) % $this->postAmountPerPage) > 0){ #Numero decimal
