@@ -50,6 +50,25 @@ function firtTime() {
   return true;
 }
 
+function newPost() {
+  var post = {};
+  post.form = $("#new").serialize();
+  // Obtener texto y probabilidad luego agregarlo al data que sera enviado al server
+  // var img = $('#img').val();
+  // post.ocr = ocr(img);
+  $.ajax({
+   type: "POST",
+   url: "https://entregascontinuas.goodfirmcolombia.co/",
+   data: post,
+   success: function(data)
+   {
+      // Avisar al usuario que la publicación se hizo con exito
+      alert("Publicado");
+   }
+ });
+  return false;
+}
+
 
 
 var controller = new MainController()

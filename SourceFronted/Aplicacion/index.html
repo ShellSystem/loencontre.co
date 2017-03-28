@@ -22,7 +22,9 @@
 				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
 				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
 			</ul>
+			<a href="#miModal" class="icon fa-plus"> Nueva publicación</a>
 		</header>
+
 
 		<!-- Thumbnail -->
 		<section id="thumbnails"></section>
@@ -40,6 +42,36 @@
 				</li>
 			</ul>
 		</footer>	
+
+		<!--Modal-->
+		<div id="miModal" class="modal">
+			<div class="modal-contenido">
+				<a href="#">X</a>
+				<h2>¿Encontraste un carné? Publícalo</h2>
+				<form method="post" action="#" id="new" onsubmit="newPost();">
+					<div class="field half first">
+						<label for="img">Foto (*)</label>
+						<input type="text" name="img" id="img" required/>
+					</div>
+					<div class="field half first">
+						<label for="date">Fecha (*)</label>
+						<input type="date" name="date" id="date" required/>
+					</div>
+					<div class="field half first">
+						<label for="contact">Contacto (*)</label>
+						<input type="text" name="contact" id="contact" required/>
+					</div>
+					<div class="field">
+						<label for="message">Mensaje</label>
+						<textarea name="message" id="message" rows="4"></textarea>
+					</div>
+					<ul class="actions">
+						<li><input type="reset" value="Limpiar" /></li>
+						<li><input type="submit" value="Enviar Mensaje" class="special" /></li>
+					</ul>
+				</form>
+			</div>  
+		</div>
 	</div>
 
 	<!-- Scripts -->
