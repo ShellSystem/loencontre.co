@@ -52,21 +52,23 @@ function firtTime() {
 
 function newPost() {
   var post = {};
-  post.form = $("#new").serialize();
+  post.img = $("#new")[0];
+  post.contact = $("#contact").val();
+  var d = new Date();
+  post.data = d.toString();
+  console.log(post);
   // Obtener texto y probabilidad luego agregarlo al data que sera enviado al server
-  // var img = $('#img').val();
   // post.ocr = ocr(img);
-  $.ajax({
-   type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/",
-   data: post,
-   success: function(data)
-   {
-      // Avisar al usuario que la publicación se hizo con exito
-      alert("Publicado");
-   }
- });
-  return false;
+ //  $.ajax({
+ //   type: "POST",
+ //   url: "https://entregascontinuas.goodfirmcolombia.co/",
+ //   data: post,
+ //   success: function(data)
+ //   {
+ //      // Avisar al usuario que la publicación se hizo con exito
+ //      alert("Publicado");
+ //   }
+ // });
 }
 
 

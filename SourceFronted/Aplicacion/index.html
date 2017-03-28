@@ -48,15 +48,15 @@
 			<div class="modal-contenido">
 				<a href="#">X</a>
 				<h2>¿Encontraste un carné? Publícalo</h2>
-				<form method="post" action="#" id="new" onsubmit="newPost();">
+				<form method="post" action="#" id="new" onsubmit="newPost(); return false" enctype="multipart/form-data">
 					<div class="field half first">
 						<label for="img">Foto (*)</label>
-						<input type="text" name="img" id="img" required/>
+						<input type="file" name="img" id="img" required style="color: transparent"/>
 					</div>
-					<div class="field half first">
+					<!-- <div class="field half first">
 						<label for="date">Fecha (*)</label>
 						<input type="date" name="date" id="date" required/>
-					</div>
+					</div> -->
 					<div class="field half first">
 						<label for="contact">Contacto (*)</label>
 						<input type="text" name="contact" id="contact" required/>
