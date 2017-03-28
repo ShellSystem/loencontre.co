@@ -18,7 +18,7 @@ app.controller('controller',function($scope,$http,$facebook){
 		}
 		var config = {
 			headers : {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/octet-stream ',
 				'Ocp-Apim-Subscription-Key' : 'bfa235c067444a6a964cfa7045109e96'
 			}
 		}
@@ -53,7 +53,7 @@ app.controller('controller',function($scope,$http,$facebook){
 			$scope.txtMicrosoft = 'No se ha podido extraer el texto, error: '+err.message;
 		})
 	};
-	// angelica - fabian - cepeda -rangel
+	
 	$scope.pln = function (txt){
 		//filtrando el texto  que ingresa
 				var filterWords = txt.split('-');
@@ -87,7 +87,7 @@ app.controller('controller',function($scope,$http,$facebook){
 						filterWords[i].match(/^turis/)||filterWords[i].match(/^conta/)||filterWords[i].match(/blica$/)||filterWords[i].match(/^inter/)||
 						filterWords[i].match(/ticas$/)||filterWords[i].match(/ción$/)||filterWords[i].match(/^depor/)||filterWords[i].match(/^recre/)||
 						filterWords[i].match(/nible$/)||filterWords[i].match(/^insta/)||filterWords[i].match(/^rede/)||filterWords[i].match(/^herra/)||
-						filterWords[i].match(/^tele/)||filterWords[i].match(/^farma/)) { //el texto
+						filterWords[i].match(/^tele/)||filterWords[i].match(/^farma/)||filterWords[i].match(/ungvers'dad/)) { //el texto
 						filterWords.splice(i, 1);
 					}
 				}
