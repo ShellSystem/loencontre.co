@@ -50,15 +50,15 @@ function firtTime() {
   return true;
 }
 
-function newPost(txtFilter, probability) {
+function newPost(txtFilter) {
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
   post.date = d.toString();
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
-  post.probability = probability;
   console.log(post);
+  
   // Obtener texto y probabilidad luego agregarlo al data que sera enviado al server
   // post.ocr = ocr(img);
  //  $.ajax({
@@ -133,8 +133,7 @@ function getOCRMicrosft(){
           });
         });
         txtFilter = pln(txtMicrosoft);
-        probability = probability(txtMicrosoft, txtFilter);
-        newPost(txtFilter, probability);
+        newPost(txtFilter);
         document.getElementById("close").click();
         document.getElementById("new").reset();
         document.getElementById("list").innerHTML = "";
