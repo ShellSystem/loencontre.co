@@ -46,13 +46,15 @@
 		<!--Modal-->
 		<div id="miModal" class="modal">
 			<div class="modal-contenido">
-				<a href="#">X</a>
-				<h2>¿Encontraste un carné? Publícalo</h2>
-				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false" enctype="multipart/form-data">
+				<a id="close" href="#">X</a>
+				<h2>¿Encontraste un carné?</h2>
+				<h2>Publícalo!</h2>
+				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false">
 					<div class="field half first">
 						<label for="img">Foto (*)</label>
-						<input type="file" name="img" id="img" required style="color: transparent"/>
+						<input type="file" name="img" id="img" />
 					</div>
+					<output id="list"></output>
 					<!-- <div class="field half first">
 						<label for="date">Fecha (*)</label>
 						<input type="date" name="date" id="date" required/>
@@ -61,10 +63,10 @@
 						<label for="contact">Contacto (*)</label>
 						<input type="text" name="contact" id="contact" required/>
 					</div>
-					<div class="field">
+					<!-- <div class="field">
 						<label for="message">Mensaje</label>
 						<textarea name="message" id="message" rows="4"></textarea>
-					</div>
+					</div> -->
 					<ul class="actions">
 						<li><input type="reset" value="Limpiar" /></li>
 						<li><input type="submit" value="Enviar Mensaje" class="special" /></li>

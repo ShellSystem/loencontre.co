@@ -1351,9 +1351,9 @@
 /*Modal nueva publicación*/
 .modal-contenido{
   background-color: rgba(27, 31, 34, 0.85);
-  width:300px;
+  width:330px;
   padding: 10px 20px;
-  margin: 20% auto;
+  margin: 5% auto;
   position: relative;
 }
 .modal-contenido form{
@@ -1380,4 +1380,11 @@
 #miModal:target{
   opacity:1;
   pointer-events:auto;
+}
+
+/*Previsualizador*/
+.thumb{
+     height: 300px;
+     border: 1px solid #000;
+     margin: 10px 5px 0 0;
 }
