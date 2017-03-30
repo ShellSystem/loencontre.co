@@ -85,8 +85,8 @@ function newSearchName() {
   search = $("#search").val();
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/search-name",
-   data: search,
+   url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
+   //data: search,
    dataType: "json"
  })
    .done(function(data)
@@ -95,7 +95,9 @@ function newSearchName() {
       setPost(data);
    })
    .fail(function(err){
-      console.log(err);
+      console.log("error");
+      console.log(err.responseText);
+      //console.log(err);
    });
 }
 
