@@ -54,9 +54,14 @@ function newPost(txtFilter) {
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
-  post.date = d.toString('yyyy-mm-dd');
+  post.date = d.toString();
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
+  
+  $("#name").val(txtFilter);
+  
+  post = new FormData($("#new")[0]);
+  //post = new FormData(post);
   console.log(post);  
    $.ajax({
    type: "POST",

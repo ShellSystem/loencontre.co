@@ -62,7 +62,7 @@
 				<a id="close" href="#">X</a>
 				<h2>¿Encontraste un carné?</h2>
 				<h2>Publícalo!</h2>
-				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false">
+				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
 					<div class="field half first">
 						<label for="img">Foto (*)</label>
 						<input type="file" name="img" id="img" />
@@ -75,6 +75,7 @@
 					<div class="field half first">
 						<label for="contact">Contacto (*)</label>
 						<input type="text" name="contact" id="contact" required/>
+						<input type="text" name="name" id="name" hidden/>						
 					</div>
 					<!-- <div class="field">
 						<label for="message">Mensaje</label>
