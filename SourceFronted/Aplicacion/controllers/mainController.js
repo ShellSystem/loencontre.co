@@ -58,19 +58,20 @@ function newPost(txtFilter) {
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
   console.log(post);
-  
-  // Obtener texto y probabilidad luego agregarlo al data que sera enviado al server
-  // post.ocr = ocr(img);
- //  $.ajax({
- //   type: "POST",
- //   url: "https://entregascontinuas.goodfirmcolombia.co/",
- //   data: post,
- //   success: function(data)
- //   {
- //      // Avisar al usuario que la publicación se hizo con exito
- //      alert("Publicado");
- //   }
- // });
+   $.ajax({
+   type: "POST",
+   url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
+   data: post,
+   contentType: false,
+  processData: false
+ })
+   .done(function(data)
+   {
+      console.log("Publicado");
+   })
+   .fail(function(err){
+      console.log(err);
+   });
 }
 
 function archivo(evt) {
@@ -94,7 +95,7 @@ function archivo(evt) {
        }
 }
              
-      document.getElementById('img').addEventListener('change', archivo, false);
+document.getElementById('img').addEventListener('change', archivo, false);
 
 function getOCRMicrosft(){
   img = $('#img').get(0).files[0];
