@@ -74,6 +74,41 @@ function newPost(txtFilter) {
    });
 }
 
+function newSearchName() {
+  search = $("#search").val();
+  $.ajax({
+   type: "POST",
+   url: "https://entregascontinuas.goodfirmcolombia.co/search-name",
+   data: search,
+   dataType: "json"
+ })
+   .done(function(data)
+   {
+      console.log(data);
+      setPost(data);
+   })
+   .fail(function(err){
+      console.log(err);
+   });
+}
+
+function newSearchDate() {
+  startRange = $("#startRange").val();
+  endRange = $("#endRange").val();
+  $.ajax({
+    dataType: "json",
+    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
+ })
+   .done(function(data)
+   {
+      console.log(data);
+      setPost(data);
+   })
+   .fail(function(err){
+      console.log(err);
+   });
+}
+
 function archivo(evt) {
       var files = evt.target.files; 
       for (var i = 0, f; f = files[i]; i++) {         
