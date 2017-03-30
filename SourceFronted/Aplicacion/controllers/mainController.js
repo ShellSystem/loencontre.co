@@ -54,19 +54,21 @@ function newPost(txtFilter) {
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
-  post.date = d.toString();
+  post.date = d.toString('yyyy-mm-dd');
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
-  console.log(post);
+  console.log(post);  
    $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
+   //url: "https://entregascontinuas.goodfirmcolombia.co/add-post?post="+post,
+     url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
    data: post,
    contentType: false,
   processData: false
  })
    .done(function(data)
    {
+      console.log(data)
       console.log("Publicado");
    })
    .fail(function(err){
@@ -169,7 +171,11 @@ function getOCRMicrosft(){
           });
         });
         txtFilter = pln(txtMicrosoft);
-        newPost(txtFilter);
+        var name = "";
+        for (var index = 0; index < txtFilter.filterText.length; index++) {
+           name = name + " " + txtFilter.filterText[index];
+        }
+        newPost(name);
         document.getElementById("close").click();
         document.getElementById("new").reset();
         document.getElementById("list").innerHTML = "";
