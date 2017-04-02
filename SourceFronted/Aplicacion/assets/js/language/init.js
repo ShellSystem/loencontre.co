@@ -12,6 +12,17 @@ function setLanguage(language) {
 	$('h1#title')._t('title');
 	$('#description')._t('description');
 	$('#post')._t('post');
+	$('#newLink')._t('new');
+	$('#search_name')._t('search_name');
+	$('#search_date')._t('search_date');
+	$('#end_date')._t('end_date');
+	$('#title_modal_new')._t('title_modal_new');
+	$('#sutitle_modal_new')._t('sutitle_modal_new');
+	$('#photo')._t('photo');
+	$('#contact_label')._t('contact_label');
+	$("#send_button").prop('value', $.i18n._('send_button'));
+	$("#search_button").prop('value', $.i18n._('search_button'));
+	$("#search_input").prop('placeholder', $.i18n._('search_input'));
 }
 
 

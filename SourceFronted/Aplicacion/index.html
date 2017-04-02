@@ -24,18 +24,18 @@
 			</ul>
 			<hr>
 			<form method="post" action="#" onsubmit="newSearchName(); return false">
-				<p>Búsqueda por nombre</p>
-        		<input type="search" id="search" name="search" placeholder="Buscar">
+				<p id="search_name"></p>
+        		<input type="search" id="search_input" name="search">
     		</form>
     		<hr>
     		<form method="post" action="#" onsubmit="newSearchDate(); return false">
-    			<p>Búsqueda por fecha</p>
-        		<span>Desde</span><input type="date" id="startRange" name="startRange" required>
-        		<span>Hasta</span><input type="date" id="endRange" name="endRange" required>
-        		<input type="submit">
+    			<p id="search_date"></p>
+        		<span id="start_date"></span><input type="date" id="startRange" name="startRange" required>
+        		<span id="end_date"></span><input type="date" id="endRange" name="endRange" required>
+        		<input id="search_button" type="submit">
     		</form>	
     		<hr>
-			<a href="#miModal" class="icon fa-plus"> Nueva publicación</a>
+			<a href="#miModal" id="newLink" class="icon fa-plus"></a>
 		</header>
 
 
@@ -60,11 +60,11 @@
 		<div id="miModal" class="modal">
 			<div class="modal-contenido">
 				<a id="close" href="#">X</a>
-				<h2>¿Encontraste un carné?</h2>
-				<h2>Publícalo!</h2>
+				<h2 id="title_modal_new"></h2>
+				<h2 id="sutitle_modal_new"></h2>
 				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
 					<div class="field half first">
-						<label for="img">Foto (*)</label>
+						<label id="photo" for="img"></label>
 						<input type="file" name="img" id="img" />
 					</div>
 					<output id="list"></output>
@@ -73,7 +73,7 @@
 						<input type="date" name="date" id="date" required/>
 					</div> -->
 					<div class="field half first">
-						<label for="contact">Contacto (*)</label>
+						<label id="contact_label" for="contact"></label>
 						<input type="text" name="contact" id="contact" required/>
 						<input type="text" name="name" id="name" hidden="true">			
 					</div>
@@ -82,8 +82,7 @@
 						<textarea name="message" id="message" rows="4"></textarea>
 					</div> -->
 					<ul class="actions">
-						<li><input type="reset" value="Limpiar" /></li>
-						<li><input type="submit" value="Enviar Mensaje" class="special" /></li>
+						<li><input type="submit" id="send_button" class="special" /></li>
 					</ul>
 				</form>
 			</div>  
