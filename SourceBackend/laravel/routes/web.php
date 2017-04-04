@@ -16,9 +16,13 @@
 Route::any('/', 'PostController@index');//pide la pagina de añadir archivos
 Route::get('pagination', 'PostController@pagination');//pide la pagina 
 Route::get('get-page', 'PostController@getPage');
+Route::get('date-range', 'PostController@dateRange');
+Route::any('add-post', 'PostController@addPost');
+Route::any('search-name', 'PostController@searchName');
 
-Route::post('load-file', 'PostController@addFromFile');
+
+Route::any('load-file', 'PostController@addFromFile');
 
 
-//rutas, postcontroller,
+//rutas, postcontroller
 Auth::routes();
