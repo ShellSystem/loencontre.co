@@ -16,27 +16,32 @@
 		<!-- Header -->
 		<header id="header">
 			<a href="../"><h1 id="title"></h1></a>
-			<p id="description"></p>
-			<ul class="icons">
+			<!-- <p id="description"></p> -->
+			<!-- <ul class="icons">
 				<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
 				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
 				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-			</ul>
+			</ul> -->
 			<button onclick="parent.location='#miModal'">
 				<span id="newLink" class="icon fa-plus"></span>
 			</button> 
 			<hr>
-			<form method="post" action="#" onsubmit="newSearchName(); return false">
-				<p id="search_name"></p>
-        		<input type="search" id="search_input" name="search">
-    		</form>
-    		<hr>
-    		<form method="post" action="#" onsubmit="newSearchDate(); return false">
-    			<p id="search_date"></p>
-        		<span id="start_date"></span><input type="date" id="startRange" name="startRange" required>
-        		<span id="end_date"></span><input type="date" id="endRange" name="endRange" required>
-        		<input id="search_button" type="submit">
-    		</form>	
+			<h3 id="search_name"></h3>
+			<div class="collapse">
+				<form method="post" action="#" onsubmit="newSearchName(); return false">
+	        		<input type="search" id="search_input" name="search">
+	    		</form>
+			</div>
+			<hr>
+    		<h3 id="search_date"></h3>
+    		<div class="collapse">
+    			<form method="post" action="#" onsubmit="newSearchDate(); return false">
+	    			
+	        		<span id="start_date"></span><input type="date" id="startRange" name="startRange" required>
+	        		<span id="end_date"></span><input type="date" id="endRange" name="endRange" required>
+	        		<input id="search_button" type="submit">
+	    		</form>	
+    		</div>
     		<hr>
 		</header>
 
@@ -48,7 +53,13 @@
 
 		<!-- Footer -->
 		<footer id="footer">
+			<ul class="icons">
+				
+			</ul>
 			<ul class="copyright">
+				<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
 				<li>&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</li>
 				<li>
 					<a href="#" onclick="setLanguage('es');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ESP </a>
@@ -102,5 +113,6 @@
 	<script src="assets/js/language/init.js"></script>
 	<script src="assets/js/main.js"></script>			
 	<script src="controllers/mainController.js"></script>
+	<script src="assets/js/collapse.js"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+$(window).ready(function(){
+	$('#search_name').click(function(){
+		if($(this).next().hasClass('in')){
+			$(this).next().addClass('collapse');
+			$(this).next().removeClass('in');
+		}else{
+			$(this).next().removeClass('collapse');
+			$(this).next().addClass('in');
+		}
+	})
+
+	$('#search_date').click(function(){
+		if($(this).next().hasClass('in')){
+			$(this).next().addClass('collapse');
+			$(this).next().removeClass('in');
+		}else{
+			$(this).next().removeClass('collapse');
+			$(this).next().addClass('in');
+		}
+	})
+})
