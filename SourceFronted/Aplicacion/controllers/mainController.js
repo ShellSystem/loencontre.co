@@ -119,13 +119,10 @@ function newSearchName() {
 function newSearchDate() {
   startRange = $("#startRange").val();
   endRange = $("#endRange").val();
-  //startRange.replace('-' , '/');
-  //endRange.replace('-' , '/');
   console.log(startRange);
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    //url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
     url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
