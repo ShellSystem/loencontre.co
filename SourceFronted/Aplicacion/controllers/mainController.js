@@ -124,8 +124,13 @@ function newSearchDate() {
   })
   .done(function(data)
   {
-    console.log(data);
-    setPost(data);
+    if (data[0] == 'La fecha final debe ser mayor a la fecha inicial') {
+      $('#message_error').html(data[0]);
+    }else{
+      $('#message_error').html("");
+      console.log(data);
+      setPost(data);
+    }
   })
   .fail(function(err){
     console.log(err);
