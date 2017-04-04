@@ -1,6 +1,6 @@
 $( function() {
-  $( "#startRange" ).datepicker();
+  $( "#startRange" ).datepicker({dateFormat : 'yyyy/mm/dd'});
 } );
 $( function() {
-  $( "#endRange" ).datepicker();
+  $( "#endRange" ).datepicker({dateFormat : 'yyyy/mm/dd'});
 } );
