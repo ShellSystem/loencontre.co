@@ -79,7 +79,6 @@ function newPost(txtFilter) {
   console.log(post);  
   $.ajax({
    type: "POST",
-   //url: "https://entregascontinuas.goodfirmcolombia.co/add-post?post="+post,
    url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
    data: post,
    contentType: false,
@@ -89,6 +88,7 @@ function newPost(txtFilter) {
   {
     console.log(data)
     console.log("Publicado");
+    firtTime();
   })
   .fail(function(err){
     console.log(err);
@@ -112,7 +112,6 @@ function newSearchName() {
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
-      //console.log(err);
     });
 }
 
@@ -129,9 +128,9 @@ function newSearchDate() {
   .done(function(data)
   {
     if (data[0] == 'La fecha final debe ser mayor a la fecha inicial') {
-      $('#message_error').html(data[0]);
+      $('#message_error_date').html(data[0]);
     }else{
-      $('#message_error').html("");
+      $('#message_error_date').html("");
       console.log(data);
       setPost(data);
     }
