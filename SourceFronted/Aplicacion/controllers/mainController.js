@@ -96,11 +96,12 @@ function newPost(txtFilter) {
 }
 
 function newSearchName() {
-  search = $("#search").val();
+  search = $("#search_input").val();
+  console.log(search);
   $.ajax({
    type: "POST",
    url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
-   //data: search,
+   data: search,
    dataType: "json"
  })
   .done(function(data)
@@ -118,9 +119,12 @@ function newSearchName() {
 function newSearchDate() {
   startRange = $("#startRange").val();
   endRange = $("#endRange").val();
+  //console.log(startRange);
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
+    //url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
+    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange",
+    data : {startRange : startRange, endRange : endRange}
   })
   .done(function(data)
   {
