@@ -29,14 +29,28 @@ function setPost(data) {
   $("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
+    console.log(post);
     $("#thumbnails").append('<article>' +
       '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+post.date+'</h2>' +
-      '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+     // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+      '<p><h1 id="extractContact" hidden="true" >Contacto: '+post.contact+'</h1></p>' +
+      '<p><button onclick="openModalContact();">Contacto</button></p>' +
+     // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
+      //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
       '</article>');
+    
   }
   main.init();
   return true;
+}
+
+function openModalContact(post){
+  parent.location='#miModalContact';
+  $(document).ready(function() {
+    $('#textContact').text($('#extractContact').text());
+});
+  
 }
 
 function firtTime() {

@@ -43,12 +43,19 @@
     		</div>
     		<hr>
 		</header>
-
-
+	<body>
 		<!-- Thumbnail -->
-		<section id="thumbnails"></section>
+		<section id="thumbnails">
+			<!--Modal Contacto-->
+			<div id="ex1" style="display:none;">
+			    <p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
+			</div>
+		</section>
 		<section id="pagination-here"></section>
 
+
+		
+	</body>
 
 		<!-- Footer -->
 		<footer id="footer">
@@ -68,7 +75,7 @@
 			</ul>
 		</footer>	
 
-		<!--Modal-->
+		<!--Modal Agregar publicación-->
 		<div id="miModal" class="modal">
 			<div class="modal-contenido">
 				<a id="close" href="#">X</a>
@@ -97,6 +104,15 @@
 						<li><input type="submit" id="send_button" class="special" /></li>
 					</ul>
 				</form>
+			</div>  
+		</div>
+		<!--Modal contacto-->
+		<div id="miModalContact" class="modal">
+			<div class="modal-contenido">
+				<a id="close" href="#">X</a>
+				<h2 id="title_modal_new">Información de contacto</h2>
+				<h2 id="sutitle_modal_new"></h2>
+				<h1 id="textContact">Hola</h1>
 			</div>  
 		</div>
 	</div>

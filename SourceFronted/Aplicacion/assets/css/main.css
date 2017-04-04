@@ -1381,7 +1381,10 @@
   opacity:1;
   pointer-events:auto;
 }
-
+#miModalContact:target{
+  opacity:1;
+  pointer-events:auto;
+}
 /*Previsualizador*/
 .thumb{
      height: 300px;
