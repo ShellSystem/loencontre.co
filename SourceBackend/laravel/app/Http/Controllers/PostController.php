@@ -10,9 +10,76 @@ use goodfirmLaravel\Http\Requests;
 use App\Post;
 use Validator;
 
+
 class PostController extends Controller{
 
   public $postAmountPerPage = 6;
+  
+  public function searchName(Request $request){
+    $post = -1;
+    $post = Post::where('name', $request->name)->first();
+    $post->image = asset('/laravel/storage/app/images/'.$post->image);
+    return json_encode($post);
+  }
+  
+  public function addPost(Request $request){
+    //return $request->input();
+    
+    $return = array();
+    if ($this->validation($request->input()) == 1){
+      $post = new Post();
+      $post->name = $request->name;
+      $caracteresRechazados = array(",", ";", ".", ":", "_", "{", "}", "'", "?","¿", "¡", "´", ")", "(", "/", "&", "%", "$", "#", "!");//se hace un filtro al nombre del articulo para convertirlo en una ruta
+      //$post->name = str_replace($caracteresRechazados, "", $post->name);
+      $post->date = date('Y/m/d');
+      $post->contact = $request->contact;
+      //return json_encode($post->date);
+      $imagen = $request->img;
+      $nombreImagen = $imagen->getClientOriginalName();
+      $rutaDestino = 'images'.'/'.$nombreImagen;
+      $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
+      if($resultado){
+          $post->image = $nombreImagen;
+          
+      }else{
+        array_push($return, ["Error en la imagen"]);
+      }  
+      if(!$this->repeated($post->name)){# No hay un post con el mismo link
+        $post->save();
+        array_push($return, ['1']);
+      }else{
+        array_push($return, ['error' => 'Ya existe una publicacion con el mismo nombre']);  
+      }
+      
+    }else{
+      array_push($return, ($this->validation($request->input())));
+      }
+    return json_encode($return);
+  }
+  
+  public function validation($post){    
+    $imagenesPermitidas = 'jpg,jpeg,bmp,png,pdf,gif';
+    $maximoTamanoImagen = 3000;
+    $reglas = [             
+     // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
+      'name' => 'required',
+    //  'date' => 'required | date',      
+      'contact' => 'required | alpha_dash',      
+    ];
+    $mensajes = [  
+      'required' => 'El campo :attribute no puede estar vacio',
+      'alpha_dash' => 'El atributo :attribute contiene caracteres inaceptados',
+      'date' => 'La fecha debe ser una fecha valida '
+    ];
+    $validator = Validator::make($post, $reglas, $mensajes);       
+    if ($validator->fails()) {
+      $errores = $validator->errors()->all();           
+      return($errores);
+    }
+    else{
+      return 1;
+    }
+  }
   
   public function addFromFile(){
     $archivo = Storage::get('files/post.txt');
@@ -24,15 +91,16 @@ class PostController extends Controller{
         $response = $this->postValidation($linea);
         if ($response[0] == 1) { # Paso la validacion          
           $post = new Post();
-          $post->link = $response[1]['link'];
+          $post->name = $response[1]['name'];
           $post->image = $response[1]['image'];
           $post->date = $response[1]['date'];
+          $post->contact = $response[1]['contact'];
 
-          if(!$this->repeated($post->link)){# No hay un post con el mismo link
+          if(!$this->repeated($post->name)){# No hay un post con el mismo link
             $post->save();
             array_push($return, 1);
           }else{
-            array_push($return, ['error' => 'Ya existe un articulo con el mismo link']);  
+            array_push($return, ['error' => 'Ya existe una publicacion con el mismo nombre']);  
           }
         }else{
           array_push($return, $response[1]);
@@ -46,9 +114,9 @@ class PostController extends Controller{
     
   }
 
-  public function repeated($link){
+  public function repeated($name){
     $post = null;
-    $post = Post::where('link', $link)->first();       
+    $post = Post::where('name', $name)->first();       
     if(is_null($post)){//no existe el post
             return false;
     }else{
@@ -56,22 +124,24 @@ class PostController extends Controller{
     }
   }
   
-  public function postValidation($linea){
+  public function postValidation($linea){#valida cuando se agrega por archivo
     $campos = explode(',', $linea); //Se separan los campos
     
     if (sizeof($campos) > 1){
-      $post['link'] = explode(':', $campos[0])[1]; // link
+      $post['name'] = explode(':', $campos[0])[1]; // name
       $post['image'] = explode(':', $campos[1])[1]; // image
       $post['date'] = explode(':', $campos[2])[1]; // date
+      $post['contact'] = explode(':', $campos[3])[1]; // contact
     }else{
-      $post['link'] = "";
+      $post['name'] = "";
       $post['image'] = "";
       $post['date'] = "";
+      $post['contact'] = "";
     }
     
     $reglas = [                 
-      'link' => 'required | alpha_dash',
-      'image' => 'required | alpha_dash',
+      'name' => 'required | alpha_dash',
+      'image' => 'required',
       'date' => 'required | date',      
     ];
     $mensajes = [  
@@ -110,7 +180,7 @@ class PostController extends Controller{
           if( $i == ($this->postAmountPerPage + $begin)){ # Se completa la cantidad de post para la pagina
             break;
           }
-          $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image.".jpg");
+          $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image);
           array_push($return, $posts[$i]);
         }
         return json_encode($return);
@@ -128,6 +198,48 @@ class PostController extends Controller{
     }
 
     return json_encode(['pageAmount' => $amount]);
+  }
+
+
+  public function dateRange(Request $request){
+    $validation = ($this->validarFechas($request)); #Prueba unitaria
+    if ($validation == 1) {
+      $startRange = $request->startRange;
+      $endRange = $request->endRange;
+      if ($endRange > $startRange) { #prueba unitaria
+        $posts = Post::whereBetween('date', [$startRange, $endRange])->orderBy('date', 'desc')->get();
+        
+        for ($i=0; $i < sizeof($posts); $i++) { 
+          $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image);
+        }
+        
+        
+        return json_encode($posts);  
+      }else{
+        return json_encode(['La fecha final debe ser mayor a la fecha inicial']);  
+      }
+    }else{
+      return json_encode($validation);
+    }
+  }
+
+  public function validarFechas(Request $request){ # Se usa para validar los parametros para filtrar los posts que existan un rango de fechas
+    $reglas = [                 
+      'startRange' => 'required | date',
+      'endRange' => 'required | date'     
+    ];
+    $mensajes = [  
+      'required' => 'Parrametro :attribute requerido',
+      'date' => 'Parrametro :attribute no valido'
+    ];
+    $validator = Validator::make($request->input(), $reglas, $mensajes);       
+    if ($validator->fails()) {
+      $errores = $validator->errors()->all();           
+      return([$errores]);
+    }
+    else{
+      return 1;
+    }
   }
   
 
