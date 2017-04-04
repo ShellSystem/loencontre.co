@@ -63,22 +63,22 @@ function newPost(txtFilter) {
   post = new FormData($("#new")[0]);
   //post = new FormData(post);
   console.log(post);  
-   $.ajax({
+  $.ajax({
    type: "POST",
    //url: "https://entregascontinuas.goodfirmcolombia.co/add-post?post="+post,
-     url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
+   url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
    data: post,
    contentType: false,
-  processData: false
+   processData: false
  })
-   .done(function(data)
-   {
-      console.log(data)
-      console.log("Publicado");
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+  .done(function(data)
+  {
+    console.log(data)
+    console.log("Publicado");
+  })
+  .fail(function(err){
+    console.log(err);
+  });
 }
 
 function newSearchName() {
@@ -89,16 +89,16 @@ function newSearchName() {
    //data: search,
    dataType: "json"
  })
-   .done(function(data)
-   {
-      console.log(data);
-      setPost(data);
-   })
-   .fail(function(err){
-      console.log("error");
-      console.log(err.responseText);
+  .done(function(data)
+  {
+    console.log(data);
+    setPost(data);
+  })
+  .fail(function(err){
+    console.log("error");
+    console.log(err.responseText);
       //console.log(err);
-   });
+    });
 }
 
 function newSearchDate() {
@@ -107,60 +107,60 @@ function newSearchDate() {
   $.ajax({
     dataType: "json",
     url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
- })
-   .done(function(data)
-   {
-      console.log(data);
-      setPost(data);
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+  })
+  .done(function(data)
+  {
+    console.log(data);
+    setPost(data);
+  })
+  .fail(function(err){
+    console.log(err);
+  });
 }
 
 function archivo(evt) {
-      var files = evt.target.files; 
-      for (var i = 0, f; f = files[i]; i++) {         
+  var files = evt.target.files; 
+  for (var i = 0, f; f = files[i]; i++) {         
            //Solo admitimos imágenes.
            if (!f.type.match('image.*')) {
-                continue;
-           }
-       
-           var reader = new FileReader();
-           
-           reader.onload = (function(theFile) {
-               return function(e) {
-               // Creamos la imagen.
-                      document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-               };
-           })(f);
- 
-           reader.readAsDataURL(f);
-       }
-}
-             
-document.getElementById('img').addEventListener('change', archivo, false);
+            continue;
+          }
 
-function getOCRMicrosft(){
-  img = $('#img').get(0).files[0];
-  params = {
-    'language': 'es',
-    'detectOrientation': 'true',
-  };
-  $.ajax({
-   type: 'POST',
-   url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
-   data: img,
-   beforeSend: function(xhrObj){
+          var reader = new FileReader();
+
+          reader.onload = (function(theFile) {
+           return function(e) {
+               // Creamos la imagen.
+               document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+             };
+           })(f);
+
+           reader.readAsDataURL(f);
+         }
+       }
+
+       document.getElementById('img').addEventListener('change', archivo, false);
+
+       function getOCRMicrosft(){
+        img = $('#img').get(0).files[0];
+        params = {
+          'language': 'es',
+          'detectOrientation': 'true',
+        };
+        $.ajax({
+         type: 'POST',
+         url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
+         data: img,
+         beforeSend: function(xhrObj){
   // Request headers
-      xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
-    },
-    processData: false
-  })
-   .done(function(data)
-   {
-      regions = data.regions;
+  xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
+},
+processData: false
+})
+        .done(function(data)
+        {
+          regions = data.regions;
       if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
         lines = data.regions[0].lines;
         txtMicrosoft = '';
@@ -180,22 +180,22 @@ function getOCRMicrosft(){
         txtFilter = pln(txtMicrosoft);
         var name = "";
         for (var index = 0; index < txtFilter.filterText.length; index++) {
-           name = name + " " + txtFilter.filterText[index];
-        }
-        newPost(name);
-        document.getElementById("close").click();
-        document.getElementById("new").reset();
-        document.getElementById("list").innerHTML = "";
-      } else {
+         name = name + " " + txtFilter.filterText[index];
+       }
+       newPost(name);
+       document.getElementById("close").click();
+       document.getElementById("new").reset();
+       document.getElementById("list").innerHTML = "";
+     } else {
        console.log('Error');
      }
    })
-   .fail(function(err){
-      console.log(err);
-   });
-}
+        .fail(function(err){
+          console.log(err);
+        });
+      }
 
-function pln(txt){
+      function pln(txt){
     //filtrando el texto  que ingresa
     var filterWords = txt.split('-');
     for (var i = filterWords.length - 1; i >= 0; i--) {
