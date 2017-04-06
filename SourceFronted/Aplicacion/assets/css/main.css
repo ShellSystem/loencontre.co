@@ -1353,7 +1353,7 @@
   background-color: rgba(27, 31, 34, 0.85);
   width:330px;
   padding: 10px 20px;
-  margin: 5% auto;
+  margin: 2% auto;
   position: relative;
 }
 .modal-contenido form{
@@ -1387,7 +1387,8 @@
 }
 /*Previsualizador*/
 .thumb{
-     height: 300px;
+     height: 200px;
+     width: 300px;
      border: 1px solid #000;
      margin: 10px 5px 0 0;
 }
