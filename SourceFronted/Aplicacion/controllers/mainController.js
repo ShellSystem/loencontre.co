@@ -2,6 +2,8 @@ class MainController {
 
   constructor() {
     this.initData();
+    $("#name").css("display", "none");
+    $("#probability").css("display", "none");
   }
   
   initData(){
