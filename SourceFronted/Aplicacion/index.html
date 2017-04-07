@@ -5,6 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/dragdrop.css" />
 	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 </head>
 <!--<body class="is-loading-0 is-loading-1 is-loading-2">-->
@@ -29,34 +30,34 @@
 			<h3 id="search_name"></h3>
 			<div class="collapse">
 				<form method="post" action="#" onsubmit="newSearchName(); return false">
-	        		<input type="search" id="search_input" name="search">
-	    		</form>
+					<input type="search" id="search_input" name="search">
+				</form>
 			</div>
 			<hr>
-    		<h3 id="search_date"></h3>
-    		<div class="collapse">
-    			<p id="message_error_date"></p>
-    			<form method="post" action="#" onsubmit="newSearchDate(); return false">
-	        		<span id="start_date"></span><input type="text" id="startRange" name="startRange" required>
-	        		<span id="end_date"></span><input type="text" id="endRange" name="endRange" required>
-	        		<input id="search_button" type="submit">
-	    		</form>	
-    		</div>
-    		<hr>
-		</header>
-	<body>
-		<!-- Thumbnail -->
-		<section id="thumbnails">
-			<!--Modal Contacto-->
-			<div id="ex1" style="display:none;">
-			    <p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
+			<h3 id="search_date"></h3>
+			<div class="collapse">
+				<p id="message_error_date"></p>
+				<form method="post" action="#" onsubmit="newSearchDate(); return false">
+					<span id="start_date"></span><input type="text" id="startRange" name="startRange" required>
+					<span id="end_date"></span><input type="text" id="endRange" name="endRange" required>
+					<input id="search_button" type="submit">
+				</form>	
 			</div>
-		</section>
-		<section id="pagination-here"></section>
+			<hr>
+		</header>
+		<body>
+			<!-- Thumbnail -->
+			<section id="thumbnails">
+				<!--Modal Contacto-->
+				<div id="ex1" style="display:none;">
+					<p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
+				</div>
+			</section>
+			<section id="pagination-here"></section>
 
 
-		
-	</body>
+
+		</body>
 
 		<!-- Footer -->
 		<footer id="footer">
@@ -84,8 +85,13 @@
 				<h2 id="sutitle_modal_new"></h2>
 				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
 					<div class="field half first">
-						<label id="photo" for="img"></label>
-						<input type="file" name="img" id="img" required/>
+						<div id="drop-zone">
+								Foto (*)
+							<div id="clickHere">
+								<input type="file" name="img" id="img" required/>
+								<i class="icon fa-upload" aria-hidden="true"></i>
+							</div>
+						</div>
 					</div>
 					<output id="list"></output>
 					<!-- <div class="field half first">
@@ -134,5 +140,6 @@
 	<script src="controllers/mainController.js"></script>
 	<script src="assets/js/collapse.js"></script>
 	<script src="assets/js/datepicker.js"></script>
+	<script src="assets/js/dragdrop.js"></script>
 </body>
 </html>
