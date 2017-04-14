@@ -19,6 +19,8 @@ function setLanguage(language) {
 	$('#end_date')._t('end_date');
 	$('#title_modal_new')._t('title_modal_new');
 	$('#sutitle_modal_new')._t('sutitle_modal_new');
+	$('#title_modal_contact')._t('title_modal_contact');
+	$('#bottomContact')._t('bottomContact');
 	$('#photo')._t('photo');
 	$('#contact_label')._t('contact_label');
 	$("#send_button").prop('value', $.i18n._('send_button'));

@@ -36,8 +36,8 @@ function setPost(data) {
       '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+post.date+'</h2>' +
      // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-      '<p><h1 id="extractContact" hidden="true" >Contacto: '+post.contact+'</h1></p>' +
-      '<p><button onclick="openModalContact();">Contacto</button></p>' +
+      '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
      // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
       //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
       '</article>');

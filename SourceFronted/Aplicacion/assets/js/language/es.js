@@ -9,6 +9,8 @@ var language_es = {
     'end_date': 'Hasta',
     'title_modal_new': '¿Encontraste un carné?',
     'sutitle_modal_new': '¡Publícalo!',
+    'title_modal_contact': 'Información de contacto',
+    'bottomContact': 'Contacto',
     'photo': 'Foto (*)',
     'contact_label': 'Contacto (*)',
     'send_button': 'Enviar',

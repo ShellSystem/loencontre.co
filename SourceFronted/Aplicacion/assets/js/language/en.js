@@ -9,6 +9,8 @@ var language_en = {
     'end_date': 'Until',
     'title_modal_new': 'Did you find a card?',
     'sutitle_modal_new': 'Post it!',
+    'title_modal_contact': 'Contact information',
+    'bottomContact': 'Contact',
     'photo': 'Photo (*)',
     'contact_label': 'Contact (*)',
     'send_button': 'Send',
