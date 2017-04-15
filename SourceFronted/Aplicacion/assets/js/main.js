@@ -426,7 +426,6 @@
 						loaded: false
 					};
 
-					console.log()
 					// Parent.
 					$this.attr('tabIndex', '-1');
 
