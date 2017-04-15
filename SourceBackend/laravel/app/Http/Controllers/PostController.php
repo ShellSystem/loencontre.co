@@ -16,15 +16,38 @@ class PostController extends Controller{
   public $postAmountPerPage = 6;
   
   public function searchName(Request $request){
-    $post = -1;
-    $post = Post::where('name', $request->name)->first();
-    $post->image = asset('/laravel/storage/app/images/'.$post->image);
-    return json_encode($post);
+    //return $request->input();
+    $resultado = array();    
+    if($request->name){
+      $nombrePeticion = explode(' ', $request->name);
+      $post = -1;
+      $posts = Post::all();  
+      foreach ($posts as $post){
+        $nombre = $post->name;
+        $palabras = explode(' ', $nombre); # Separa el nombre
+
+        $cantidadCoincidencias = 0;
+        for ($i=0; $i < sizeof($palabras); $i++) { # Recorre el arreglo con el nombre traido de la base de datos
+          for($j=0; $j < sizeof($nombrePeticion); $j++){# Recorremos el nombre traido de la base de datos
+            //print strtolower($nombrePeticion[$j]);
+            if(strtolower($palabras[$i]) == strtolower($nombrePeticion[$j])){# comparamos los nombre en minuscula
+              $cantidadCoincidencias ++;
+            }
+          } 
+        } # Termina el recorrido
+        if($cantidadCoincidencias == 1 && sizeof($nombrePeticion) == 1 || $cantidadCoincidencias == sizeof($nombrePeticion)){ # la peticion solo tiene un nombre y existe conicidencia de un nombre, o tiene mas de dos coincidencias
+          array_push($resultado, $post);
+        }
+      }
+      foreach($resultado as $post){
+        $post->image = asset('/laravel/storage/app/images/'.$post->image);  
+      }    
+    }
+    return json_encode($resultado);
   }
   
   public function addPost(Request $request){
-    //return $request->input();
-    
+    #return $request->input();    
     $return = array();
     if ($this->validation($request->input()) == 1){
       $post = new Post();
@@ -81,7 +104,7 @@ class PostController extends Controller{
     }
   }
   
-  public function addFromFile(){
+  public function addFromFile(){ # Agrega post desde un archivo plano
     $archivo = Storage::get('files/post.txt');
     $lineas = explode(';', $archivo); //Se separan las lineas
     
@@ -114,7 +137,7 @@ class PostController extends Controller{
     
   }
 
-  public function repeated($name){
+  public function repeated($name){// Determina si un post está guardado
     $post = null;
     $post = Post::where('name', $name)->first();       
     if(is_null($post)){//no existe el post
