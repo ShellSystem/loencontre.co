@@ -31,10 +31,12 @@ function setPost(data) {
   $("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
-    console.log(post);
+    //console.log(post);
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#thumbnails").append('<article>' +
       '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+post.date+'</h2>' +
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
      // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
       '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
       '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
@@ -78,7 +80,7 @@ function newPost(txtFilter) {
   
   post = new FormData($("#new")[0]);
   //post = new FormData(post);
-  console.log(post);  
+  //console.log(post);  
   $.ajax({
    type: "POST",
    url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
