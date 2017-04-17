@@ -226,10 +226,12 @@ class PostController extends Controller{
 
   public function dateRange(Request $request){
     $validation = ($this->validarFechas($request)); #Prueba unitaria
+    $dateCurrent = str_replace("-","/",date('Y-m-d')); 
+    //return json_encode([$dateCurrent.' - '.$request->startRange.' - '.$request->endRange]); 
     if ($validation == 1) {
       $startRange = $request->startRange;
       $endRange = $request->endRange;
-      if ($endRange > $startRange) { #prueba unitaria
+      if ($endRange >= $startRange && $startRange <= $dateCurrent && $endRange <= $dateCurrent) { #prueba unitaria
         $posts = Post::whereBetween('date', [$startRange, $endRange])->orderBy('date', 'desc')->get();
         
         for ($i=0; $i < sizeof($posts); $i++) { 
@@ -238,8 +240,8 @@ class PostController extends Controller{
         
         
         return json_encode($posts);  
-      }else{
-        return json_encode(['La fecha final debe ser mayor a la fecha inicial']);  
+      }else {
+        return json_encode(['La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.']);  
       }
     }else{
       return json_encode($validation);
