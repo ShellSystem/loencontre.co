@@ -111,7 +111,13 @@ function newSearchName() {
   .done(function(data)
   {
     console.log(data);
+    if(data.length == 0){
+      $.alert("No se obtuvieron resultados");
+      document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $("#alertN").text("Aceptar");
+    } else {
     setPost(data);
+    }
   })
   .fail(function(err){
     console.log("error");
@@ -131,9 +137,17 @@ function newSearchDate() {
   })
   .done(function(data)
   {
-    if (data[0] == 'La fecha final debe ser mayor a la fecha inicial') {
-      $('#message_error_date').html(data[0]);
-    }else{
+    if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
+     // $('#message_error_date').html(data[0]);
+       $.alert(data[0]);
+       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $("#alertN").text("Aceptar");
+    }else if(data.length == 0){
+      // $('#message_error_date').html('No se obtuvieron resultados');
+       $.alert("No se obtuvieron resultados");
+       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $("#alertN").text("Aceptar");
+    } else {
       $('#message_error_date').html("");
       console.log(data);
       setPost(data);
