@@ -23,7 +23,7 @@ class IntegrationTest extends TestCase
         $this->assertJsonStringEqualsJsonString($overflowTest, json_encode(['error' => 'Pagina fuera de rango']));
 
         $nullTest = $this->call('GET', '/get-page', ['pageNumber' => 0])->getContent();
-        $this->assertJsonStringEqualsJsonString($nullTest, json_encode(['error' => 'No se ha encontrado un parametro correcto']) , "No coniciden la respuesta esperada y la obtenida");
+        $this->assertJsonStringEqualsJsonString($nullTest, json_encode(['error' => 'No se ha encontrado un parámetro correcto']) , "No coniciden la respuesta esperada y la obtenida");
     }
     
 }

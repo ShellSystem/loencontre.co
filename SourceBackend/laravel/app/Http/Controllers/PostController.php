@@ -87,7 +87,7 @@ class PostController extends Controller{
      // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
       'name' => 'required',
     //  'date' => 'required | date',      
-      'contact' => 'required | alpha_dash',      
+      'contact' => 'required',      
     ];
     $mensajes = [  
       'required' => 'El campo :attribute no puede estar vacio',
