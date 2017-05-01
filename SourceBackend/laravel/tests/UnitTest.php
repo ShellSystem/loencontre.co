@@ -11,8 +11,11 @@ class UnitTest extends TestCase
     {
        $response = $this->call('GET', 'pagination');
     	$contenido = json_decode($response->getContent());
-    	$this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
-    }
+            if ($contenido){
+
+        	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
+            }
+        }
 
     public function testAddPost(){
     	/*$alreadyExist = $this->call('POST', '/add-post', ['post' => 'link:1423565230987886,image:06,date:2017/01/16'])->getContent();
