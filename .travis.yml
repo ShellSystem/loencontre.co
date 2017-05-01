@@ -4,6 +4,7 @@ php:
   - 5.6
 
 before_script:
+  - php artisan key:generate # Porque genera error con un Key
   - mysql -e 'create database goodfirm_entregas;'
   - mysql goodfirm_entregas < goodfirm_entregas.sql
 
