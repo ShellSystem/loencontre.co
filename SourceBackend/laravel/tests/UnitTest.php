@@ -12,7 +12,6 @@ class UnitTest extends TestCase
        $response = $this->call('GET', '/pagination');
     	$contenido = json_decode($response->getContent());
             if ($contenido){
-
         	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
             }
         }

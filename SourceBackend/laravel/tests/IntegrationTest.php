@@ -13,10 +13,12 @@ class IntegrationTest extends TestCase
         $testAcount = 10;
 
         $response = $this->call('GET', 'pagination');
-        $pageAmount = json_decode($response->getContent())->pageAmount; 
+        if($response){
+            $pageAmount = json_decode($response->getContent())->pageAmount; 
         
         $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();
         $this->assertJsonStringEqualsJsonString($negativeTest, json_encode(['error' => 'Pagina fuera de rango']));
+        }
 
 
         $overflowTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount + 1)])->getContent();
