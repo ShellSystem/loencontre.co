@@ -7,9 +7,9 @@ before_script:
   - php SourceBackend/laravel/artisan key:generate # Porque genera error con un Key
   - mysql -e 'create database goodfirm_entregas;'
   - mysql goodfirm_entregas < goodfirm_entregas.sql
-  - mysql -e "CREATE USER 'goodfirm_usuario'@'localhost' IDENTIFIED BY ',eE_qW$Sh5KR';"
-  - mysql -u root -e "GRANT ALL PRIVILEGES ON goodfirm_entregas. * TO 'goodfirm_usuario'@'localhost';"
-  - mysql -u root -e "FLUSH PRIVILEGES;"
+  - mysql -u root -e "CREATE USER 'goodfirm_usuario'@'localhost' IDENTIFIED BY ',eE_qW$Sh5KR';"
+  - mysql -u root -e "GRANT ALL PRIVILEGES ON \`goodfirm_entregas\`.* TO goodfirm_usuario@localhost IDENTIFIED BY ',eE_qW$Sh5KR';"
+  #- mysql -u root -e "FLUSH PRIVILEGES;"
 
 script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
