@@ -9,7 +9,7 @@ class UnitTest extends TestCase
     
     public function testPagination()
     {
-       $response = $this->call('GET', 'pagination');
+       $response = $this->call('GET', 'SourceBackend/pagination');
     	$contenido = json_decode($response->getContent());
             if ($contenido){
 
