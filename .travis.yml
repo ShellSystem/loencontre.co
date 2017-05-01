@@ -9,4 +9,4 @@ before_script:
   - ls
 
 script:
-- vendor/bin/phpunit
+- SourceBackend/laravel/vendor/bin/phpunit
