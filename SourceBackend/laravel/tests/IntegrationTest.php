@@ -12,9 +12,9 @@ class IntegrationTest extends TestCase
         $maxRandom = 100;
         $testAcount = 10;
 
-        $response = $this->call('GET', 'pagination');
+        $response = $this->call('GET', 'pagination')->getContent())->pageAmount;
         if($response){
-            $pageAmount = json_decode($response->getContent())->pageAmount; 
+            $pageAmount = json_decode($response); 
         
         $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();
         $this->assertJsonStringEqualsJsonString($negativeTest, json_encode(['error' => 'Pagina fuera de rango']));
