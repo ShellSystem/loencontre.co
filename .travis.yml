@@ -4,9 +4,9 @@ php:
   - 5.6
 
 before_script:
-  - ls
   - mysql -e 'create database goodfirm_entregas;'
-  
+  - mysql goodfirm_entregas < goodfirm_entregas.sql
+  - ls
 
 script:
 - SourceBackend/laravel/vendor/bin/phpunit
