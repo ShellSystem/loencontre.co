@@ -8,4 +8,4 @@ before_script:
   - mysql goodfirm_entregas < goodfirm_entregas.sql
 
 script:
-- SourceBackend/laravel/vendor/bin/phpunit UnitTest
+- SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/test/UnitTest
