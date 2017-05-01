@@ -13,7 +13,7 @@ class UnitTest extends TestCase
     	$contenido = json_decode($response->getContent());
             if ($contenido){
 
-        	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
+        	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La canidad de paginas no es congruente');
             }
         }
 
