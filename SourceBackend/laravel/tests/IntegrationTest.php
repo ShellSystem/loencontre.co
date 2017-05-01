@@ -12,7 +12,7 @@ class IntegrationTest extends TestCase
         $maxRandom = 100;
         $testAcount = 10;
 
-        $response = $this->call('GET', 'pagination')->getContent();
+        $response = $this->call('GET', '/pagination')->getContent();
         if($response->pageAmount){
             $pageAmount = json_decode($response->pageAmount); 
         
