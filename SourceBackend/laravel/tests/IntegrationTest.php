@@ -12,7 +12,7 @@ class IntegrationTest extends TestCase
         $maxRandom = 100;
         $testAcount = 10;
 
-        $response = $this->call('GET', 'http://google.com');
+        $response = $this->call('GET', 'pagination');
         $pageAmount = json_decode($response->getContent())->pageAmount; 
         
         $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();

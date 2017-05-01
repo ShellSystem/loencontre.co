@@ -14,6 +14,11 @@ use Validator;
 class PostController extends Controller{
 
   public $postAmountPerPage = 6;
+
+
+  public function prueba(){
+    return json_encode(["sisas"]);
+  }
   
   public function searchName(Request $request){
     //return $request->input();
