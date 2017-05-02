@@ -18,9 +18,12 @@ script:
 
 after_success:
     - git config --global user.email "entregascontinuas@gmail.com"
-    - git config --global user.username 
+    - git config --global user.username "entregascontinuas"
     - git config --global user.name "entregascontinuas"
+    - git config --global user.username 
+    - git config --global user.name
     - git config --global user.password "entregascontinuas1"
+    - git config --global credential.helper store
     - git checkout development
     - git merge travis-integration
     - git add .
