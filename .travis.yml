@@ -16,5 +16,8 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
-after_success:
-    - git status
+#after_success:
+#    - git checkout master
+#    - git merge development
+ #   - ssh
+#    - pull sobre server#
