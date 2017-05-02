@@ -17,6 +17,8 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
+    - git config --global user.email "entregascontinuas@gmail.com"
+    - git config --global user.username 
     - git config --global user.name "entregascontinuas"
     - git config --global user.password "entregascontinuas1"
     - git checkout development
