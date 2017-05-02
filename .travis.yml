@@ -17,7 +17,11 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
+    - git config --global user.name "entregascontinuas"
+    - git config --global user.password "entregascontinuas1"
     - git checkout development
     - git merge travis-integration
+    - git add .
+    - git commit -m "Prueba de despliegue"
     - git push origin development
 
