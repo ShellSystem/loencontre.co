@@ -17,9 +17,12 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
+    - git config --global user.email "entregascontinuas@gmail.com"
+    - git config --global user.name "entregascontinuas"
     - git checkout development
     - git merge travis-integration
     - git add .
-    - git -c user.name='entregascontinuas' -c user.email='entregascontinuas@gmail.com' commit -m "Prueba de despliegue"
-    - git push -f -q https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co
+    - git commit -m "Prueba de despliegue"
+    - git remote add origin-pages https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co.git > /dev/null 2>&1
+    - git push --quiet --set-upstream origin development
 
