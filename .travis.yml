@@ -25,5 +25,5 @@ after_success:
     - git merge origin/travis-integration -m " Merge Prueba de despliegue"
     - git add .
     - git commit -m "Prueba de despliegue"
-    - git push -f -q "https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git" origin development
+    - git push origin development -q "https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git"
 
