@@ -16,14 +16,13 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
-after_script:
-  - git config credential.helper "store --file=.git/credentials"
-  - echo "https://9855893867059db5dab5e9089bf4350c3376d448:@github.com" > .git/credentials
 
 after_success:
-    - git checkout development
-    - git merge travis-integration
-    - git add .
-    - git commit -m "Prueba de despliegue"
-    - git push origin development
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://9855893867059db5dab5e9089bf4350c3376d448:@github.com" > .git/credentials
+  - git checkout development
+  - git merge travis-integration
+  - git add .
+  - git commit -m "Prueba de despliegue"
+  - git push origin development
 
