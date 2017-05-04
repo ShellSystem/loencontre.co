@@ -17,6 +17,7 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
+    - git clone https://github.com/entregascontinuas/loencontre.co.git
     - git config --global user.email "entregascontinuas@gmail.com"
     - git config --global user.name "entregascontinuas"
     - git checkout development
