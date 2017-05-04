@@ -17,16 +17,9 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
-    - git config --global user.email "entregascontinuas@gmail.com"
-    - git config --global user.username "entregascontinuas"
-    - git config --global user.name "entregascontinuas"
-    - git config --global user.username 
-    - git config --global user.name
-    - git config credential.helper "store --file=.git/credentials"
-    - echo "https://9855893867059db5dab5e9089bf4350c3376d448:@github.com" > .git/credentials
     - git checkout development
     - git merge travis-integration
     - git add .
-    - git commit -m "Prueba de despliegue"
-    - git push origin development
+    - git -c user.name='entregascontinuas' -c user.email='entregascontinuas@gmail.com' commit -m "Prueba de despliegue"
+    - git -c user.username='entregascontinuas' -c user.password='entregascontinuas1' push origin development
 
