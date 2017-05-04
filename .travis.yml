@@ -25,6 +25,6 @@ after_success:
     - git merge travis-integration
     - git add .
     - git commit -m "Prueba de despliegue"
-    - git remote add origin-pages https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co.git > /dev/null 2>&1
+    - git remote add origin https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co.git > /dev/null 2>&1
     - git push --quiet --set-upstream origin development
 
