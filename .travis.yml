@@ -16,14 +16,11 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
+after_script:
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://9855893867059db5dab5e9089bf4350c3376d448:@github.com" > .git/credentials
+
 after_success:
-    - git config --global user.email "entregascontinuas@gmail.com"
-    - git config --global user.username "entregascontinuas"
-    - git config --global user.name "entregascontinuas"
-    - git config --global user.username 
-    - git config --global user.name
-    - git config --global user.password "entregascontinuas1"
-    - git config --global credential.helper store
     - git checkout development
     - git merge travis-integration
     - git add .
