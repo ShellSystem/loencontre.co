@@ -21,8 +21,8 @@ after_success:
     - cd loencontre.co
     - git config --global user.email "entregascontinuas@gmail.com"
     - git config --global user.name "entregascontinuas"
-    - git checkout development
-    - git merge origin/travis-integration
+    - git checkout development 
+    - git merge origin/travis-integration -m " Merge Prueba de despliegue"
     - git add .
     - git commit -m "Prueba de despliegue"
     - git push --quiet "https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co.git"
