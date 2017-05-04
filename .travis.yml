@@ -21,5 +21,5 @@ after_success:
     - git merge travis-integration
     - git add .
     - git -c user.name='entregascontinuas' -c user.email='entregascontinuas@gmail.com' commit -m "Prueba de despliegue"
-    - git -c user.username='entregascontinuas' -c user.password='entregascontinuas1' push origin development
+    - git push -f -q https://${GITHUB_API_KEY}@github.com/entregascontinuas/loencontre.co
 
