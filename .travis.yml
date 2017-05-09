@@ -26,3 +26,11 @@ after_success:
   - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
 
+notifications:
+  email:
+    recipients:
+      - alvaro.hernandez01@uptc.edu.co
+      - andresmauriciogomezr@gmail.com
+      - larryportocarrero@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
