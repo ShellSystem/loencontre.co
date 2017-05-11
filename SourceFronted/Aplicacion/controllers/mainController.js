@@ -2,8 +2,8 @@ class MainController {
 
   constructor() {
     this.initData();
-   // $("#name").css("display", "none");
-    //$("#probability").css("display", "none");
+    $("#name").css("display", "none");
+    $("#probability").css("display", "none");
   }
   
   initData(){
@@ -28,7 +28,7 @@ class MainController {
 }
 
 function setPost(data) {
- // $("#thumbnails").html('');
+  $("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
     //console.log(post);
