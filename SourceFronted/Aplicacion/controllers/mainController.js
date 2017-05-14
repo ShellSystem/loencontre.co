@@ -104,19 +104,24 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
+   //url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
+   url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
-  .done(function(data)
+  .done(function(reponse)
   {
-    console.log(data);
-    if(data.length == 0){
-      $.alert("No se obtuvieron resultados");
-      document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-      $("#alertN").text("Aceptar");
-    } else {
-    setPost(data);
+
+    if(reponse.status == 'success'){
+      //console.log(data);
+      data = reponse.data
+      if(data.length == 0){
+        $.alert("No se obtuvieron resultados");
+        document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        $("#alertN").text("Aceptar");
+      } else {
+      setPost(data);
+      }
     }
   })
   .fail(function(err){

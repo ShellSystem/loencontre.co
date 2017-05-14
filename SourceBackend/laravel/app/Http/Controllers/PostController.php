@@ -20,6 +20,8 @@ class PostController extends Controller{
     return json_encode(["sisas"]);
   }
   
+
+  # $_Post : name
   public function searchName(Request $request){
     //return $request->input();
     $resultado = array();    
@@ -40,15 +42,13 @@ class PostController extends Controller{
             }
           } 
         } # Termina el recorrido
-        if($cantidadCoincidencias == 1 && sizeof($nombrePeticion) == 1 || $cantidadCoincidencias == sizeof($nombrePeticion)){ # la peticion solo tiene un nombre y existe conicidencia de un nombre, o tiene mas de dos coincidencias
+        if($cantidadCoincidencias == 1 && sizeof($nombrePeticion) == 1 || $cantidadCoincidencias == sizeof($nombrePeticion)){ # la peticion solo tiene un nombre y existe conicidencia, o coinciden todos los nombres
+          $post->image = asset('/laravel/storage/app/images/'.$post->image);  
           array_push($resultado, $post);
         }
       }
-      foreach($resultado as $post){
-        $post->image = asset('/laravel/storage/app/images/'.$post->image);  
-      }    
     }
-    return json_encode($resultado);
+    return json_encode(['status' => 'success', 'data' => $resultado]);
   }
   
   public function addPost(Request $request){

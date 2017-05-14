@@ -16,10 +16,17 @@ class UnitTest extends TestCase
             }
         }
 
+    public function testSearchPost(){
+        $response = $this->call('GET', '/prueba')->getContent();
+        $this->assertJsonStringEqualsJsonString($response, json_encode(['sisas']));        
+    }
+
     public function testAddPost(){
 
         $response = $this->call('GET', '/prueba')->getContent();
         $this->assertJsonStringEqualsJsonString($response, json_encode(['sisas']));
+
+
 
     	/*$alreadyExist = $this->call('POST', '/add-post', ['post' => 'link:1423565230987886,image:06,date:2017/01/16'])->getContent();
     	
