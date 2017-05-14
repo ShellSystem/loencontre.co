@@ -16,9 +16,21 @@ class UnitTest extends TestCase
             }
         }
 
-    public function testSearchPost(){
-        $response = $this->call('GET', '/prueba')->getContent();
-        $this->assertJsonStringEqualsJsonString($response, json_encode(['sisas']));        
+    public function testValidSearchPost(){
+        $response = $this->call('POST', '/search-name?name=maria')->getContent();
+        $response = json_decode($response);
+        $status = $response->status;
+        $this->assertEquals($status, 'success');
+        $this->assertGreaterThanOrEqual(0, sizeof($response->data));
+        //$this->assertJsonStringEqualsJsonString($response, json_encode(['status' => 'success', 'data' =>]));        
+    }
+
+    public function testInvalidSearchPost(){
+        $response = $this->call('POST', '/search-name?nae=maria')->getContent();
+        $response = json_decode($response);
+        $status = $response->status;
+        $this->assertEquals($status, 'error');
+        //$this->assertJsonStringEqualsJsonString($response, json_encode(['status' => 'success', 'data' =>]));        
     }
 
     public function testAddPost(){

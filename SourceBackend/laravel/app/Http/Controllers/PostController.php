@@ -47,8 +47,10 @@ class PostController extends Controller{
           array_push($resultado, $post);
         }
       }
+      return json_encode(['status' => 'success', 'data' => $resultado]);
+    }else{
+      return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
     }
-    return json_encode(['status' => 'success', 'data' => $resultado]);
   }
   
   public function addPost(Request $request){
