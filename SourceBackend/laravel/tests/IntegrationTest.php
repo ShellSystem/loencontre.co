@@ -19,7 +19,6 @@ class IntegrationTest extends TestCase
             $pageAmount = 7;
         
             $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();
-            print $negativeTest;
             $this->assertJsonStringEqualsJsonString($negativeTest, json_encode(['error' => 'Pagina fuera de rango']));
         //}
 
