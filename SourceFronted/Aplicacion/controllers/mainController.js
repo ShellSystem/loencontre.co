@@ -35,7 +35,7 @@ function setPost(data) {
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#thumbnails").append('<article class="thumb">' +
-      '<a class="image" href="'+post.image+'"><img class="thumbnails" src="'+post.image+'" alt="" /></a>'+
+        '<a class="image" href="'+post.image+'"><img class="img-responsive" src="'+post.image+'" alt="Responsive image" /></a>'+
       //'<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
      // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
     //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
