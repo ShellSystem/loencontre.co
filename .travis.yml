@@ -3,6 +3,11 @@ language: php
 php:
   - 5.6
 
+branches:
+  only:
+  - master
+- development
+
 
 before_script:
   - php SourceBackend/laravel/artisan key:generate # Porque genera error con un Key
@@ -17,12 +22,12 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
-  - git clone https://github.com/entregascontinuas/loencontre.co.git
-  - cd loencontre.co
-  - git config --global user.email "entregascontinuas@gmail.com"
-  - git config --global user.name "entregascontinuas"
-  - git checkout development 
-  - git merge origin/travis-integration -m "Integración desde Travis CI"
-  - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
-  - git push origin development
+  #- git clone https://github.com/entregascontinuas/loencontre.co.git
+  #- cd loencontre.co
+  #- git config --global user.email "entregascontinuas@gmail.com"
+  #- git config --global user.name "entregascontinuas"
+  #- git checkout development 
+  #- git merge origin/travis-integration -m "Integración desde Travis CI"
+  #- git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
+  #- git push origin development
 
