@@ -7,21 +7,19 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class IntegrationTest extends TestCase
 {
     
-	public function testGetPage(){
+	public function testPagination(){
         $minRandom = -10;
         $maxRandom = 100;
         $testAcount = 10;
 
-        //$response = $this->call('GET', '/pagination')->getContent();
-
-        //if($response->pageAmount){
-            //$pageAmount = json_decode($response->pageAmount); 
-            $pageAmount = 7;
+        $response = $this->call('GET', '/pagination')->getContent();
         
-            $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();
-            $this->assertJsonStringEqualsJsonString($negativeTest, json_encode(['error' => 'Pagina fuera de rango']));
-        //}
+        $contenido = json_decode($response);
 
+        $pageAmount = $contenido->pageAmount;
+    
+        $negativeTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount * -1)])->getContent();
+        $this->assertJsonStringEqualsJsonString($negativeTest, json_encode(['error' => 'Pagina fuera de rango']));
 
         $overflowTest = $this->call('GET', '/get-page', ['pageNumber' => ($pageAmount + 1)])->getContent();
         $this->assertJsonStringEqualsJsonString($overflowTest, json_encode(['error' => 'Pagina fuera de rango']));

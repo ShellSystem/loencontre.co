@@ -16,11 +16,6 @@ class PostController extends Controller{
   public $postAmountPerPage = 6;
 
 
-  public function prueba(){
-    return json_encode(["sisas"]);
-  }
-  
-
   # $_Post : name
   public function searchName(Request $request){
     //return $request->input();
@@ -59,32 +54,39 @@ class PostController extends Controller{
     if ($this->validation($request->input()) == 1){
       $post = new Post();
       $post->name = $request->name;
-      $caracteresRechazados = array(",", ";", ".", ":", "_", "{", "}", "'", "?","¿", "¡", "´", ")", "(", "/", "&", "%", "$", "#", "!");//se hace un filtro al nombre del articulo para convertirlo en una ruta
-      //$post->name = str_replace($caracteresRechazados, "", $post->name);
+     
       $post->date = date('Y/m/d');
       $post->contact = $request->contact;
       //return json_encode($post->date);
-      $imagen = $request->img;
-      $nombreImagen = $imagen->getClientOriginalName();
-      $rutaDestino = 'images'.'/'.$nombreImagen;
-      $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
-      if($resultado){
-          $post->image = $nombreImagen;
-          
-      }else{
-        array_push($return, ["Error en la imagen"]);
-      }  
+
+      if ($request->file('img') != null && $request->file('img')->isValid()) { # Si es valida, se guarda
+        
+        $imagen = $request->img;
+        $nombreImagen = $imagen->getClientOriginalName();
+        $rutaDestino = 'images'.'/'.$nombreImagen;
+        $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
+        
+        if($resultado){ # Se guardó correctamente
+            $post->image = $nombreImagen;
+            
+        }else{
+          return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
+        }  
+      }else{ # imagen no valida
+          return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
+      }
+      
       if(!$this->repeated($post->name)){# No hay un post con el mismo link
         $post->save();
-        array_push($return, ['1']);
+        array_push($return, ['status' => 'error', 'data' => '1']);
       }else{
-        array_push($return, ['error' => 'Ya existe una publicacion con el mismo nombre']);  
+        array_push($return, ['status' => 'error', 'data' => 'Ya existe una publicacion con el mismo nombre']);  
       }
       
     }else{
       array_push($return, ($this->validation($request->input())));
       }
-    return json_encode($return);
+    return json_encode(['status' => 'error', 'data' => $return]);
   }
   
   public function validation($post){    
@@ -111,38 +113,6 @@ class PostController extends Controller{
     }
   }
   
-  public function addFromFile(){ # Agrega post desde un archivo plano
-    $archivo = Storage::get('files/post.txt');
-    $lineas = explode(';', $archivo); //Se separan las lineas
-    
-    $return = array();
-    foreach ($lineas as $linea){
-      if (strcmp($linea, "") !== 0){
-        $response = $this->postValidation($linea);
-        if ($response[0] == 1) { # Paso la validacion          
-          $post = new Post();
-          $post->name = $response[1]['name'];
-          $post->image = $response[1]['image'];
-          $post->date = $response[1]['date'];
-          $post->contact = $response[1]['contact'];
-
-          if(!$this->repeated($post->name)){# No hay un post con el mismo link
-            $post->save();
-            array_push($return, 1);
-          }else{
-            array_push($return, ['error' => 'Ya existe una publicacion con el mismo nombre']);  
-          }
-        }else{
-          array_push($return, $response[1]);
-        }
-
-      }
-
-    }
-
-    return json_encode($return);
-    
-  }
 
   public function repeated($name){// Determina si un post está guardado
     $post = null;
@@ -238,6 +208,7 @@ class PostController extends Controller{
     if ($validation == 1) {
       $startRange = $request->startRange;
       $endRange = $request->endRange;
+      
       if ($endRange >= $startRange && $startRange <= $dateCurrent && $endRange <= $dateCurrent) { #prueba unitaria
         $posts = Post::whereBetween('date', [$startRange, $endRange])->orderBy('date', 'desc')->get();
         
@@ -246,12 +217,12 @@ class PostController extends Controller{
         }
         
         
-        return json_encode($posts);  
+        return json_encode(['status' => 'success', 'data' => $posts]);  
       }else {
-        return json_encode(['La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.']);  
+        return json_encode(['status' => 'error', 'data' => 'La fecha final debe ser mayor a la fecha inicial. Tenga en cuenta que ambas fechas deben ser menores o iguales a la fecha actual.']);  
       }
     }else{
-      return json_encode($validation);
+      return json_encode(['status' => 'error', 'data' => $validation]);
     }
   }
 

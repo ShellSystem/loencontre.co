@@ -7,16 +7,15 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class UnitTest extends TestCase
 {
     
-    public function testPagination()
-    {
+    public function testPagination(){
        $response = $this->call('GET', '/pagination');
     	$contenido = json_decode($response->getContent());
-            if ($contenido){
-        	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
-            }
+        if ($contenido){
+    	   $this->assertGreaterThan(0, $contenido->pageAmount, 'La cantidad de paginas no es congruente');
         }
+    }
 
-    public function testValidSearchPost(){
+    public function testValidSearchPostByName(){
         $response = $this->call('POST', '/search-name?name=maria')->getContent();
         $response = json_decode($response);
         $status = $response->status;
@@ -25,7 +24,7 @@ class UnitTest extends TestCase
         //$this->assertJsonStringEqualsJsonString($response, json_encode(['status' => 'success', 'data' =>]));        
     }
 
-    public function testInvalidSearchPost(){
+    public function testInvalidSearchPostByName(){
         $response = $this->call('POST', '/search-name?nae=maria')->getContent();
         $response = json_decode($response);
         $status = $response->status;
@@ -33,27 +32,41 @@ class UnitTest extends TestCase
         //$this->assertJsonStringEqualsJsonString($response, json_encode(['status' => 'success', 'data' =>]));        
     }
 
+    public function testValidDateRangeSearch(){
+        $startRange = '2016/12/12';
+        $endRange = '2017/03/12';
+        $response = $this->call('GET', '/date-range', ['startRange' => $startRange, 'endRange' => $endRange])->getContent();
+        $response = json_decode($response);   
+        $this->assertEquals($response->status, 'success');
+        $this->assertGreaterThanOrEqual(0, sizeof($response->data));             
+    }
+
+    public function testInvalidDateRangeSearch(){
+        $startRange = '2017/12/12';
+        $endRange = '2017/03/12';
+        $response = $this->call('GET', '/date-range', ['startRange' => $startRange, 'endRange' => $endRange])->getContent();
+        $response = json_decode($response);   
+        $this->assertEquals($response->status, 'error');
+
+        $startRange = '2017/12';
+        $endRange = '2017/03/12';
+        $response = $this->call('GET', '/date-range', ['startRange' => $startRange, 'endRange' => $endRange])->getContent();
+        $response = json_decode($response);   
+        $this->assertEquals($response->status, 'error');
+    }
+
     public function testAddPost(){
-
-        $response = $this->call('GET', '/prueba')->getContent();
-        $this->assertJsonStringEqualsJsonString($response, json_encode(['sisas']));
-
-
-
-    	/*$alreadyExist = $this->call('POST', '/add-post', ['post' => 'link:1423565230987886,image:06,date:2017/01/16'])->getContent();
-    	
-
-    	$specialChar = $this->call('POST', '/add-post', ['post' => 'link:1423565230´)(987886,image:0*"6,date:2017/01/16'])->getContent();
-    	
-    	$this->assertJsonStringEqualsJsonString($specialChar, json_encode(['No se acepta el uso de caracteres especiales','No se acepta el uso de caracteres especiales']));
-
-    	$invalidDate = $this->call('POST', '/add-post', ['post' => 'link:1423565230987886,image:06,date:2017/02/30'])->getContent();
-    	
-    	$this->assertJsonStringEqualsJsonString($invalidDate, json_encode(['La fecha debe ser una fecha valida']));
-
-    	$empyField = $this->call('POST', '/add-post', ['post' => 'link:,image:,date:2017/03/30'])->getContent();
-    	
-    	$this->assertJsonStringEqualsJsonString($empyField, json_encode(['El campo link no puede estar vacio', 'El campo image no puede estar vacio']));*/
+        $name = 'Prueba';
+        $contact = 'facabook';
+        $img = 'no tiene';
+        $date = '2017/12/01';        
+        $response = $this->call('POST', '/add-post', ['name' => $name, 
+                                                    'contact' => $contact, 
+                                                    'img' => $img, 
+                                                    'date' => $date]
+                                )->getContent();        
+        $response = json_decode($response);
+        $this->assertEquals($response->status, 'error');
     }
 
 }

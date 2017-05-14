@@ -115,13 +115,15 @@ function newSearchName() {
     if(reponse.status == 'success'){
       //console.log(data);
       data = reponse.data
-      if(data.length == 0){
+      if(data.length == 0){ // Hay algun registro
         $.alert("No se obtuvieron resultados");
         document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
         $("#alertN").text("Aceptar");
       } else {
       setPost(data);
       }
+    }else{
+      // Mostrar error 
     }
   })
   .fail(function(err){
