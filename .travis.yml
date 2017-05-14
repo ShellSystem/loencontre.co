@@ -6,7 +6,7 @@ php:
 branches:
   only:
   - master
-- development
+  - development
 
 
 before_script:
