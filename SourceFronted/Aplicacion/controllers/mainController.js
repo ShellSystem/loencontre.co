@@ -50,6 +50,7 @@ function setPost(data) {
 }
 
 function openModalContact(post){
+  main.testA();
   parent.location='#miModalContact';
   $(document).ready(function() {
     $('#textContact').text($('#extractContact').text());
