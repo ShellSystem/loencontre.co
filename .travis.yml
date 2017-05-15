@@ -9,6 +9,12 @@ branches:
   - development
 
 
+addons:
+    apt:
+        packages:
+            - sshpass
+
+
 before_script:
   - php SourceBackend/laravel/artisan key:generate # Porque genera error con un Key
   - mysql -e 'create database goodfirm_entregas;'
@@ -22,6 +28,7 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
+<<<<<<< HEAD
   #- git clone https://github.com/entregascontinuas/loencontre.co.git
   #- cd loencontre.co
   #- git config --global user.email "entregascontinuas@gmail.com"
@@ -30,6 +37,20 @@ after_success:
   #- git merge origin/travis-development -m "Integración desde Rama development"
   #- git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
   #- git push origin development
+=======
+  - git clone https://github.com/entregascontinuas/loencontre.co.git
+  - cd loencontre.co
+  - git config --global user.email $EMAIL_GITHUB
+  - git config --global user.name $USER_GITHUB
+  - git checkout development 
+  - git merge origin/travis-integration -m "Integración desde Travis CI"
+  - git add .
+  - git commit -m "Integración desde Travis CI"
+  - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/entregascontinuas/loencontre.co.git
+  - git push origin development
+  # Deploy Server - ssh
+  - sshpass -p $PASS_DEPLOY_SERVER ssh $USER_DEPLOY_SERVER@$IP_DEPLOY_SERVER -o StrictHostKeyChecking=no "./deploy.sh"
+>>>>>>> origin/travis-integration
 
 notifications:
   email:
