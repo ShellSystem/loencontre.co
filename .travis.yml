@@ -29,6 +29,8 @@ after_success:
   - git config --global user.name $USER_GITHUB
   - git checkout development 
   - git merge origin/travis-integration -m "Integración desde Travis CI"
+  - git add .
+  - git commit -m "Integración desde Travis CI"
   - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
   # Deploy Server - ssh
