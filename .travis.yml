@@ -4,6 +4,12 @@ php:
   - 5.6
 
 
+addons:
+    apt:
+        packages:
+            - sshpass
+
+
 before_script:
   - php SourceBackend/laravel/artisan key:generate # Porque genera error con un Key
   - mysql -e 'create database goodfirm_entregas;'
@@ -25,4 +31,6 @@ after_success:
   - git merge origin/travis-integration -m "Integración desde Travis CI"
   - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
+  # Deploy Server - ssh
+  - sshpass -p 'Avaadorecf1!' ssh medicina@107.180.41.169
 
