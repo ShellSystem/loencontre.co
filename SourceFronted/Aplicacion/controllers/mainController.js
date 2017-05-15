@@ -34,16 +34,30 @@ function setPost(data) {
     //console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    $("#thumbnails").append('<article>' +
-      '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-     // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-      '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
-      '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
-     // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
-      //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
-      '</article>');
-    
+
+    // Impare representan inicio de fila
+    if(i % 2  != 0){  
+      $("#thumbnails").append('<article class="thumb row">' + // inicia la fila por default de 12, cada imagen ocupa 6
+          '<a class="image" href="'+post.image+'"><img class="img-responsive col-xs-6" src="'+post.image+'" alt="Responsive image" /></a>'+
+        //'<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+       // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+      //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      //  '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
+       // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
+        //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
+        '</article>');
+    }else{
+      $("#thumbnails").append('<article class="thumb">' + // agrega en la misma fila
+          '<a class="image" href="'+post.image+'"><img class="img-responsive col-xs-6" src="'+post.image+'" alt="Responsive image" /></a>'+
+        //'<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+       // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+      //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      //  '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
+       // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
+        //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
+        '</article>');
+    }
+  
   }
   // main.init();
   return true;
