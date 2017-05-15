@@ -25,12 +25,12 @@ script:
 after_success:
   - git clone https://github.com/entregascontinuas/loencontre.co.git
   - cd loencontre.co
-  - git config --global user.email "entregascontinuas@gmail.com"
-  - git config --global user.name "entregascontinuas"
+  - git config --global user.email $EMAIL_GITHUB
+  - git config --global user.name $USER_GITHUB
   - git checkout development 
   - git merge origin/travis-integration -m "Integración desde Travis CI"
-  - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
+  - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
   # Deploy Server - ssh
-  - sshpass -p 'Avaadorecf1!' ssh medicina@107.180.41.169 -o StrictHostKeyChecking=no "./deploy.sh"
+  - sshpass -p $PASS_DEPLOY_SERVER ssh $USER_DEPLOY_SERVER@$IP_DEPLOY_SERVER -o StrictHostKeyChecking=no "./deploy.sh"
 
