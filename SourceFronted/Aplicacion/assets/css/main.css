@@ -366,7 +366,6 @@
 	}
 
 	input[type="text"],
-	input[type="file"],
 	input[type="date"],
 	input[type="password"],
 	input[type="email"],
@@ -1353,7 +1352,7 @@
   background-color: rgba(27, 31, 34, 0.85);
   width:330px;
   padding: 10px 20px;
-  margin: 5% auto;
+  margin: 2% auto;
   position: relative;
 }
 .modal-contenido form{
@@ -1381,10 +1380,15 @@
   opacity:1;
   pointer-events:auto;
 }
+#miModalContact:target{
+  opacity:1;
+  pointer-events:auto;
+}
 
 /*Previsualizador*/
 .thumb{
-     height: 300px;
+     height: 200px;
+     width: 300px;
      border: 1px solid #000;
      margin: 10px 5px 0 0;
 }
@@ -1405,4 +1409,20 @@ input[type="search"]:focus{
     padding-left: 32px; /*espacio entre el icono lupa y el placeholder*/
     color: #000;
     background-color: #FFF;
+}
+
+.collapse{
+	max-height:0;
+	overflow:hidden;
+	-webkit-transition: max-height 500ms ease-out;
+	-moz-transition: max-height 500ms ease-out;
+	-o-transition: max-height 500ms ease-out;
+	transition: max-height 500ms ease-out;
+}
+.collapse.in{
+	max-height:500;
+	-webkit-transition: max-height 500ms ease-out;
+	-moz-transition: max-height 500ms ease-out;
+	-o-transition: max-height 500ms ease-out;
+	transition: max-height 500ms ease-out;
 }

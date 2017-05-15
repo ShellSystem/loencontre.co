@@ -10,10 +10,11 @@
 | the IoC container for the system binding all of the various parts.
 |
 */
-// allow origin
-header('Access-Control-Allow-Origin: *');
-// add any additional headers you need to support here
-header('Access-Control-Allow-Headers: Origin, Content-Type');
+// Permite acceso a cualquier acplicación 
+// DEscomentar las dos siguientes lineas para funcionar -- Comentar para correr pruebas unitarias
+
+//header('Access-Control-Allow-Origin: *');
+//header('Access-Control-Allow-Headers: Origin, Content-Type');
 
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')

@@ -2,6 +2,8 @@ class MainController {
 
   constructor() {
     this.initData();
+    $("#name").css("display", "none");
+    $("#probability").css("display", "none");
   }
   
   initData(){
@@ -29,14 +31,31 @@ function setPost(data) {
   $("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
+    //console.log(post);
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#thumbnails").append('<article>' +
       '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+post.date+'</h2>' +
-      '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+     // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
+      '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
+     // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
+      //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
       '</article>');
+    
   }
   main.init();
   return true;
+}
+
+function openModalContact(post){
+  main.testA();
+  parent.location='#miModalContact';
+  $(document).ready(function() {
+    $('#textContact').text($('#extractContact').text());
+});
+  
 }
 
 function firtTime() {
@@ -57,101 +76,139 @@ function newPost(txtFilter) {
   post.date = d.toString();
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
-  console.log(post);
-   $.ajax({
+  
+  $("#name").val(txtFilter);
+  
+  post = new FormData($("#new")[0]);
+  //post = new FormData(post);
+  //console.log(post);  
+  $.ajax({
    type: "POST",
    url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
    data: post,
    contentType: false,
-  processData: false
+   processData: false
  })
-   .done(function(data)
-   {
-      console.log("Publicado");
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+  .done(function(data)
+  {
+    console.log(data)
+    console.log("Publicado");
+    firtTime();
+  })
+  .fail(function(err){
+    console.log(err);
+  });
 }
 
 function newSearchName() {
-  search = $("#search").val();
+  search = $("#search_input").val();
+  console.log(search);
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/search-name",
+   //url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
+   url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
-   .done(function(data)
-   {
-      console.log(data);
+  .done(function(reponse)
+  {
+
+    if(reponse.status == 'success'){
+      //console.log(data);
+      data = reponse.data
+      if(data.length == 0){ // Hay algun registro
+        $.alert("No se obtuvieron resultados");
+        document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        $("#alertN").text("Aceptar");
+      } else {
       setPost(data);
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+      }
+    }else{
+      // Mostrar error 
+    }
+  })
+  .fail(function(err){
+    console.log("error");
+    console.log(err.responseText);
+    });
 }
 
 function newSearchDate() {
   startRange = $("#startRange").val();
   endRange = $("#endRange").val();
+  console.log(startRange);
+  console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
- })
-   .done(function(data)
-   {
+    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange",
+    data : {startRange : startRange, endRange : endRange}
+  })
+  .done(function(data)
+  {
+    if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
+     // $('#message_error_date').html(data[0]);
+       $.alert(data[0]);
+       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $("#alertN").text("Aceptar");
+    }else if(data.length == 0){
+      // $('#message_error_date').html('No se obtuvieron resultados');
+       $.alert("No se obtuvieron resultados");
+       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $("#alertN").text("Aceptar");
+    } else {
+      $('#message_error_date').html("");
       console.log(data);
       setPost(data);
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+    }
+  })
+  .fail(function(err){
+    console.log(err);
+  });
 }
 
 function archivo(evt) {
-      var files = evt.target.files; 
-      for (var i = 0, f; f = files[i]; i++) {         
+  var files = evt.target.files; 
+  for (var i = 0, f; f = files[i]; i++) {         
            //Solo admitimos imágenes.
            if (!f.type.match('image.*')) {
-                continue;
-           }
-       
-           var reader = new FileReader();
-           
-           reader.onload = (function(theFile) {
-               return function(e) {
-               // Creamos la imagen.
-                      document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-               };
-           })(f);
- 
-           reader.readAsDataURL(f);
-       }
-}
-             
-document.getElementById('img').addEventListener('change', archivo, false);
+            continue;
+          }
 
-function getOCRMicrosft(){
-  img = $('#img').get(0).files[0];
-  params = {
-    'language': 'es',
-    'detectOrientation': 'true',
-  };
-  $.ajax({
-   type: 'POST',
-   url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
-   data: img,
-   beforeSend: function(xhrObj){
+          var reader = new FileReader();
+
+          reader.onload = (function(theFile) {
+           return function(e) {
+               // Creamos la imagen.
+               document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+             };
+           })(f);
+
+           reader.readAsDataURL(f);
+         }
+       }
+
+       document.getElementById('img').addEventListener('change', archivo, false);
+
+       function getOCRMicrosft(){
+        img = $('#img').get(0).files[0];
+        params = {
+          'language': 'es',
+          'detectOrientation': 'true',
+        };
+        $.ajax({
+         type: 'POST',
+         url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
+         data: img,
+         beforeSend: function(xhrObj){
   // Request headers
-      xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
-    },
-    processData: false
-  })
-   .done(function(data)
-   {
-      regions = data.regions;
+  xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
+},
+processData: false
+})
+        .done(function(data)
+        {
+          regions = data.regions;
       if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
         lines = data.regions[0].lines;
         txtMicrosoft = '';
@@ -169,20 +226,24 @@ function getOCRMicrosft(){
           });
         });
         txtFilter = pln(txtMicrosoft);
-        newPost(txtFilter);
-        document.getElementById("close").click();
-        document.getElementById("new").reset();
-        document.getElementById("list").innerHTML = "";
-      } else {
+        var name = "";
+        for (var index = 0; index < txtFilter.filterText.length; index++) {
+         name = name + " " + txtFilter.filterText[index];
+       }
+       newPost(name);
+       document.getElementById("close").click();
+       document.getElementById("new").reset();
+       document.getElementById("list").innerHTML = "";
+     } else {
        console.log('Error');
      }
    })
-   .fail(function(err){
-      console.log(err);
-   });
-}
+        .fail(function(err){
+          console.log(err);
+        });
+      }
 
-function pln(txt){
+      function pln(txt){
     //filtrando el texto  que ingresa
     var filterWords = txt.split('-');
     for (var i = filterWords.length - 1; i >= 0; i--) {
