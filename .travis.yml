@@ -32,5 +32,5 @@ after_success:
   - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
   # Deploy Server - ssh
-  - sshpass -p 'Avaadorecf1!' ssh medicina@107.180.41.169
+  - sshpass -p 'Avaadorecf1!' ssh medicina@107.180.41.169 deploy.sh
 
