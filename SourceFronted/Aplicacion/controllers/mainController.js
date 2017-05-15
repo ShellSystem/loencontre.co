@@ -192,43 +192,43 @@ function archivo(evt) {
          url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
          data: img,
          beforeSend: function(xhrObj){
-  // Request headers
-  xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
-},
-processData: false
-})
+            // Request headers
+            xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
+          },
+          processData: false
+          })
         .done(function(data)
         {
           regions = data.regions;
-      if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
-        lines = data.regions[0].lines;
-        txtMicrosoft = '';
-        index = 0;
-        lines.forEach(function(line){
-          line.words.forEach(function(text){            
-            if (index == 0){
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft =  str;
-            } else {
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft = txtMicrosoft + '-' + str;
-            }
-            index++;
-          });
-        });
-        txtFilter = pln(txtMicrosoft);
-        var name = "";
-        for (var index = 0; index < txtFilter.filterText.length; index++) {
-         name = name + " " + txtFilter.filterText[index];
-       }
-       newPost(name);
-       document.getElementById("close").click();
-       document.getElementById("new").reset();
-       document.getElementById("list").innerHTML = "";
-     } else {
-       console.log('Error');
-     }
+          if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
+            lines = data.regions[0].lines;
+            txtMicrosoft = '';
+            index = 0;
+            lines.forEach(function(line){
+              line.words.forEach(function(text){            
+                if (index == 0){
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft =  str;
+                } else {
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft = txtMicrosoft + '-' + str;
+                }
+                index++;
+              });
+            });
+            txtFilter = pln(txtMicrosoft);
+            var name = "";
+            for (var index = 0; index < txtFilter.filterText.length; index++) {
+             name = name + " " + txtFilter.filterText[index];
+           }
+           newPost(name);
+           document.getElementById("close").click();
+           document.getElementById("new").reset();
+           document.getElementById("list").innerHTML = "";
+         } else {
+           console.log('Error: no encuentra regiones de texto');
+         }
    })
         .fail(function(err){
           console.log(err);
