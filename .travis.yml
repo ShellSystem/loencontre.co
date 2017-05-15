@@ -41,9 +41,8 @@ after_success:
 notifications:
   email:
     recipients:
-      - alvaro.hernandez01@uptc.edu.co
-      - andresmauriciogomezr@gmail.com
-      - larryportocarrero@gmail.com
+      - $EMAIL_ALVARO
+      - $EMAIL_MAURICIO
+      - $EMAIL_LARRY
     on_success: always
     on_failure: always
-
