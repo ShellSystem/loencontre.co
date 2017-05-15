@@ -31,6 +31,6 @@ after_success:
   - git merge origin/travis-integration -m "Integración desde Travis CI"
   - git remote set-url origin https://entregascontinuas:entregascontinuas1@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
-  # Deploy Server - ssh -
+  # Deploy Server - ssh
   - sshpass -p 'Avaadorecf1!' ssh medicina@107.180.41.169 -o StrictHostKeyChecking=no "./deploy.sh"
 
