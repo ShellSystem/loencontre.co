@@ -4,6 +4,12 @@ php:
   - 5.6
 
 
+branches:
+  only:
+  - master
+  - development
+
+
 addons:
     apt:
         packages:
@@ -11,12 +17,9 @@ addons:
 
 
 before_script:
-  - php SourceBackend/laravel/artisan key:generate # Porque genera error con un Key
+  - php SourceBackend/laravel/artisan key:generate
   - mysql -e 'create database goodfirm_entregas;'
   - mysql goodfirm_entregas < goodfirm_entregas.sql
-  #- mysql -u root -e "CREATE USER 'goodfirm_usuario'@'localhost' IDENTIFIED BY ',eE_qW$Sh5KR';"
-  #- mysql -u root -e "GRANT ALL PRIVILEGES ON \`goodfirm_entregas\`.* TO goodfirm_usuario@localhost IDENTIFIED BY ',eE_qW$Sh5KR';"
-  #- mysql -u root -e "FLUSH PRIVILEGES;"
 
 script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
@@ -33,6 +36,15 @@ after_success:
   - git commit -m "Integración desde Travis CI"
   - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/entregascontinuas/loencontre.co.git
   - git push origin development
-  # Deploy Server - ssh
   - sshpass -p $PASS_DEPLOY_SERVER ssh $USER_DEPLOY_SERVER@$IP_DEPLOY_SERVER -o StrictHostKeyChecking=no "./deploy.sh"
+
+
+notifications:
+  email:
+    recipients:
+      - alvaro.hernandez01@uptc.edu.co
+      - andresmauriciogomezr@gmail.com
+      - larryportocarrero@gmail.com
+    on_success: always
+    on_failure: always
 
