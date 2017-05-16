@@ -2,20 +2,29 @@ class MainController {
 
   constructor() {
     this.initData();
+    $("#name").css("display", "none");
+    $("#probability").css("display", "none");
+    $("#user_id").css("display", "none");
+    $("#user_name").css("display", "none");
+    $("#user_email").css("display", "none");
   }
   
   initData(){
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "https://entregascontinuas.goodfirmcolombia.co/pagination"
+      url: "/loencontre.co/SourceBackend/pagination"
+      // url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
+      // url: "http://localhost/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber="+num
+          url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -26,163 +35,297 @@ class MainController {
 }
 
 function setPost(data) {
-  $("#thumbnails").html('');
+  $("#main").html("");
   for (var i in data) {
     var post = data[i];
-    $("#thumbnails").append('<article>' +
-      '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+post.date+'</h2>' +
-      '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-      '</article>');
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p>'+post.contact+'</p>' +
+      '</article>');    
   }
-  main.init();
+  initScript();
+  return true;
+}
+
+function setPostAfter(data) {
+  $("#main").html("");
+  for (var i in data) {
+    var post = data[i];
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p>'+post.contact+'</p>' +
+      '</article>');    
+  }
+  setMain();
   return true;
 }
 
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
+    url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
-
   return true;
 }
 
-function newPost(txtFilter) {
+function newPostAction(){
+  FB.getLoginStatus(function(response) {
+    loginStatusVerificate(response);
+  });
+}
+
+function loginStatusVerificate(response){
+  if(response.status != 'conected'){    
+    FB.login(function(response) { // Solicita inicio de sesion
+
+      if(response.status = 'connected'){
+
+        FB.api('/me?fields=id,name,email', function(response) {
+          
+          if(response.email != ''){ // Todo bien con los datos
+            $('.status').text('Conectado con facebook');
+            getOCRMicrosft(response);
+          }else{
+            console.log('Error obtener datos de usuario desde facebook');
+            $('.status').text('Error obtener datos de usuario desde facebook');
+          }
+
+        });
+      }else{
+        console.log("Error al iniciar sesión con facebook");
+        $('.status').text('Error al iniciar sesión con facebook');
+      }
+
+    });
+  }else{
+    $('.status').text('No se pudo conectar con facebook');
+  }
+}
+
+function exitFacebook(){
+  FB.logout(function(response) {
+   console.log(response);
+   $('.status').text('Sesion de facebook cerrada');
+  });
+}
+
+
+function newPost(txtFilter, user) {
+  console.log(user);
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
   post.date = d.toString();
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
-  console.log(post);
-   $.ajax({
+  
+  $("#name").val(txtFilter);
+  $("#user_id").val(user.id);
+  $("#user_name").val(user.name);
+  $("#user_email").val(user.email);
+  
+  post = new FormData($("#new")[0]);
+  $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
+   url: "/loencontre.co/SourceBackend/add-post",
+   // url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
+   // url: "http://localhost/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
-  processData: false
+   processData: false
  })
-   .done(function(data)
-   {
+  .done(function(response)
+  {
+    response = JSON.parse(response);
+    console.log(response);
+    data = response.data;
+    if(response.status == 'success'){
+      console.log(data)
       console.log("Publicado");
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+      $('.status').text('Publicado');
+      var $panels = $('.panel');
+      $panels.trigger('---hide');
+      //firtTime();
+      location.reload();
+    }else{
+      $('.status').html(data);
+    }
+  })
+  .fail(function(err){
+    console.log(err);
+    $('.status').text('Error al publicar');
+  });
 }
 
 function newSearchName() {
-  search = $("#search").val();
+  search = $("#search_input").val();
+  console.log(search);
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/search-name",
+   url: "/loencontre.co/SourceBackend/search-name?name=" + search,
+   // url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
+   // url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
-   .done(function(data)
-   {
+  .done(function(response)
+  {
+    console.log(response);
+    if(response.status == 'success'){
+      data = response.data;
       console.log(data);
-      setPost(data);
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+      if(data.length == 0){
+        //$.alert("No se obtuvieron resultados");
+        $('.status').text('No se obtuvieron resultados');
+        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        //$("#alertN").text("Aceptar");
+      } else {
+        $('.status').text('Busqueda completada');
+        setPostAfter(data);
+      }
+    }
+  })
+  .fail(function(err){
+    console.log("error");
+    console.log(err.responseText);
+    $('.status').text('Error en la busqueda');
+  });
 }
 
 function newSearchDate() {
   startRange = $("#startRange").val();
   endRange = $("#endRange").val();
+  console.log(startRange);
+  console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange="+startRange+"&endRange="+endRange
- })
-   .done(function(data)
-   {
-      console.log(data);
-      setPost(data);
-   })
-   .fail(function(err){
-      console.log(err);
-   });
+    url: "/loencontre.co/SourceBackend/date-range?startRange",
+    // url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
+    // url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
+    data : {startRange : startRange, endRange : endRange}
+  })
+  .done(function(response)
+  {
+    if(response.status == 'success'){
+      data = response.data;
+     
+      if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
+       // $('#message_error_date').html(data[0]);
+       //$.alert(data[0]);
+       $('.status').text(data[0]);
+      // document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+       //$("#alertN").text("Aceptar");
+     }else if(data.length == 0){
+        // $('#message_error_date').html('No se obtuvieron resultados');
+        //$.alert("No se obtuvieron resultados");
+        $('.status').text('No se obtuvieron resultados');
+        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        //$("#alertN").text("Aceptar");
+      } else {
+        $('#message_error_date').html("");
+        $('.status').text('Busqueda completada');
+        console.log(data);
+        setPostAfter(data);
+      }
+
+    }else{ // Error desde el servidor
+        console.log(response.data);
+        $('.status').text('Error en la busqueda');
+      }
+  })
+  .fail(function(err){
+    console.log(err);
+    $('.status').text('Error en la busqueda');
+  });
 }
 
 function archivo(evt) {
-      var files = evt.target.files; 
-      for (var i = 0, f; f = files[i]; i++) {         
+  var files = evt.target.files; 
+  for (var i = 0, f; f = files[i]; i++) {         
            //Solo admitimos imágenes.
            if (!f.type.match('image.*')) {
-                continue;
-           }
-       
-           var reader = new FileReader();
-           
-           reader.onload = (function(theFile) {
-               return function(e) {
+            continue;
+          }
+
+          var reader = new FileReader();
+
+          reader.onload = (function(theFile) {
+           return function(e) {
                // Creamos la imagen.
-                      document.getElementById("list").innerHTML = ['<img class="thumb" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-               };
+               document.getElementById("list").innerHTML = ['<img class="thumbNew" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
+             };
            })(f);
- 
+
            reader.readAsDataURL(f);
+         }
        }
-}
-             
-document.getElementById('img').addEventListener('change', archivo, false);
 
-function getOCRMicrosft(){
-  img = $('#img').get(0).files[0];
-  params = {
-    'language': 'es',
-    'detectOrientation': 'true',
-  };
-  $.ajax({
-   type: 'POST',
-   url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
-   data: img,
-   beforeSend: function(xhrObj){
-  // Request headers
-      xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-      xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
-    },
-    processData: false
-  })
-   .done(function(data)
-   {
-      regions = data.regions;
-      if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
-        lines = data.regions[0].lines;
-        txtMicrosoft = '';
-        index = 0;
-        lines.forEach(function(line){
-          line.words.forEach(function(text){            
-            if (index == 0){
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft =  str;
-            } else {
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft = txtMicrosoft + '-' + str;
-            }
-            index++;
-          });
+       document.getElementById('img').addEventListener('change', archivo, false);
+
+       function getOCRMicrosft(user){
+        img = $('#img').get(0).files[0];
+        params = {
+          'language': 'es',
+          'detectOrientation': 'true',
+        };
+        $.ajax({
+         type: 'POST',
+         url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
+         data: img,
+         beforeSend: function(xhrObj){
+            // Request headers
+            xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
+          },
+          processData: false
+        })
+        .done(function(data)
+        {
+          regions = data.regions;
+          if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
+            lines = data.regions[0].lines;
+            txtMicrosoft = '';
+            index = 0;
+            lines.forEach(function(line){
+              line.words.forEach(function(text){            
+                if (index == 0){
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft =  str;
+                } else {
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft = txtMicrosoft + '-' + str;
+                }
+                index++;
+              });
+            });
+            txtFilter = pln(txtMicrosoft);
+            var name = "";
+            for (var index = 0; index < txtFilter.filterText.length; index++) {
+             name = name + " " + txtFilter.filterText[index];
+           }
+           newPost(name, user);
+           document.getElementById("new").reset();
+           document.getElementById("list").innerHTML = "";
+         } else {
+           console.log('Error: no encuentra regiones de texto');
+         }
+       })
+        .fail(function(err){
+          console.log(err);
         });
-        txtFilter = pln(txtMicrosoft);
-        newPost(txtFilter);
-        document.getElementById("close").click();
-        document.getElementById("new").reset();
-        document.getElementById("list").innerHTML = "";
-      } else {
-       console.log('Error');
-     }
-   })
-   .fail(function(err){
-      console.log(err);
-   });
-}
+      }
 
-function pln(txt){
+      function pln(txt){
     //filtrando el texto  que ingresa
     var filterWords = txt.split('-');
     for (var i = filterWords.length - 1; i >= 0; i--) {
