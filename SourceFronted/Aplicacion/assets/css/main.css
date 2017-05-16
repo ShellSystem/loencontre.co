@@ -988,7 +988,9 @@
 		left: 0;
 		max-height: calc(80vh - 4em);
 		overflow-y: auto;
+		/*error con dragdrop*/
 		position: fixed;
+		/*error con dragdrop*/
 		width: 100%;
 		z-index: 10001;
 	}
