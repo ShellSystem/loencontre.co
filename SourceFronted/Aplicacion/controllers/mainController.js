@@ -10,14 +10,14 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "https://entregascontinuas.goodfirmcolombia.co/pagination"
+      url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber="+num
+          url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -28,44 +28,35 @@ class MainController {
 }
 
 function setPost(data) {
-  //$("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
-    //console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#main").append('<article class="thumb">' +
-      '<a class="image" href="'+post.image+'"><img class="img-responsive" src="'+post.image+'" alt="" /></a>'+
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-     // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-    //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
-      '<p><strong><h1 id="extractContact">'+post.contact+'</h1></strong></p>' +
-    //  '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
-     // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
-      //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
-    '</article>');
-    
+      '<p>'+post.contact+'</p>' +
+      '</article>');    
   }
-  // main.init();
+  initScript();
   return true;
 }
 
-function openModalContact(post){
-  parent.location='#miModalContact';
-  $(document).ready(function() {
-    $('#textContact').text($('#extractContact').text());
-});
-  
-}
+// function openModalContact(post){
+//   parent.location='#miModalContact';
+//   $(document).ready(function() {
+//     $('#textContact').text($('#extractContact').text());
+// });
+
+// }
 
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/get-page?pageNumber=1"
+    url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
-
   return true;
 }
 
@@ -84,7 +75,7 @@ function newPost(txtFilter) {
   //console.log(post);  
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/add-post",
+   url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
    processData: false
@@ -105,7 +96,7 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   url: "https://entregascontinuas.goodfirmcolombia.co/search-name?name=" + search,
+   url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
@@ -117,13 +108,13 @@ function newSearchName() {
       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
       $("#alertN").text("Aceptar");
     } else {
-    setPost(data);
+      setPost(data);
     }
   })
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
-    });
+  });
 }
 
 function newSearchDate() {
@@ -133,20 +124,20 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "https://entregascontinuas.goodfirmcolombia.co/date-range?startRange",
+    url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
   .done(function(data)
   {
     if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
      // $('#message_error_date').html(data[0]);
-       $.alert(data[0]);
-       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-      $("#alertN").text("Aceptar");
-    }else if(data.length == 0){
+     $.alert(data[0]);
+     document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+     $("#alertN").text("Aceptar");
+   }else if(data.length == 0){
       // $('#message_error_date').html('No se obtuvieron resultados');
-       $.alert("No se obtuvieron resultados");
-       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+      $.alert("No se obtuvieron resultados");
+      document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
       $("#alertN").text("Aceptar");
     } else {
       $('#message_error_date').html("");
@@ -198,7 +189,7 @@ function archivo(evt) {
             xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
           },
           processData: false
-          })
+        })
         .done(function(data)
         {
           regions = data.regions;
@@ -230,7 +221,7 @@ function archivo(evt) {
          } else {
            console.log('Error: no encuentra regiones de texto');
          }
-   })
+       })
         .fail(function(err){
           console.log(err);
         });
