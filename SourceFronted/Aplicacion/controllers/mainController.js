@@ -28,21 +28,22 @@ class MainController {
 }
 
 function setPost(data) {
-  $("#thumbnails").html('');
+  //$("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
     //console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    $("#thumbnails").append('<article>' +
-      '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img class="img-responsive" src="'+post.image+'" alt="" /></a>'+
       '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
      // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-      '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
-      '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
+    //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      '<p><strong><h1 id="extractContact">'+post.contact+'</h1></strong></p>' +
+    //  '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
      // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
       //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
-      '</article>');
+    '</article>');
     
   }
   // main.init();
