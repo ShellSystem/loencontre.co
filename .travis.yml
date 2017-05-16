@@ -45,4 +45,4 @@ notifications:
       - $EMAIL_MAURICIO
       - $EMAIL_LARRY
     on_success: always
-    on_failure: always
+on_failure: always
