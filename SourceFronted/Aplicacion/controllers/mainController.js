@@ -85,13 +85,15 @@ function newPostAction(){
 }
 
 function loginStatusVerificate(response){
-  if(response.status != 'conected'){
+  if(response.status != 'conected'){    
     FB.login(function(response) { // Solicita inicio de sesion
 
       if(response.status = 'connected'){
+
         FB.api('/me?fields=id,name,email', function(response) {
           
           if(response.email != ''){ // Todo bien con los datos
+            $('.status').text('Conectado con facebook');
             getOCRMicrosft(response);
           }else{
             console.log('Error obtener datos de usuario desde facebook');
@@ -105,6 +107,8 @@ function loginStatusVerificate(response){
       }
 
     });
+  }else{
+    $('.status').text('No se pudo conectar con facebook');
   }
 }
 
@@ -181,10 +185,10 @@ function newSearchName() {
       data = response.data;
       console.log(data);
       if(data.length == 0){
-        $.alert("No se obtuvieron resultados");
+        //$.alert("No se obtuvieron resultados");
         $('.status').text('No se obtuvieron resultados');
-        document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        $("#alertN").text("Aceptar");
+        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        //$("#alertN").text("Aceptar");
       } else {
         $('.status').text('Busqueda completada');
         setPostAfter(data);
@@ -217,16 +221,16 @@ function newSearchDate() {
      
       if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
        // $('#message_error_date').html(data[0]);
-       $.alert(data[0]);
+       //$.alert(data[0]);
        $('.status').text(data[0]);
-       document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-       $("#alertN").text("Aceptar");
+      // document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+       //$("#alertN").text("Aceptar");
      }else if(data.length == 0){
         // $('#message_error_date').html('No se obtuvieron resultados');
-        $.alert("No se obtuvieron resultados");
+        //$.alert("No se obtuvieron resultados");
         $('.status').text('No se obtuvieron resultados');
-        document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        $("#alertN").text("Aceptar");
+        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
+        //$("#alertN").text("Aceptar");
       } else {
         $('#message_error_date').html("");
         $('.status').text('Busqueda completada');
