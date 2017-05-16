@@ -151,7 +151,8 @@ function newPost(txtFilter, user) {
       $('.status').text('Publicado');
       var $panels = $('.panel');
       $panels.trigger('---hide');
-      firtTime();
+      //firtTime();
+      location.reload();
     }else{
       $('.status').html(data);
     }
