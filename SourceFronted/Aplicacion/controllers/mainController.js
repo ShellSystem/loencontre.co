@@ -48,6 +48,20 @@ function setPost(data) {
   return true;
 }
 
+function setPostFromSearch(data) {
+  for (var i in data) {
+    var post = data[i];
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p>'+post.contact+'</p>' +
+      '</article>');    
+  }
+  return true;
+}
+
 // function openModalContact(post){
 //   parent.location='#miModalContact';
 //   $(document).ready(function() {
