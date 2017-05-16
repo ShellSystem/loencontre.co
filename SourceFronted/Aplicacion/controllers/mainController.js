@@ -28,21 +28,22 @@ class MainController {
 }
 
 function setPost(data) {
-  $("#thumbnails").html('');
+  //$("#thumbnails").html('');
   for (var i in data) {
     var post = data[i];
     //console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    $("#thumbnails").append('<article>' +
-      '<a class="thumbnail" href="'+post.image+'" data-position="center"><img src="'+post.image+'" alt="" /></a>'+
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img class="img-responsive" src="'+post.image+'" alt="" /></a>'+
       '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
      // '<p><a id="post" href="https://www.facebook.com/photo.php?fbid='+post.link+'" target="_blank">'+$.i18n._('post')+'</a></p>' +
-      '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
-      '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
+    //  '<p><h1 id="extractContact" hidden="true" >'+post.contact+'</h1></p>' +
+      '<p><strong><h1 id="extractContact">'+post.contact+'</h1></strong></p>' +
+    //  '<p><button id="bottomContact" onclick="openModalContact();">Contacto</button></p>' +
      // '<p><a href="#ex1" rel="modal:open">Open Modal</a></p>' +
       //'<input type="hidden" name="contact" value="'+post.coctact+'">' +
-      '</article>');
+    '</article>');
     
   }
   // main.init();
@@ -192,43 +193,43 @@ function archivo(evt) {
          url: 'https://westus.api.cognitive.microsoft.com/vision/v1.0/ocr?' + $.param(params),
          data: img,
          beforeSend: function(xhrObj){
-  // Request headers
-  xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-  xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
-},
-processData: false
-})
+            // Request headers
+            xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","bfa235c067444a6a964cfa7045109e96");
+          },
+          processData: false
+          })
         .done(function(data)
         {
           regions = data.regions;
-      if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
-        lines = data.regions[0].lines;
-        txtMicrosoft = '';
-        index = 0;
-        lines.forEach(function(line){
-          line.words.forEach(function(text){            
-            if (index == 0){
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft =  str;
-            } else {
-              str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
-              txtMicrosoft = txtMicrosoft + '-' + str;
-            }
-            index++;
-          });
-        });
-        txtFilter = pln(txtMicrosoft);
-        var name = "";
-        for (var index = 0; index < txtFilter.filterText.length; index++) {
-         name = name + " " + txtFilter.filterText[index];
-       }
-       newPost(name);
-       document.getElementById("close").click();
-       document.getElementById("new").reset();
-       document.getElementById("list").innerHTML = "";
-     } else {
-       console.log('Error');
-     }
+          if(regions.length>0){ //verificando que existen regiones con texto y monnstrandolas
+            lines = data.regions[0].lines;
+            txtMicrosoft = '';
+            index = 0;
+            lines.forEach(function(line){
+              line.words.forEach(function(text){            
+                if (index == 0){
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft =  str;
+                } else {
+                  str=text.text.toLowerCase().replace(' ','').replace(/\./g,'');
+                  txtMicrosoft = txtMicrosoft + '-' + str;
+                }
+                index++;
+              });
+            });
+            txtFilter = pln(txtMicrosoft);
+            var name = "";
+            for (var index = 0; index < txtFilter.filterText.length; index++) {
+             name = name + " " + txtFilter.filterText[index];
+           }
+           newPost(name);
+           document.getElementById("close").click();
+           document.getElementById("new").reset();
+           document.getElementById("list").innerHTML = "";
+         } else {
+           console.log('Error: no encuentra regiones de texto');
+         }
    })
         .fail(function(err){
           console.log(err);
