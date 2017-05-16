@@ -309,6 +309,9 @@
 
 function setMain() {
 	// Main.
+	var $panels = $('.panel');
+	$panels.trigger('---hide');
+
 	$body = $('body')
 	var $main = $('#main');
 

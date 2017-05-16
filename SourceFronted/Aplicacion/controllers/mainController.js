@@ -141,6 +141,8 @@ function newPost(txtFilter, user) {
     console.log(data)
     console.log("Publicado");
     $('.status').text('Publicado');
+    var $panels = $('.panel');
+    $panels.trigger('---hide');
     firtTime();
   })
   .fail(function(err){
