@@ -13,7 +13,8 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
+      url: "/loencontre.co/SourceBackend/pagination"
+      // url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
       // url: "http://localhost/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
@@ -21,7 +22,8 @@ class MainController {
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
           // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
@@ -67,7 +69,8 @@ function setPostAfter(data) {
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
     // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
@@ -130,7 +133,8 @@ function newPost(txtFilter, user) {
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
-   url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
+   url: "/loencontre.co/SourceBackend/add-post",
+   // url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
    // url: "http://localhost/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
@@ -156,7 +160,8 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
+   url: "/loencontre.co/SourceBackend/search-name?name=" + search,
+   // url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
    // url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
@@ -191,7 +196,8 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
+    url: "/loencontre.co/SourceBackend/date-range?startRange",
+    // url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
     // url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
