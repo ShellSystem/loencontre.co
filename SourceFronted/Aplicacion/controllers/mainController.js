@@ -4,6 +4,10 @@ class MainController {
     this.initData();
     $("#name").css("display", "none");
     $("#probability").css("display", "none");
+    $("#user_id").css("display", "none");
+    $("#user_name").css("display", "none");
+    $("#user_email").css("display", "none");
+
   }
   
   initData(){
@@ -77,7 +81,7 @@ function loginStatusVerificate(response){
         FB.api('/me?fields=id,name,email', function(response) {
           
           if(response.email != ''){ // Todo bien con los datos
-            console.log('Good to see you, ' + response.email + '.');
+            getOCRMicrosft(response);
           }else{
             console.log('Error obtener datos de usuario desde facebook');
           }
@@ -98,7 +102,8 @@ function exitFacebook(){
 }
 
 
-function newPost(txtFilter) {
+function newPost(txtFilter, user) {
+  console.log(user);
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
@@ -107,6 +112,9 @@ function newPost(txtFilter) {
   post.text = txtFilter;
   
   $("#name").val(txtFilter);
+  $("#user_id").val(user.id);
+  $("#user_name").val(user.name);
+  $("#user_email").val(user.email);
   
   post = new FormData($("#new")[0]);
   $.ajax({
@@ -212,7 +220,7 @@ function archivo(evt) {
 
        document.getElementById('img').addEventListener('change', archivo, false);
 
-       function getOCRMicrosft(){
+       function getOCRMicrosft(user){
         img = $('#img').get(0).files[0];
         params = {
           'language': 'es',
@@ -253,7 +261,7 @@ function archivo(evt) {
             for (var index = 0; index < txtFilter.filterText.length; index++) {
              name = name + " " + txtFilter.filterText[index];
            }
-           newPost(name);
+           newPost(name, user);
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
