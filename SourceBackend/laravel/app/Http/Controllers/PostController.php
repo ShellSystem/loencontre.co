@@ -49,7 +49,7 @@ class PostController extends Controller{
   }
   
   public function addPost(Request $request){
-    #return $request->input();    
+    //return $request->input();    
     $return = array();
     if ($this->validation($request->input()) == 1){
       $post = new Post();
@@ -78,9 +78,9 @@ class PostController extends Controller{
       
       if(!$this->repeated($post->name)){# No hay un post con el mismo link
         $post->save();
-        array_push($return, ['status' => 'error', 'data' => '1']);
+        return json_encode(['status' => 'success', 'data' => '1']);
       }else{
-        array_push($return, ['status' => 'error', 'data' => 'Ya existe una publicacion con el mismo nombre']);  
+        return json_encode(['status' => 'error', 'data' => 'Ya existe una publicacion con el mismo nombre']);  
       }
       
     }else{
