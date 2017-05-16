@@ -63,6 +63,41 @@ function firtTime() {
   return true;
 }
 
+function newPostAction(){
+  FB.getLoginStatus(function(response) {
+    loginStatusVerificate(response);
+  });
+}
+
+function loginStatusVerificate(response){
+  if(response.status != 'conected'){
+    FB.login(function(response) { // Solicita inicio de sesion
+
+      if(response.status = 'connected'){
+        FB.api('/me?fields=id,name,email', function(response) {
+          
+          if(response.email != ''){ // Todo bien con los datos
+            console.log('Good to see you, ' + response.email + '.');
+          }else{
+            console.log('Error obtener datos de usuario desde facebook');
+          }
+
+        });
+      }else{
+        console.log("Error al iniciar sesión con facebook");
+      }
+
+    });
+  }
+}
+
+function exitFacebook(){
+  FB.logout(function(response) {
+   console.log(response);
+  });
+}
+
+
 function newPost(txtFilter) {
   var post = {};
   post.contact = $("#contact").val();

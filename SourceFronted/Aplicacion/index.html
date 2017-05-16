@@ -11,6 +11,27 @@
 	<link rel="stylesheet" href="assets/css/style-own.css" />
 </head>
 <body>
+<script>
+  window.onload = function() {
+    FB.init({
+      appId      : '238624763288222',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();    
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+ 	
+ 	
+</script>
 
 	<!-- Wrapper -->
 	<div id="wrapper">
@@ -80,7 +101,8 @@
 							<span class="title_modal_new"></span>  
 							<span class="sutitle_modal_new"></span>
 						</h2>
-						<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
+						<!--<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">-->
+						<form method="post" action="#" id="new" onsubmit="newPostAction(); return false"  enctype="multipart/form-data">
 							<hr>
 							<div class="field first">
 								<!-- DRAG&DROP INTERACTIVO - ERROR CON PLANTILLA PENDIENTE -->
@@ -105,10 +127,12 @@
 								<li><input type="submit" class="special send_button" /></li>
 							</ul>								
 						</form>
+
 					</section>
 				</div>
 			</div>
 		</footer>
+				<input type="button" name="" value="Cerrar sesión en Facebook" onclick="exitFacebook()">
 
 		<!-- footer-search_name -->
 		<footer id="footer-search_name" class="panel">
