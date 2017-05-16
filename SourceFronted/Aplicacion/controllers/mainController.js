@@ -7,23 +7,22 @@ class MainController {
     $("#user_id").css("display", "none");
     $("#user_name").css("display", "none");
     $("#user_email").css("display", "none");
-
   }
   
   initData(){
     firtTime();
     $.ajax({
       dataType: "json",
-      //url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
-      url: "http://localhost/loencontre.co/SourceBackend/pagination"
+      url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
+      // url: "http://localhost/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          //url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
-          url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -49,20 +48,11 @@ function setPost(data) {
   return true;
 }
 
-
-// function openModalContact(post){
-//   parent.location='#miModalContact';
-//   $(document).ready(function() {
-//     $('#textContact').text($('#extractContact').text());
-// });
-
-// }
-
 function firtTime() {
   $.ajax({
     dataType: "json",
-    //url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
-    url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
@@ -86,11 +76,13 @@ function loginStatusVerificate(response){
             getOCRMicrosft(response);
           }else{
             console.log('Error obtener datos de usuario desde facebook');
+            $('.status').text('Error obtener datos de usuario desde facebook');
           }
 
         });
       }else{
         console.log("Error al iniciar sesión con facebook");
+        $('.status').text('Error al iniciar sesión con facebook');
       }
 
     });
@@ -100,6 +92,7 @@ function loginStatusVerificate(response){
 function exitFacebook(){
   FB.logout(function(response) {
    console.log(response);
+   $('.status').text('Sesion de facebook cerrada');
   });
 }
 
@@ -121,8 +114,8 @@ function newPost(txtFilter, user) {
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
-   //url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
-   url: "http://localhost/loencontre.co/SourceBackend/add-post",
+   url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
+   // url: "http://localhost/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
    processData: false
@@ -131,10 +124,12 @@ function newPost(txtFilter, user) {
   {
     console.log(data)
     console.log("Publicado");
+    $('.status').text('Publicado');
     firtTime();
   })
   .fail(function(err){
     console.log(err);
+    $('.status').text('Error al publicar');
   });
 }
 
@@ -143,8 +138,8 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   //url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
-   url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
+   url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
+   // url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
@@ -155,9 +150,11 @@ function newSearchName() {
       console.log(data);
       if(data.length == 0){
         $.alert("No se obtuvieron resultados");
+        $('.status').text('No se obtuvieron resultados');
         document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
         $("#alertN").text("Aceptar");
       } else {
+        $('.status').text('Busqueda completada');
         setPost(data);
       }
     }
@@ -165,6 +162,7 @@ function newSearchName() {
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
+    $('.status').text('Error en la busqueda');
   });
 }
 
@@ -175,8 +173,8 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    //url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
-    url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
+    url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
+    // url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
   .done(function(response)
@@ -187,25 +185,30 @@ function newSearchDate() {
       if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
        // $('#message_error_date').html(data[0]);
        $.alert(data[0]);
+       $('.status').text(data[0]);
        document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
        $("#alertN").text("Aceptar");
      }else if(data.length == 0){
         // $('#message_error_date').html('No se obtuvieron resultados');
         $.alert("No se obtuvieron resultados");
+        $('.status').text('No se obtuvieron resultados');
         document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
         $("#alertN").text("Aceptar");
       } else {
         $('#message_error_date').html("");
+        $('.status').text('Busqueda completada');
         console.log(data);
         setPost(data);
       }
 
     }else{ // Error desde el servidor
         console.log(response.data);
+        $('.status').text('Error en la busqueda');
       }
   })
   .fail(function(err){
     console.log(err);
+    $('.status').text('Error en la busqueda');
   });
 }
 
