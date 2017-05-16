@@ -235,6 +235,11 @@
 
 						// Set background.
 						$image.css('background-image', 'url(' + $image_img.attr('src') + ')');
+						$image.css('-webkit-background-size', 'cover');
+						$image.css('-moz-background-size', 'cover');
+						$image.css('-o-background-size', 'cover');
+						$image.css('background-size', 'Auto 90%');
+
 
 						// Set background position.
 						if (x = $image_img.data('position'))

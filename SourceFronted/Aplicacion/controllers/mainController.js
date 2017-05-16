@@ -30,7 +30,6 @@ class MainController {
 function setPost(data) {
   for (var i in data) {
     var post = data[i];
-    console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#main").append('<article class="thumb">' +
@@ -72,8 +71,6 @@ function newPost(txtFilter) {
   $("#name").val(txtFilter);
   
   post = new FormData($("#new")[0]);
-  //post = new FormData(post);
-  //console.log(post);  
   $.ajax({
    type: "POST",
    url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
@@ -216,7 +213,6 @@ function archivo(evt) {
              name = name + " " + txtFilter.filterText[index];
            }
            newPost(name);
-           document.getElementById("close").click();
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
