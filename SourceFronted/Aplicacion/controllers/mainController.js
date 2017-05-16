@@ -140,14 +140,21 @@ function newPost(txtFilter, user) {
    contentType: false,
    processData: false
  })
-  .done(function(data)
+  .done(function(response)
   {
-    console.log(data)
-    console.log("Publicado");
-    $('.status').text('Publicado');
-    var $panels = $('.panel');
-    $panels.trigger('---hide');
-    firtTime();
+    response = JSON.parse(response);
+    console.log(response);
+    data = response.data;
+    if(response.status == 'success'){
+      console.log(data)
+      console.log("Publicado");
+      $('.status').text('Publicado');
+      var $panels = $('.panel');
+      $panels.trigger('---hide');
+      firtTime();
+    }else{
+      $('.status').html(data);
+    }
   })
   .fail(function(err){
     console.log(err);
@@ -168,6 +175,7 @@ function newSearchName() {
  })
   .done(function(response)
   {
+    console.log(response);
     if(response.status == 'success'){
       data = response.data;
       console.log(data);
