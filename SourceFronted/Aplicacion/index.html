@@ -21,7 +21,7 @@
 			<nav>
 				<ul>
 					<li>
-						<button href="#footer">
+						<button href="#footer-search_name">
 							<span class="search_name icon fa-search"></span>
 						</button>
 						<br>
@@ -110,6 +110,50 @@
 			</div>
 		</footer>
 
+		<!-- footer-search_name -->
+		<footer id="footer-search_name" class="panel">
+			<div class="inner split">
+				<div>
+					<section>
+						<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
+						<h2 class="title"></h2>
+						<p class="description"></p>
+					</section>
+					<section>
+						<ul class="icons">
+							<ul class="icons">
+								<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+								<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+								<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</ul>
+					</section>
+					<p class="copyright">&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">shellsystem</a>.</p>
+					<ul class="icons">
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+						</li>
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<section>
+						<h2 class="search_name"></h2>
+						<form method="post" action="#" onsubmit="newSearchName(); return false">
+							<div class="field first">
+								<input type="text" id="search_input" name="search">
+							</div>
+							<ul class="actions">
+								<li><input class="search_button special" type="submit"></li>
+							</ul>							
+						</form>
+					</section>
+				</div>
+			</div>
+		</footer>
+
 		<!-- footer-search_date -->
 		<footer id="footer-search_date" class="panel">
 			<div class="inner split">
@@ -140,35 +184,22 @@
 				</div>
 				<div>
 					<section>
-						<h2>
-							<span class="title_modal_new"></span>  
-							<span class="sutitle_modal_new"></span>
-						</h2>
-						<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
-							<hr>
+						<h2 class="search_date"></h2>
+						<div class="w3-panel w3-red"><p id="message_error_date"></p></div>
+						<form method="post" action="#" onsubmit="newSearchDate(); return false">
 							<div class="field first">
-								<!-- DRAG&DROP INTERACTIVO - ERROR CON PLANTILLA PENDIENTE -->
-								<!-- <div id="drop-zone">
-									<span class="photo"></span>
-									<div id="clickHere">
-										<input type="file" name="img" id="img" required/>
-										<i class="icon fa-upload" aria-hidden="true"></i>
-									</div>
-								</div> -->
-								<label class="photo" for="img"></label>
-								<input type="file" name="img" id="img" required/>
+								<span class="start_date"></span>
+								<input type="text" id="startRange" name="startRange" required>
 							</div>
-							<output id="list"></output>
-							<div class="field">
-								<label class="contact_label" for="contact"></label>
-								<textarea id="contact" name="contact" rows="5" required></textarea>
-								<input type="text" name="name" id="name">		
-								<input type="text" name="probability" id="probability">
+							<div class="field first">
+								<span class="end_date"></span>
+								<input type="text" id="endRange" name="endRange" required>
 							</div>
 							<ul class="actions">
-								<li><input type="submit" class="send_button special" /></li>
-							</ul>								
-						</form>
+								<li><input class="search_button special" type="submit"></li>
+							</ul>
+							
+						</form>	
 					</section>
 				</div>
 			</div>
