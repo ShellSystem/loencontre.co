@@ -48,6 +48,22 @@ function setPost(data) {
   return true;
 }
 
+function setPostAfter(data) {
+  $("#main").html("");
+  for (var i in data) {
+    var post = data[i];
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p>'+post.contact+'</p>' +
+      '</article>');    
+  }
+  setMain();
+  return true;
+}
+
 function firtTime() {
   $.ajax({
     dataType: "json",
@@ -155,7 +171,7 @@ function newSearchName() {
         $("#alertN").text("Aceptar");
       } else {
         $('.status').text('Busqueda completada');
-        setPost(data);
+        setPostAfter(data);
       }
     }
   })
@@ -198,7 +214,7 @@ function newSearchDate() {
         $('#message_error_date').html("");
         $('.status').text('Busqueda completada');
         console.log(data);
-        setPost(data);
+        setPostAfter(data);
       }
 
     }else{ // Error desde el servidor
