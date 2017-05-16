@@ -1,138 +1,245 @@
 <!DOCTYPE HTML>
-<html lang="es">
+<html>
 <head>
-	<title id="title"></title>
+	<title class="title"></title>
 	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" type="image/x-icon" href="images/favicon.png" >
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="icon" type="image/x-icon" href="images/favicon.png" >
 	<link rel="stylesheet" href="assets/css/main.css" />
-	<link rel="stylesheet" href="assets/css/dragdrop.css" />
-	<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	<!-- <link rel="stylesheet" href="assets/css/dragdrop.css" /> -->
+	<link rel="stylesheet" href="assets/css/style-own.css" />
 </head>
-<!--<body class="is-loading-0 is-loading-1 is-loading-2">-->
-<body class="">
+<body>
+<script>
+  window.onload = function() {
+    FB.init({
+      appId      : '238624763288222',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();    
+  };
 
-	<!-- Main -->
-	<div id="main">
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+ 	
+ 	
+</script>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
 
 		<!-- Header -->
 		<header id="header">
-			<a href="../"><img src="images/logo.png" alt="Logo de loencontre.co" width="344" height="130"></a>
-			<!-- <p id="description"></p> -->
-			<!-- <ul class="icons">
-				<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
-				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
-				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-			</ul> -->
-			<br>
-			<button onclick="parent.location='#miModal'">
-				<span id="newLink" class="icon fa-plus"></span>
-			</button> 
-			<hr>
-			<h3 id="search_name" style="cursor: pointer; cursor: hand;"></h3>
-			<div class="collapse">
-				<form method="post" action="#" onsubmit="newSearchName(); return false">
-					<input type="search" id="search_input" name="search">
-				</form>
-			</div>
-			<hr>
-			<h3 id="search_date" style="cursor: pointer; cursor: hand;"></h3>
-			<div class="collapse">
-				<div class="w3-panel w3-red"><p id="message_error_date"></p></div>
-				<form method="post" action="#" onsubmit="newSearchDate(); return false">
-					<span id="start_date"></span><input type="text" id="startRange" name="startRange" required>
-					<span id="end_date"></span><input type="text" id="endRange" name="endRange" required>
-					<input id="search_button" type="submit">
-				</form>	
-			</div>
-			<hr>
+			<h1><a href="/"><strong>loencontre.co</strong> by ShellSystem</a></h1>
+			<nav>
+				<ul>
+					<li>
+						<button href="#footer-search_name">
+							<span class="search_name icon fa-search"></span>
+						</button>
+						<br>
+					</li>
+					<li>
+						<button href="#footer-search_date">
+							<span class="search_date icon fa-search"></span>
+						</button>
+						<br>
+					</li>
+					<li>
+						<button href="#footer-newLink">
+							<span class="newLink icon fa-plus"></span>
+						</button>
+						<br>
+					</li>
+					<br>
+				</ul>
+			</nav>
 		</header>
-		<body>
-			<!-- Thumbnail -->
-			<section id="thumbnails">
-				<!--Modal Contacto-->
-				<div id="ex1" style="display:none;">
-					<p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
-				</div>
-			</section>
-			<section id="pagination-here"></section>
+		<!-- Main -->
+		<div id="main">			
+		</div>
 
-
-
-		</body>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<ul class="icons">
-				
-			</ul>
-			<ul class="copyright">
-				<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
-				<li><a href="https://github.com/larry852/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
-				<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-				<li>&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</li>
-				<li>
-					<a href="#" onclick="setLanguage('es');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ESP </a>
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<a href="#" onclick="setLanguage('en');return false;"><i class="fa fa-language"></i>&nbsp;&nbsp;ENG </a>
-				</li>
-			</ul>
-		</footer>	
-
-		<!--Modal Agregar publicación-->
-		<div id="miModal" class="modal">
-			<div class="modal-contenido">
-				<a id="close" href="#">X</a>
-				<h2 id="title_modal_new"></h2>
-				<h2 id="sutitle_modal_new"></h2>
-				<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">
-					<div class="field half first">
-						<div id="drop-zone">
-								Foto (*)
-							<div id="clickHere">
-								<input type="file" name="img" id="img" required/>
-								<i class="icon fa-upload" aria-hidden="true"></i>
-							</div>
-						</div>
-					</div>
-					<output id="list"></output>
-					<!-- <div class="field half first">
-						<label for="date">Fecha (*)</label>
-						<input type="date" name="date" id="date" required/>
-					</div> -->
-					<div class="field half first">
-						<label id="contact_label" for="contact"></label>
-						<textarea id="contact" name="contact" rows="3" required></textarea>
-						<input type="text" name="name" id="name">			
-						<input type="text" name="probability" id="probability">
-					</div>
-					<!-- <div class="field">
-						<label for="message">Mensaje</label>
-						<textarea name="message" id="message" rows="4"></textarea>
-					</div> -->
-					<ul class="actions">
-						<li><input type="submit" id="send_button" class="special" /></li>
+		<!-- footer-newLink -->
+		<footer id="footer-newLink" class="panel">
+			<div class="inner split">
+				<div>
+					<section>
+						<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
+						<h2 class="title"></h2>
+						<p class="description"></p>
+					</section>
+					<section>
+						<ul class="icons">
+							<ul class="icons">
+								<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+								<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+								<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</ul>
+					</section>
+					<p class="copyright"><a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</p>
+					<ul class="icons">
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+						</li>
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+						</li>
 					</ul>
-				</form>
-			</div>  
-		</div>
-		<!--Modal contacto-->
-		<div id="miModalContact" class="modal">
-			<div class="modal-contenido">
-				<a id="close" href="#">X</a>
-				<h2 id="title_modal_contact"></h2>
-				<h2 id="sutitle_modal_contact"></h2>
-				<h1 id="textContact"></h1>
-			</div>  
-		</div>
+				</div>
+				<div>
+					<section>
+						<h2>
+							<span class="title_modal_new"></span>  
+							<span class="sutitle_modal_new"></span>
+						</h2>
+						<!--<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">-->
+						<form method="post" action="#" id="new" onsubmit="newPostAction(); return false"  enctype="multipart/form-data">
+							<hr>
+							<div class="field first">
+								<!-- DRAG&DROP INTERACTIVO - ERROR CON PLANTILLA PENDIENTE -->
+								<!-- <div id="drop-zone">
+									<span class="photo"></span>
+									<div id="clickHere">
+										<input type="file" name="img" id="img" required/>
+										<i class="icon fa-upload" aria-hidden="true"></i>
+									</div>
+								</div> -->
+								<label class="photo" for="img"></label>
+								<input type="file" name="img" id="img" required/>
+							</div>
+							<output id="list"></output>
+							<div class="field">
+								<label class="contact_label" for="contact"></label>
+								<textarea id="contact" name="contact" rows="5" required></textarea>
+								<input type="text" name="name" id="name">		
+								<input type="text" name="probability" id="probability">
+								<input type="text" name="user_id" id="user_id">
+								<input type="text" name="user_name" id="user_name">
+								<input type="text" name="user_email" id="user_email">
+
+							</div>
+							<ul class="actions">
+								<li><input type="submit" class="special send_button" /></li>
+							</ul>								
+						</form>
+
+					</section>
+				</div>
+			</div>
+		</footer>
+				<input type="button" name="" value="Cerrar sesión en Facebook" onclick="exitFacebook()">
+
+		<!-- footer-search_name -->
+		<footer id="footer-search_name" class="panel">
+			<div class="inner split">
+				<div>
+					<section>
+						<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
+						<h2 class="title"></h2>
+						<p class="description"></p>
+					</section>
+					<!-- <section>
+						<ul class="icons">
+							<ul class="icons">
+								<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+								<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+								<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</ul>
+					</section> -->
+					<!-- <p class="copyright">&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">shellsystem</a>.</p> -->
+					<ul class="icons">
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+						</li>
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<section>
+						<h2 class="search_name"></h2>
+						<form method="post" action="#" onsubmit="newSearchName(); return false">
+							<div class="field first">
+								<input type="text" id="search_input" name="search">
+							</div>
+							<ul class="actions">
+								<li><input class="search_button special" type="submit"></li>
+							</ul>							
+						</form>
+					</section>
+				</div>
+			</div>
+		</footer>
+
+		<!-- footer-search_date -->
+		<footer id="footer-search_date" class="panel">
+			<div class="inner split">
+				<div>
+					<section>
+						<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
+						<h2 class="title"></h2>
+						<p class="description"></p>
+					</section>
+					<!-- <section>
+						<ul class="icons">
+							<ul class="icons">
+								<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+								<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+								<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+							</ul>
+						</ul>
+					</section>
+					<p class="copyright">&copy; loencontre.co - <a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">shellsystem</a>.</p> -->
+					<ul class="icons">
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+						</li>
+						<li>
+							<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<section>
+						<h2 class="search_date"></h2>
+						<div class="w3-panel w3-red"><p id="message_error_date"></p></div>
+						<form method="post" action="#" onsubmit="newSearchDate(); return false">
+							<div class="field first">
+								<span class="start_date"></span>
+								<input type="text" id="startRange" name="startRange" required>
+							</div>
+							<div class="field first">
+								<span class="end_date"></span>
+								<input type="text" id="endRange" name="endRange" required>
+							</div>
+							<ul class="actions">
+								<li><input class="search_button special" type="submit"></li>
+							</ul>
+							
+						</form>	
+					</section>
+				</div>
+			</div>
+		</footer>
 	</div>
 
 	<!-- Scripts -->
 	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.poptrox.min.js"></script>
 	<script src="assets/js/skel.min.js"></script>
+	<script src="assets/js/util.js"></script>
 	<script src="assets/js/jquery.bootpag.min.js"></script>
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<!--<script src="controllers/dataBase.js"></script>-->
 	<script src="assets/js/jquery.i18n.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="assets/js/jquery.msgbox.min.js"></script>
@@ -141,8 +248,8 @@
 	<script src="assets/js/language/init.js"></script>
 	<script src="assets/js/main.js"></script>			
 	<script src="controllers/mainController.js"></script>
-	<script src="assets/js/collapse.js"></script>
 	<script src="assets/js/datepicker.js"></script>
-	<script src="assets/js/dragdrop.js"></script>
+	<!-- <script src="assets/js/dragdrop.js"></script> -->
+
 </body>
 </html>

@@ -49,7 +49,7 @@ class PostController extends Controller{
   }
   
   public function addPost(Request $request){
-    #return $request->input();    
+    //return $request->input();    
     $return = array();
     if ($this->validation($request->input()) == 1){
       $post = new Post();
