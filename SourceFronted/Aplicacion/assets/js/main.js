@@ -6,7 +6,6 @@
 
 	function initScript(){
 		(function($) {
-
 			skel.breakpoints({
 				xlarge: '(max-width: 1680px)',
 				large: '(max-width: 1280px)',
@@ -34,12 +33,15 @@
 
 				// Add (and later, on load, remove) "loading" class.
 				$body.addClass('loading');
+				window.setTimeout(function() {
+					$body.removeClass('loading');
+				}, 100);
 
-				$window.on('load', function() {
-					window.setTimeout(function() {
-						$body.removeClass('loading');
-					}, 100);
-				});
+				// $window.on('load', function() {
+				// 	window.setTimeout(function() {
+				// 		$body.removeClass('loading');
+				// 	}, 100);
+				// });
 
 				// Prevent transitions/animations on resize.
 				var resizeTimeout;

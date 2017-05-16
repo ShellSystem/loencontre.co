@@ -10,14 +10,14 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "/loencontre.co/SourceBackend/pagination"
+      url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -30,6 +30,7 @@ class MainController {
 function setPost(data) {
   for (var i in data) {
     var post = data[i];
+    console.log(post);
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     $("#main").append('<article class="thumb">' +
@@ -53,7 +54,7 @@ function setPost(data) {
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
@@ -75,7 +76,7 @@ function newPost(txtFilter) {
   //console.log(post);  
   $.ajax({
    type: "POST",
-   url: "/loencontre.co/SourceBackend/add-post",
+   url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
    processData: false
@@ -96,7 +97,7 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   url: "/loencontre.co/SourceBackend/search-name?name=" + search,
+   url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
@@ -124,7 +125,7 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "/loencontre.co/SourceBackend/date-range?startRange",
+    url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
   .done(function(data)
