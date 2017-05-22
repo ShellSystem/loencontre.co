@@ -16,7 +16,7 @@ class UnitTest extends TestCase
     }
 
     public function testValidSearchPostByName(){
-        $response = $this->call('POST', '/search-name?name=')->getContent();
+        $response = $this->call('POST', '/search-name?name=maria')->getContent();
         $response = json_decode($response);
         $status = $response->status;
         $this->assertEquals($status, 'success');
