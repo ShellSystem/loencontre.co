@@ -20,5 +20,7 @@ Route::get('date-range', 'PostController@dateRange');
 Route::any('add-post', 'PostController@addPost');
 Route::any('search-name', 'PostController@searchName');
 
+Route::any('prueba', 'PostController@prueba');
+
 //rutas, postcontroller
 Auth::routes();

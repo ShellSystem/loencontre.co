@@ -14,6 +14,10 @@ class MainController extends Controller{
     	  $archivo = Storage::get('files/post.txt');
     }
 
+    public function sisas(){
+    	echo "sisas";
+    }
+
    
 
 }
