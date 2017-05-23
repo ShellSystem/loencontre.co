@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Storage;
 
 use goodfirmLaravel\Http\Requests;
 use App\Post;
+use App\User;
 use Validator;
 
 
+
 class PostController extends Controller{
+
+  public function prueba(){
+    $usuario = new User();
+    $usuario->prueba();
+  }
 
   public $postAmountPerPage = 6;
 
@@ -47,61 +54,18 @@ class PostController extends Controller{
       return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
     }
   }
-  
-  public function addPost(Request $request){
-    //return $request->input();    
-    $return = array();
-    if ($this->validation($request->input()) == 1){
-      $post = new Post();
-      $post->name = $request->name;
-     
-      $post->date = date('Y/m/d');
-      $post->contact = $request->contact;
-      //return json_encode($post->date);
 
-      if ($request->file('img') != null && $request->file('img')->isValid()) { # Si es valida, se guarda
-        
-        $imagen = $request->img;
-        $nombreImagen = $imagen->getClientOriginalName();
-        $rutaDestino = 'images'.'/'.$nombreImagen;
-        $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
-        
-        if($resultado){ # Se guardó correctamente
-            $post->image = $nombreImagen;
-            
-        }else{
-          return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
-        }  
-      }else{ # imagen no valida
-          return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
-      }
-      
-      if(!$this->repeated($post->name)){# No hay un post con el mismo link
-        $post->save();
-        return json_encode(['status' => 'success', 'data' => '1']);
-      }else{
-        return json_encode(['status' => 'error', 'data' => 'Ya existe una publicacion con el mismo nombre']);  
-      }
-      
-    }else{
-      array_push($return, ($this->validation($request->input())));
-      }
-    return json_encode(['status' => 'error', 'data' => $return]);
-  }
-  
-  public function validation($post){    
-    $imagenesPermitidas = 'jpg,jpeg,bmp,png,pdf,gif';
-    $maximoTamanoImagen = 3000;
+
+  public function userValidation($post){    
     $reglas = [             
      // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
-      'name' => 'required',
-    //  'date' => 'required | date',      
-      'contact' => 'required',      
+      'user_id' => 'required',
+      'user_name' => 'required',
+      'user_email' => 'required',
+
     ];
     $mensajes = [  
-      'required' => 'El campo :attribute no puede estar vacio',
-      'alpha_dash' => 'El atributo :attribute contiene caracteres inaceptados',
-      'date' => 'La fecha debe ser una fecha valida '
+      'required' => 'Error al conectar con facebook'
     ];
     $validator = Validator::make($post, $reglas, $mensajes);       
     if ($validator->fails()) {
@@ -111,6 +75,100 @@ class PostController extends Controller{
     else{
       return 1;
     }
+  }
+
+
+  public function userVerification(Request $request){
+
+    if ($this->validation($request->input()) == 1){
+
+      $user = User::find($request->user_id);
+
+      if (is_null($user)) { // No existe
+        $user = new User();
+        $user->id = $request->user_id;
+        $user->name = $request->user_name;
+        $user->email = $request->user_email;
+        $user->save();
+      }
+      return $user;
+
+    }else{
+      return null;
+      }
+
+  }
+  
+  public function addPost(Request $request){
+    //return $request->input();    
+    $user = ($this->userVerification($request));
+
+    if (is_null($user)) { // Error con usuario
+      return json_encode( ( $this->userValidation( $request->input() ) ) );
+
+
+    }else{  // Todo bien con usuario
+
+      $return = array();
+      if ($this->validation($request->input()) == 1){ // VAlida post
+        $post = new Post();
+        $post->name = $request->name;
+       
+        $post->date = date('Y/m/d');
+        $post->user_id = $request->user_id;
+        //return json_encode($post->date);
+
+        if ($request->file('img') != null && $request->file('img')->isValid()) { # Si es valida, se guarda
+          
+          $imagen = $request->img;
+          $nombreImagen = $imagen->getClientOriginalName();
+          $rutaDestino = 'images'.'/'.$nombreImagen;
+          $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
+          
+          if($resultado){ # Se guardó correctamente
+              $post->image = $nombreImagen;
+              
+          }else{
+            return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
+          }  
+        }else{ # imagen no valida
+            return json_encode(['status' => 'error', 'data' => "Error en la imagen"]);
+        }
+        
+        if(!$this->repeated($post->name)){# No hay un post con el mismo link
+          $post->save();
+          return json_encode(['status' => 'success', 'data' => '1']);
+        }else{
+          return json_encode(['status' => 'error', 'data' => 'Ya existe una publicacion con el mismo nombre']);  
+        }
+        
+      }else{
+        array_push($return, ($this->validation($request->input())));
+        }
+      return json_encode(['status' => 'error', 'data' => $return]);
+    }
+  }
+    
+    public function validation($post){    
+      $imagenesPermitidas = 'jpg,jpeg,bmp,png,pdf,gif';
+      $maximoTamanoImagen = 3000;
+      $reglas = [             
+       // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
+        'name' => 'required'    
+
+      ];
+      $mensajes = [  
+        'required' => 'Error al varidar la imagen',
+      ];
+      $validator = Validator::make($post, $reglas, $mensajes);       
+      if ($validator->fails()) {
+        $errores = $validator->errors()->all();           
+        return($errores);
+      }
+      else{
+        return 1;
+      }
+
   }
   
 
