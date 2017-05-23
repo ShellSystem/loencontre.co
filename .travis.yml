@@ -18,8 +18,10 @@ addons:
 
 before_script:
   - php SourceBackend/laravel/artisan key:generate
-  - mysql -e 'create database goodfirm_entregas;'
-  - mysql goodfirm_entregas < goodfirm_entregas.sql
+  #- mysql -e 'create database goodfirm_entregas;'
+  - mysql -e 'create database loencontre;'
+  #- mysql goodfirm_entregas < goodfirm_entregas.sql
+  - mysql loencontre < loencontre.sql
 
 script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/UnitTest
