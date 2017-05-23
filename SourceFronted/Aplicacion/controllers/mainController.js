@@ -121,7 +121,8 @@ function exitFacebook(){
 
 
 function newPost(txtFilter, user) {
-  console.log(user);
+  //console.log("veamos " + txtFilter);
+  //console.log(user);
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();

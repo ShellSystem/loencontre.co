@@ -55,7 +55,7 @@ class UnitTest extends TestCase
         $this->assertEquals($response->status, 'error');
     }
 
-    public function testAddPost(){
+   /* public function testAddPost(){
         $name = 'Prueba';
         $contact = 'facabook';
         $img = 'no tiene';
@@ -67,6 +67,6 @@ class UnitTest extends TestCase
                                 )->getContent();
         $response = json_decode($response);
         $this->assertEquals($response->status, 'error');
-    }
+    }*/
 
 }
