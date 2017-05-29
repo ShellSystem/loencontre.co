@@ -40,11 +40,20 @@ function setPost(data) {
     var post = data[i];
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    $("#main").append('<article class="thumb">' +
-      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-      '<p>'+post.contact+'</p>' +
-      '</article>');    
+    if (post.user) {
+      $("#main").append('<article class="thumb">' +
+        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+        '<a href="http://facebook.com/'+post.user_id+'"> Ver contacto en Facebook</a>' +
+        '</article>'); 
+    }else{
+      $("#main").append('<article class="thumb">' +
+        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+        '<p> Anonimo </p>' +
+        '</article>'); 
+    }
+    console.log("isas");
   }
   initScript();
   return true;
@@ -56,11 +65,19 @@ function setPostAfter(data) {
     var post = data[i];
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    $("#main").append('<article class="thumb">' +
-      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-      '<p>'+post.contact+'</p>' +
-      '</article>');    
+    if (post.user) {
+      $("#main").append('<article class="thumb">' +
+        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+        '<h2>aaa'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+        '<a href="http://facebook.com/'+post.user_id+'"> Ver contacto en Facebook</a>' +
+        '</article>');
+    }else{
+      $("#main").append('<article class="thumb">' +
+        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+        '<p> Anonimo </p>' +
+        '</article>'); 
+    }
   }
   setMain();
   return true;

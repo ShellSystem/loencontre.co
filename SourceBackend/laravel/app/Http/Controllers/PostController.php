@@ -45,7 +45,12 @@ class PostController extends Controller{
           } 
         } # Termina el recorrido
         if($cantidadCoincidencias == 1 && sizeof($nombrePeticion) == 1 || $cantidadCoincidencias == sizeof($nombrePeticion)){ # la peticion solo tiene un nombre y existe conicidencia, o coinciden todos los nombres
-          $post->image = asset('/laravel/storage/app/images/'.$post->image);  
+          $post->image = asset('/laravel/storage/app/images/'.$post->image); 
+
+          $user = User::find($post->user_id);
+          if (!is_null($user)) {
+            $post->user = $user;
+          }
           array_push($resultado, $post);
         }
       }
@@ -216,6 +221,7 @@ class PostController extends Controller{
       return [1, $post];
     }
   }
+
   
   public function getPage(Request $request){   
     #return  json_encode($request->input());
@@ -239,6 +245,12 @@ class PostController extends Controller{
             break;
           }
           $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image);
+
+          $user = User::find($posts[$i]->user_id);
+          if (!is_null($user)) {
+            $posts[$i]->user = $user;
+          }
+          //$posts[$i]->severo = "sias";
           array_push($return, $posts[$i]);
         }
         return json_encode($return);
@@ -272,6 +284,11 @@ class PostController extends Controller{
         
         for ($i=0; $i < sizeof($posts); $i++) { 
           $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image);
+
+          $user = User::find($posts[$i]->user_id);
+          if (!is_null($user)) {
+            $posts[$i]->user = $user;
+          }
         }
         
         
