@@ -4,5 +4,3 @@ Aplicativo web para búsqueda de propietarios de carnés extraviados.
 
 - [Aplicación](http://loencontre.co/)
 - [Medium](https://medium.com/@entregascontinuas)
-
-prueba
