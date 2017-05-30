@@ -14,8 +14,13 @@ Este documento no es una copia del texto de los commits realizados sobre el cód
 ## [Unreleased]
 
 
-### Added 
-- 
+### Added
+- Nuevo diseño de interfaz para la aplicacion principal
+- Distribucion de funciones de busqueda y nueva publicacion
+- Simplificacion del formulario de nueva publicacion
+- Obtencion de datos de contacto mediante login con facebook en el aplicativo
+- Cambio de servidor, que permite cargas mas rapidas del cotenido
+- Integracion y despliegue continuo sobre el servidor mediante travis
 
 ### Changed
 - Opciones de búsqueda desplegables

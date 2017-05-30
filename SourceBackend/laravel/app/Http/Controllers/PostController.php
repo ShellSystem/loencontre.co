@@ -324,4 +324,3 @@ class PostController extends Controller{
 
 }
 
-
