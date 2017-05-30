@@ -28,14 +28,14 @@ script:
 - SourceBackend/laravel/vendor/bin/phpunit SourceBackend/laravel/tests/IntegrationTest
 
 after_success:
-  - git clone https://github.com/entregascontinuas/loencontre.co.git
+  - git clone https://github.com/ShellSystem/loencontre.co
   - cd loencontre.co
   - git config --global user.email $EMAIL_GITHUB
   - git config --global user.name $USER_GITHUB
   - git merge origin/development -m "Integración desde Travis CI"
   - git add .
   - git commit -m "Integración desde Travis CI"
-  - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/entregascontinuas/loencontre.co.git
+  - git remote set-url origin https://$USER_GITHUB:$PASS_GITHUB@github.com/ShellSystem/loencontre.co
   - git push origin master
   - sshpass -p $PASS_DEPLOY_SERVER ssh $USER_DEPLOY_SERVER@$IP_DEPLOY_SERVER -o StrictHostKeyChecking=no "./deploy.sh"
 
