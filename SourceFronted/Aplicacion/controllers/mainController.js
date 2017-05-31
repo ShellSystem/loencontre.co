@@ -41,19 +41,7 @@ function setPost(data) {
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     //console.log(post)
-    if (post.user) {
-      $("#main").append('<article class="thumb">' +
-        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> ¡Contactame para la devolución! </a></p>' +
-        '</article>'); 
-    }else{
-      $("#main").append('<article class="thumb">' +
-        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
-        '</article>'); 
-    }
+    addPost(post, options, fecha)
     //console.log("isas");
   }
   initScript();
@@ -66,22 +54,26 @@ function setPostAfter(data) {
     var post = data[i];
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    if (post.user) {
+    addPost(post, options, fecha)
+  }
+  setMain();
+  return true;
+}
+
+function addPost(post, options, fecha){
+  if (post.user) {
       $("#main").append('<article class="thumb">' +
         '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-        '<h2>aaa'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<a href="http://facebook.com/'+post.user_id+'"> Ver contacto en Facebook</a>' +
-        '</article>');
+        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+        '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> ¡Contactame para la devolución! </a></p>' +
+        '</article>'); 
     }else{
       $("#main").append('<article class="thumb">' +
         '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
         '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p> Anonimo </p>' +
+        '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
         '</article>'); 
     }
-  }
-  setMain();
-  return true;
 }
 
 function firtTime() {
