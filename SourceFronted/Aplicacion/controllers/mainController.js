@@ -141,13 +141,15 @@ function exitFacebook(){
 function newPost(txtFilter, user) {
   //console.log("veamos " + txtFilter);
   //console.log(user);
+  if(txtFilter.length == 0){
+    txtFilter = 'NN';
+  }
   var post = {};
   post.contact = $("#contact").val();
   var d = new Date();
   post.date = d.toString();
   post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
-  
   $("#name").val(txtFilter);
   $("#user_id").val(user.id);
   $("#user_name").val(user.name);
@@ -199,10 +201,10 @@ function newSearchName() {
  })
   .done(function(response)
   {
-    console.log(response);
+    //console.log(response);
     if(response.status == 'success'){
       data = response.data;
-      console.log(data);
+      //console.log(data);
       if(data.length == 0){
         //$.alert("No se obtuvieron resultados");
         $('.status').text('No se obtuvieron resultados');
@@ -211,6 +213,11 @@ function newSearchName() {
       } else {
         $('.status').text('Busqueda completada');
         setPostAfter(data);
+      }
+    } else {
+      responseB = response.data;
+      if(responseB == 'Incorrect parameter'){
+        $('.status').text('Error no esperado '+responseB);
       }
     }
   })
