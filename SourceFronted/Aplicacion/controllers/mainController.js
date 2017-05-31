@@ -13,8 +13,8 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: "/loencontre.co/SourceBackend/pagination"
-      // url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
+      //url: "/loencontre.co/SourceBackend/pagination"
+       url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
       // url: "http://localhost/loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
@@ -22,8 +22,8 @@ class MainController {
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
-          // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          //url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
+           url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
           // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
@@ -40,20 +40,21 @@ function setPost(data) {
     var post = data[i];
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    console.log(post)
     if (post.user) {
       $("#main").append('<article class="thumb">' +
         '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
         '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<a href="http://facebook.com/'+post.user_id+'"> Ver contacto en Facebook</a>' +
+        '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> Ver contacto en Facebook</a></p>' +
         '</article>'); 
     }else{
       $("#main").append('<article class="thumb">' +
         '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
         '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p> Anonimo </p>' +
+        '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
         '</article>'); 
     }
-    console.log("isas");
+    //console.log("isas");
   }
   initScript();
   return true;
@@ -86,8 +87,8 @@ function setPostAfter(data) {
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
-    // url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    //url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
+     url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
     // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
@@ -155,8 +156,8 @@ function newPost(txtFilter, user) {
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
-   url: "/loencontre.co/SourceBackend/add-post",
-   // url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
+   //url: "/loencontre.co/SourceBackend/add-post",
+    url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
    // url: "http://localhost/loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
@@ -190,8 +191,8 @@ function newSearchName() {
   console.log(search);
   $.ajax({
    type: "POST",
-   url: "/loencontre.co/SourceBackend/search-name?name=" + search,
-   // url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
+   //url: "/loencontre.co/SourceBackend/search-name?name=" + search,
+    url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
    // url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
@@ -227,8 +228,8 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    url: "/loencontre.co/SourceBackend/date-range?startRange",
-    // url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
+    //url: "/loencontre.co/SourceBackend/date-range?startRange",
+     url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
     // url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
