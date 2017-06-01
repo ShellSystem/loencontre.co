@@ -287,11 +287,15 @@ function archivo(evt) {
               });
             });
             txtFilter = pln(txtMicrosoft);
+            // variable que tiene los nombres para realizar posibles combinaciones
+            var nameDetect = txtFilter.filterText;
             var name = "";
             for (var index = 0; index < txtFilter.filterText.length; index++) {
              name = name + " " + txtFilter.filterText[index];
            }
            newPost(name, user);
+           // Metodo que inicia la obtencion de candidatos dueños de facebook
+            //getMembersFacebook();
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
