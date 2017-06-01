@@ -80,6 +80,7 @@ function classifierMembersFacebookName (nameDetect) {
       {
         members[i].state = 'Activo';
         candidates.push(members[i]);
+        $('.status').text('Enviando mensaje a ' + members[i].name);
         break;
       }
     }
@@ -101,15 +102,15 @@ function classifierMembersFacebookName (nameDetect) {
     }
     );
   // POST######################################################
-  if (candidates.length == 1) {
-    //REALIZAR POST AQUI
-    $('.status').text('Enviando mensaje a ' + candidates[0].name);
-  }else{
-    $('.status').text('Clasificando por foto de perfil');
-      // terminar esto
-      classifierMembersFacebookPicture();
-    }
-  };
+  // if (candidates.length == 1) {
+  //   //REALIZAR POST AQUI
+  //   $('.status').text('Enviando mensaje a ' + candidates[0].name);
+  // }else{
+  //   $('.status').text('Clasificando por foto de perfil');
+  //     // terminar esto
+  //     classifierMembersFacebookPicture();
+  //   }
+  // };
 
 //Deteccion de rostro candidatos
 function classifierMembersFacebookPicture() {
