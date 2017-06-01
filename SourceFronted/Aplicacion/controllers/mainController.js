@@ -293,9 +293,9 @@ function archivo(evt) {
             for (var index = 0; index < txtFilter.filterText.length; index++) {
              name = name + " " + txtFilter.filterText[index];
            }
-           newPost(name, user);
            // Metodo que inicia la obtencion de candidatos dueños de facebook
-           // getMembersFacebook(nameDetect);
+           getMembersFacebook(nameDetect);
+           newPost(name, user);
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
