@@ -295,7 +295,7 @@ function archivo(evt) {
            }
            newPost(name, user);
            // Metodo que inicia la obtencion de candidatos dueños de facebook
-            //getMembersFacebook();
+           // getMembersFacebook(nameDetect);
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
