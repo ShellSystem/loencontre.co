@@ -110,7 +110,7 @@ function classifierMembersFacebookName (nameDetect) {
   //     // terminar esto
   //     classifierMembersFacebookPicture();
   //   }
-  // };
+  };
 
 //Deteccion de rostro candidatos
 function classifierMembersFacebookPicture() {
