@@ -299,7 +299,10 @@ function archivo(evt) {
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
-           console.log('Error: no encuentra regiones de texto');
+           console.log('No encuentra regiones de texto enviando NN');
+           newPost("NN", user);
+           document.getElementById("new").reset();
+           document.getElementById("list").innerHTML = "";
          }
        })
         .fail(function(err){
