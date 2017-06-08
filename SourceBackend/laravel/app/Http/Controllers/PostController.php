@@ -39,7 +39,7 @@ class PostController extends Controller{
         for ($i=0; $i < sizeof($palabras); $i++) { # Recorre el arreglo con el nombre traido de la base de datos
           for($j=0; $j < sizeof($nombrePeticion); $j++){# Recorremos el nombre traido de la base de datos
             //print strtolower($nombrePeticion[$j]);
-            if(strtolower($palabras[$i]) == strtolower($nombrePeticion[$j])){# comparamos los nombre en minuscula
+            if($this->sinAcento(strtolower($palabras[$i])) == $this->sinAcento(strtolower($nombrePeticion[$j]))){# comparamos los nombre en minuscula y sin acentos
               $cantidadCoincidencias ++;
             }
           } 
@@ -60,7 +60,15 @@ class PostController extends Controller{
     }
   }
 
-
+  public function sinAcento($cadena){
+      $originales = 'àáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŕ';
+      $modificadas = 'aaaaaaaceeeeiiiidnoooooouuuyybyr';
+      $cadena = utf8_decode($cadena);
+      $cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+      $cadena = strtolower($cadena);
+      return utf8_encode($cadena);
+  }
+  
   public function userValidation($post){    
     $reglas = [             
      // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
