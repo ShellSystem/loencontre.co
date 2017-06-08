@@ -178,13 +178,16 @@ class PostController extends Controller{
   
 
   public function repeated($name){// Determina si un post está guardado
-    $post = null;
-    $post = Post::where('name', $name)->first();       
-    if(is_null($post)){//no existe el post
-            return false;
-    }else{
-            return true;
+    if(strcasecmp($name, "NN") != 0){ //exceptua los NN para poderlos repetir
+      $post = null;
+      $post = Post::where('name', $name)->first();       
+      if(is_null($post)){//no existe el post
+              return false;
+      }else{
+              return true;
+      }
     }
+    return false;
   }
   
   public function postValidation($linea){#valida cuando se agrega por archivo
