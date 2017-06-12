@@ -156,10 +156,7 @@ function detectFaceMicrosft (index){
       candidates[index].faceId = data[0].faceId;
       verifyFaceMicrosft(faceId1, index);
     }
-<<<<<<< HEAD
-  };
 
-=======
   }
 })
   .fail(function(err){
@@ -196,4 +193,3 @@ function verifyFaceMicrosft (faceId1, index) {
     console.log(err);
   });
 };  
->>>>>>> 0c48d38c459097e42f925b6a1781b2c0dd93617b
