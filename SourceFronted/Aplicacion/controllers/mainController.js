@@ -304,13 +304,16 @@ function archivo(evt) {
             for (var index = 0; index < txtFilter.filterText.length; index++) {
              name = name + " " + txtFilter.filterText[index];
            }
-           newPost(name, user);
            // Metodo que inicia la obtencion de candidatos dueños de facebook
-            //getMembersFacebook();
+           getMembersFacebook(nameDetect);
+           newPost(name, user);
            document.getElementById("new").reset();
            document.getElementById("list").innerHTML = "";
          } else {
-           console.log('Error: no encuentra regiones de texto');
+           console.log('No encuentra regiones de texto enviando NN');
+           newPost("NN", user);
+           document.getElementById("new").reset();
+           document.getElementById("list").innerHTML = "";
          }
        })
         .fail(function(err){

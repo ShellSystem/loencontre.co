@@ -39,7 +39,7 @@ class PostController extends Controller{
         for ($i=0; $i < sizeof($palabras); $i++) { # Recorre el arreglo con el nombre traido de la base de datos
           for($j=0; $j < sizeof($nombrePeticion); $j++){# Recorremos el nombre traido de la base de datos
             //print strtolower($nombrePeticion[$j]);
-            if(strtolower($palabras[$i]) == strtolower($nombrePeticion[$j])){# comparamos los nombre en minuscula
+            if($this->sinAcento(strtolower($palabras[$i])) == $this->sinAcento(strtolower($nombrePeticion[$j]))){# comparamos los nombre en minuscula y sin acentos
               $cantidadCoincidencias ++;
             }
           } 
@@ -60,7 +60,15 @@ class PostController extends Controller{
     }
   }
 
-
+  public function sinAcento($cadena){
+      $originales = 'àáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŕ';
+      $modificadas = 'aaaaaaaceeeeiiiidnoooooouuuyybyr';
+      $cadena = utf8_decode($cadena);
+      $cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+      $cadena = strtolower($cadena);
+      return utf8_encode($cadena);
+  }
+  
   public function userValidation($post){    
     $reglas = [             
      // 'img' => 'mimes:'.$imagenesPermitidas .'|max:'.$maximoTamanoImagen .'|required',
@@ -178,13 +186,16 @@ class PostController extends Controller{
   
 
   public function repeated($name){// Determina si un post está guardado
-    $post = null;
-    $post = Post::where('name', $name)->first();       
-    if(is_null($post)){//no existe el post
-            return false;
-    }else{
-            return true;
+    if(strcasecmp($name, "NN") != 0){ //exceptua los NN para poderlos repetir
+      $post = null;
+      $post = Post::where('name', $name)->first();       
+      if(is_null($post)){//no existe el post
+              return false;
+      }else{
+              return true;
+      }
     }
+    return false;
   }
   
   public function postValidation($linea){#valida cuando se agrega por archivo
