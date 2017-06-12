@@ -93,6 +93,7 @@ function firtTime() {
 function newPost(txtFilter, user) {
   //console.log("veamos " + txtFilter);
   //console.log(user);
+  $.showLoading()
   if(txtFilter.length == 0){
     txtFilter = 'NN';
   }
@@ -126,23 +127,30 @@ function newPost(txtFilter, user) {
       console.log(data)
       console.log("Publicado");
       $('.status').text('Publicado');
+      $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
       var $panels = $('.panel');
       $panels.trigger('---hide');
       //firtTime();
       location.reload();
     }else{
       $('.status').html(data);
+      $.showNotify('Error', data, 'error');
+
     }
+    $.hiddenLoading()
   })
   .fail(function(err){
     console.log(err);
+    $.showNotify('Error', 'Ocurrió un error al publicar', 'error');
     $('.status').text('Error al publicar');
+    $.hiddenLoading()    
   });
 }
 
 function newSearchName() {
   search = $("#search_input").val();
   console.log(search);
+  $.showLoading()
   $.ajax({
    type: "POST",
    //url: "/loencontre.co/SourceBackend/search-name?name=" + search,
@@ -160,6 +168,7 @@ function newSearchName() {
       if(data.length == 0){
         //$.alert("No se obtuvieron resultados");
         $('.status').text('No se obtuvieron resultados');
+        $.showNotify('Sin resultados', 'No se encontraro coincidencias', 'error');
         //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
         //$("#alertN").text("Aceptar");
       } else {
@@ -172,11 +181,13 @@ function newSearchName() {
         $('.status').text('Error no esperado '+responseB);
       }
     }
+   $.hiddenLoading()
   })
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
     $('.status').text('Error en la busqueda');
+   $.hiddenLoading()
   });
 }
 
@@ -422,3 +433,78 @@ console.log("Units Pass: " + countPass);
 console.log("Units No Pass: " + countNoPass);
 console.log("Units Evaluate: " + (countPass + countNoPass));
 }
+
+
+
+
+$.showNotify = function($title, $text, $style, $position) {
+    if($style == "error"){
+        $icon = "fa fa-exclamation";
+    }else if($style == "warning"){
+        $icon = "fa fa-warning";
+    }else if($style == "success"){
+        $icon = "fa fa-check";
+    }else if($style == "info"){
+        $icon = "fa fa-question";
+    }else{
+        $icon = "fa fa-circle-o";
+    }
+    $.notify({
+        title: $title,
+        text: $text,
+        image: "<i class='"+$icon+"'></i>"
+    }, {
+        style: 'metro',
+        className: $style,
+        globalPosition:$position,
+        showAnimation: "show",
+        showDuration: 0,
+        hideDuration: 0,
+        autoHideDelay: 8000,
+        autoHide: true,
+        clickToHide: true
+    });
+}
+
+$.showConfirm = function($text, $link, $link__class, $style){
+    $style || ( $style = 'warning' );
+
+    if($style == "error"){
+        $icon = "fa fa-exclamation";
+    }else if($style == "warning"){
+        $icon = "fa fa-warning";
+    }else if($style == "success"){
+        $icon = "fa fa-check";
+    }else if($style == "info"){
+        $icon = "fa fa-question";
+    }else{
+        $icon = "fa fa-circle-o";
+    }
+
+    $.notify({
+        title: 'Esta seguro?',
+        text: $text+'<div class="clearfix"></div><br><a href="'+$link+'" class="btn btn-sm btn-primary notify__hidden '+$link__class+'">Si</a> <a class="btn btn-sm btn-danger notify__hidden">No</a>',
+        image: "<i class='"+$icon+"'></i>"
+    }, {
+        style: 'metro',
+        className: $style,
+        showAnimation: "show",
+        showDuration: 0,
+        hideDuration: 0,
+        autoHideDelay: 15000,
+        autoHide: true,
+        clickToHide: false
+    });
+}
+
+
+$.showLoading = function(){
+    $('body').css('overflow','hidden');
+    $('.popup__loading').addClass('active');
+}
+$.hiddenLoading = function(){
+    $('body').css('overflow','auto');
+    $('.popup__loading').removeClass('active');
+}
+
+

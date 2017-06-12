@@ -21,14 +21,19 @@ function loginStatusVerificate(response){
           
           if(response.email != ''){ // Todo bien con los datos
             $('.status').text('Conectado con facebook');
+        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
+
             getOCRMicrosft(response);
           }else{
+        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
+
             console.log('Error obtener datos de usuario desde facebook');
             $('.status').text('Error obtener datos de usuario desde facebook');
           }
 
         });
       }else{
+        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
         console.log("Error al iniciar sesión con facebook");
         $('.status').text('Error al iniciar sesión con facebook');
       }
@@ -93,3 +98,4 @@ function classifierMembersFacebookName () {
       classifierMembersFacebookPicture();
     }
   };
+
