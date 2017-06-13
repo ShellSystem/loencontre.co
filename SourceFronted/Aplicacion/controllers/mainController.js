@@ -504,7 +504,7 @@ $.showConfirm = function($text, $link, $link__class, $style){
 $.showLoading = function($text){
     $('body').css('overflow','hidden');
     $('.popup__loading').addClass('active');
-    $('textLanding').text($text);
+    $.showNotify('Estado', $text, 'info');
 }
 $.hiddenLoading = function(){
     $('body').css('overflow','auto');
