@@ -126,14 +126,12 @@ function newPost(txtFilter, user) {
     if(response.status == 'success'){
       console.log(data)
       console.log("Publicado");
-      $('.status').text('Publicado');
       $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
       var $panels = $('.panel');
       $panels.trigger('---hide');
       //firtTime();
       location.reload();
     }else{
-      $('.status').html(data);
       $.showNotify('Error', data, 'error');
 
     }
@@ -141,8 +139,7 @@ function newPost(txtFilter, user) {
   })
   .fail(function(err){
     console.log(err);
-    $.showNotify('Error', 'Ocurrió un error al publicar', 'error');
-    $('.status').text('Error al publicar');
+    $.showNotify('Error', 'Ocurrió un error al publicar, intente mas tarde.', 'error');
     $.hiddenLoading()    
   });
 }
@@ -166,19 +163,15 @@ function newSearchName() {
       data = response.data;
       //console.log(data);
       if(data.length == 0){
-        //$.alert("No se obtuvieron resultados");
-        $('.status').text('No se obtuvieron resultados');
-        $.showNotify('Sin resultados', 'No se encontraro coincidencias', 'error');
-        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        //$("#alertN").text("Aceptar");
+        $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
       } else {
-        $('.status').text('Busqueda completada');
+        $.showNotify('Busqueda completada', '', 'success');
         setPostAfter(data);
       }
     } else {
       responseB = response.data;
       if(responseB == 'Incorrect parameter'){
-        $('.status').text('Error no esperado '+responseB);
+        $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
       }
     }
    $.hiddenLoading()
@@ -186,7 +179,7 @@ function newSearchName() {
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
-    $('.status').text('Error en la busqueda');
+    $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
    $.hiddenLoading()
   });
 }
@@ -209,32 +202,22 @@ function newSearchDate() {
       data = response.data;
      
       if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
-       // $('#message_error_date').html(data[0]);
-       //$.alert(data[0]);
-       $('.status').text(data[0]);
-      // document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-       //$("#alertN").text("Aceptar");
+       $.showNotify('Error', data[0], 'error');      
      }else if(data.length == 0){
-        // $('#message_error_date').html('No se obtuvieron resultados');
-        //$.alert("No se obtuvieron resultados");
-        $('.status').text('No se obtuvieron resultados');
-        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        //$("#alertN").text("Aceptar");
+        $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
       } else {
-        $('#message_error_date').html("");
-        $('.status').text('Busqueda completada');
-        console.log(data);
+        $.showNotify('Busqueda completada', '', 'success');
         setPostAfter(data);
       }
 
     }else{ // Error desde el servidor
         console.log(response.data);
-        $('.status').text('Error en la busqueda');
+        $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
       }
   })
   .fail(function(err){
     console.log(err);
-    $('.status').text('Error en la busqueda');
+    $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
   });
 }
 
