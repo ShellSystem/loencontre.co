@@ -158,8 +158,11 @@ function newSearchName() {
       //console.log(data);
       if(data.length == 0){
         $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
+      } else if(data.length == 1) {
+        $.showNotify('Busqueda completada', 'Se encontro '+data.length+' coincidencia', 'success');
+        setPostAfter(data);
       } else {
-        $.showNotify('Busqueda completada', '', 'success');
+         $.showNotify('Busqueda completada', 'Se encontraron '+data.length+' coincidencias', 'success');
         setPostAfter(data);
       }
     } else {
@@ -197,10 +200,13 @@ function newSearchDate() {
        $.showNotify('Error', data[0], 'error');      
      }else if(data.length == 0){
       $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
-    } else {
-      $.showNotify('Busqueda completada', '', 'success');
-      setPostAfter(data);
-    }
+    } else if(data.length == 1) {
+        $.showNotify('Busqueda completada', 'Se encontro '+data.length+' coincidencia', 'success');
+        setPostAfter(data);
+      } else {
+         $.showNotify('Busqueda completada', 'Se encontraron '+data.length+' coincidencias', 'success');
+        setPostAfter(data);
+      }
 
     }else{ // Error desde el servidor
       console.log(response.data);
