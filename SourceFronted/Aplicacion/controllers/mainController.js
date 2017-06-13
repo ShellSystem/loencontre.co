@@ -1,3 +1,7 @@
+// var base = "/"
+var base = "http://loencontre.co/"
+// var base = "http://localhost/"
+
 class MainController {
 
   constructor() {
@@ -8,23 +12,19 @@ class MainController {
     $("#user_name").css("display", "none");
     $("#user_email").css("display", "none");
   }
-  
+
   initData(){
     firtTime();
     $.ajax({
       dataType: "json",
-      //url: "/loencontre.co/SourceBackend/pagination"
-       url: "http://loencontre.co/loencontre.co/SourceBackend/pagination"
-      // url: "http://localhost/loencontre.co/SourceBackend/pagination"
+      url: base + "loencontre.co/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          //url: "/loencontre.co/SourceBackend/get-page?pageNumber="+num
-           url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber="+num
-          // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber="+num
+          url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -62,26 +62,24 @@ function setPostAfter(data) {
 
 function addPost(post, options, fecha){
   if (post.user) {
-      $("#main").append('<article class="thumb">' +
-        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> ¡Contactame para la devolución! </a></p>' +
-        '</article>'); 
-    }else{
-      $("#main").append('<article class="thumb">' +
-        '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
-        '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
-        '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
-        '</article>'); 
-    }
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> ¡Contactame para la devolución! </a></p>' +
+      '</article>'); 
+  }else{
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
+      '</article>'); 
+  }
 }
 
 function firtTime() {
   $.ajax({
     dataType: "json",
-    //url: "/loencontre.co/SourceBackend/get-page?pageNumber=1"
-     url: "http://loencontre.co/loencontre.co/SourceBackend/get-page?pageNumber=1"
-    // url: "http://localhost/loencontre.co/SourceBackend/get-page?pageNumber=1"
+    url: base + "loencontre.co/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
@@ -111,9 +109,7 @@ function newPost(txtFilter, user) {
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
-   //url: "/loencontre.co/SourceBackend/add-post",
-    url: "http://loencontre.co/loencontre.co/SourceBackend/add-post",
-   // url: "http://localhost/loencontre.co/SourceBackend/add-post",
+   url: base + "loencontre.co/SourceBackend/add-post",
    data: post,
    contentType: false,
    processData: false
@@ -126,14 +122,12 @@ function newPost(txtFilter, user) {
     if(response.status == 'success'){
       console.log(data)
       console.log("Publicado");
-      $('.status').text('Publicado');
       $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
       var $panels = $('.panel');
       $panels.trigger('---hide');
       //firtTime();
       location.reload();
     }else{
-      $('.status').html(data);
       $.showNotify('Error', data, 'error');
 
     }
@@ -141,8 +135,7 @@ function newPost(txtFilter, user) {
   })
   .fail(function(err){
     console.log(err);
-    $.showNotify('Error', 'Ocurrió un error al publicar', 'error');
-    $('.status').text('Error al publicar');
+    $.showNotify('Error', 'Ocurrió un error al publicar, intente mas tarde.', 'error');
     $.hiddenLoading()    
   });
 }
@@ -153,9 +146,7 @@ function newSearchName() {
   $.showLoading("Realizando búsqueda por nombre")
   $.ajax({
    type: "POST",
-   //url: "/loencontre.co/SourceBackend/search-name?name=" + search,
-    url: "http://loencontre.co/loencontre.co/SourceBackend/search-name?name=" + search,
-   // url: "http://localhost/loencontre.co/SourceBackend/search-name?name=" + search,
+   url: base + "loencontre.co/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
@@ -166,28 +157,24 @@ function newSearchName() {
       data = response.data;
       //console.log(data);
       if(data.length == 0){
-        //$.alert("No se obtuvieron resultados");
-        $('.status').text('No se obtuvieron resultados');
-        $.showNotify('Sin resultados', 'No se encontraro coincidencias', 'error');
-        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        //$("#alertN").text("Aceptar");
+        $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
       } else {
-        $('.status').text('Busqueda completada');
+        $.showNotify('Busqueda completada', '', 'success');
         setPostAfter(data);
       }
     } else {
       responseB = response.data;
       if(responseB == 'Incorrect parameter'){
-        $('.status').text('Error no esperado '+responseB);
+        $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
       }
     }
-   $.hiddenLoading()
+    $.hiddenLoading()
   })
   .fail(function(err){
     console.log("error");
     console.log(err.responseText);
-    $('.status').text('Error en la busqueda');
-   $.hiddenLoading()
+    $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
+    $.hiddenLoading()
   });
 }
 
@@ -198,43 +185,31 @@ function newSearchDate() {
   console.log(endRange);
   $.ajax({
     dataType: "json",
-    //url: "/loencontre.co/SourceBackend/date-range?startRange",
-     url: "http://loencontre.co/loencontre.co/SourceBackend/date-range?startRange",
-    // url: "http://localhost/loencontre.co/SourceBackend/date-range?startRange",
+    url: base + "loencontre.co/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
   .done(function(response)
   {
     if(response.status == 'success'){
       data = response.data;
-     
+
       if (data[0] == 'La fecha final debe ser mayor a la fecha inicial. Y la fecha inicial y final deben ser menores o iguales a la fecha actual.') {
-       // $('#message_error_date').html(data[0]);
-       //$.alert(data[0]);
-       $('.status').text(data[0]);
-      // document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-       //$("#alertN").text("Aceptar");
+       $.showNotify('Error', data[0], 'error');      
      }else if(data.length == 0){
-        // $('#message_error_date').html('No se obtuvieron resultados');
-        //$.alert("No se obtuvieron resultados");
-        $('.status').text('No se obtuvieron resultados');
-        //document.getElementsByClassName('msgbox-button msgbox-ok')[0].setAttribute("id", "alertN");
-        //$("#alertN").text("Aceptar");
-      } else {
-        $('#message_error_date').html("");
-        $('.status').text('Busqueda completada');
-        console.log(data);
-        setPostAfter(data);
-      }
+      $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
+    } else {
+      $.showNotify('Busqueda completada', '', 'success');
+      setPostAfter(data);
+    }
 
     }else{ // Error desde el servidor
-        console.log(response.data);
-        $('.status').text('Error en la busqueda');
-      }
+      console.log(response.data);
+      $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
+    }
   })
   .fail(function(err){
     console.log(err);
-    $('.status').text('Error en la busqueda');
+    $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
   });
 }
 
@@ -441,63 +416,63 @@ console.log("Units Evaluate: " + (countPass + countNoPass));
 
 
 $.showNotify = function($title, $text, $style, $position) {
-    if($style == "error"){
-        $icon = "fa fa-exclamation";
-    }else if($style == "warning"){
-        $icon = "fa fa-warning";
-    }else if($style == "success"){
-        $icon = "fa fa-check";
-    }else if($style == "info"){
-        $icon = "fa fa-question";
-    }else{
-        $icon = "fa fa-circle-o";
-    }
-    $.notify({
-        title: $title,
-        text: $text,
-        image: "<i class='"+$icon+"'></i>"
-    }, {
-        style: 'metro',
-        className: $style,
-        globalPosition:$position,
-        showAnimation: "show",
-        showDuration: 0,
-        hideDuration: 0,
-        autoHideDelay: 8000,
-        autoHide: true,
-        clickToHide: true
-    });
+  if($style == "error"){
+    $icon = "fa fa-exclamation";
+  }else if($style == "warning"){
+    $icon = "fa fa-warning";
+  }else if($style == "success"){
+    $icon = "fa fa-check";
+  }else if($style == "info"){
+    $icon = "fa fa-question";
+  }else{
+    $icon = "fa fa-circle-o";
+  }
+  $.notify({
+    title: $title,
+    text: $text,
+    image: "<i class='"+$icon+"'></i>"
+  }, {
+    style: 'metro',
+    className: $style,
+    globalPosition:$position,
+    showAnimation: "show",
+    showDuration: 0,
+    hideDuration: 0,
+    autoHideDelay: 8000,
+    autoHide: true,
+    clickToHide: true
+  });
 }
 
 $.showConfirm = function($text, $link, $link__class, $style){
-    $style || ( $style = 'warning' );
+  $style || ( $style = 'warning' );
 
-    if($style == "error"){
-        $icon = "fa fa-exclamation";
-    }else if($style == "warning"){
-        $icon = "fa fa-warning";
-    }else if($style == "success"){
-        $icon = "fa fa-check";
-    }else if($style == "info"){
-        $icon = "fa fa-question";
-    }else{
-        $icon = "fa fa-circle-o";
-    }
+  if($style == "error"){
+    $icon = "fa fa-exclamation";
+  }else if($style == "warning"){
+    $icon = "fa fa-warning";
+  }else if($style == "success"){
+    $icon = "fa fa-check";
+  }else if($style == "info"){
+    $icon = "fa fa-question";
+  }else{
+    $icon = "fa fa-circle-o";
+  }
 
-    $.notify({
-        title: 'Esta seguro?',
-        text: $text+'<div class="clearfix"></div><br><a href="'+$link+'" class="btn btn-sm btn-primary notify__hidden '+$link__class+'">Si</a> <a class="btn btn-sm btn-danger notify__hidden">No</a>',
-        image: "<i class='"+$icon+"'></i>"
-    }, {
-        style: 'metro',
-        className: $style,
-        showAnimation: "show",
-        showDuration: 0,
-        hideDuration: 0,
-        autoHideDelay: 15000,
-        autoHide: true,
-        clickToHide: false
-    });
+  $.notify({
+    title: 'Esta seguro?',
+    text: $text+'<div class="clearfix"></div><br><a href="'+$link+'" class="btn btn-sm btn-primary notify__hidden '+$link__class+'">Si</a> <a class="btn btn-sm btn-danger notify__hidden">No</a>',
+    image: "<i class='"+$icon+"'></i>"
+  }, {
+    style: 'metro',
+    className: $style,
+    showAnimation: "show",
+    showDuration: 0,
+    hideDuration: 0,
+    autoHideDelay: 15000,
+    autoHide: true,
+    clickToHide: false
+  });
 }
 
 
@@ -507,8 +482,8 @@ $.showLoading = function($text){
     $.showNotify('Estado', $text, 'info');
 }
 $.hiddenLoading = function(){
-    $('body').css('overflow','auto');
-    $('.popup__loading').removeClass('active');
+  $('body').css('overflow','auto');
+  $('.popup__loading').removeClass('active');
 }
 
 
