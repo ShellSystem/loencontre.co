@@ -93,7 +93,7 @@ function firtTime() {
 function newPost(txtFilter, user) {
   //console.log("veamos " + txtFilter);
   //console.log(user);
-  $.showLoading()
+  $.showLoading("Enviando publicación...")
   if(txtFilter.length == 0){
     txtFilter = 'NN';
   }
@@ -150,7 +150,7 @@ function newPost(txtFilter, user) {
 function newSearchName() {
   search = $("#search_input").val();
   console.log(search);
-  $.showLoading()
+  $.showLoading("Realizando búsqueda por nombre")
   $.ajax({
    type: "POST",
    //url: "/loencontre.co/SourceBackend/search-name?name=" + search,
@@ -501,9 +501,10 @@ $.showConfirm = function($text, $link, $link__class, $style){
 }
 
 
-$.showLoading = function(){
+$.showLoading = function($text){
     $('body').css('overflow','hidden');
     $('.popup__loading').addClass('active');
+    $('textLanding').text($text);
 }
 $.hiddenLoading = function(){
     $('body').css('overflow','auto');
