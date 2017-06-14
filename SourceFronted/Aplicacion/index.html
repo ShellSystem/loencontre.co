@@ -12,14 +12,14 @@
 	<meta name="description" content="Contacta al dueño del carné, ubica tu carné UPTC perdido o reporta el reporte el carné de un amigo. loencontre.co loencontre UPTC perdí mi carné carnet" />
 	<meta name="keywords" content="loencontre, loencontre.co, carné, carnet, carné UPTC, carnet UPTC, perdí mi carné">
 
-    <link href="assets/notify/notify-metro.css" rel="stylesheet"/>
+	<link href="assets/notify/notify-metro.css" rel="stylesheet"/>
 
 </head>
 
 <style type="text/css">
 	.selected{
-    box-shadow: inset 0 0 0 2px #34a58e;
-    color: #34a58e !important;
+		box-shadow: inset 0 0 0 2px #34a58e;
+		color: #34a58e !important;
 	}
 
 	.popup{
@@ -52,117 +52,116 @@
 
 	@keyframes loading{
 		0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg);
-		transform:rotate(360deg)}}@-webkit-keyframes loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}
-	}
+			transform:rotate(360deg)}}@-webkit-keyframes loading{0%{-webkit-transform:rotate(0deg)}100%{-webkit-transform:rotate(360deg)}
+		}
 
-</style>
-<body>
-
-
-<div class="popup popup__loading">
-      <div class="icon__loading"></div>
-      <div class="textLanding"></div>
-    </div>
+	</style>
+	<body>
 
 
-
-<script>
-  window.onload = function() {
-    FB.init({
-      appId      : '238624763288222',
-      xfbml      : true,
-      version    : 'v2.9'
-    });
-    FB.AppEvents.logPageView();
-  };
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-
-
-</script>
-
-	<!-- Wrapper -->
-	<div id="wrapper">
-
-		<!-- Header -->
-		<header id="header">
-			<h1>
-				<a href="/"><strong>loencontre.co</strong></a>
-				 -
-				<span class="status"></span>
-			</h1>
-			<nav>
-				<ul>
-					<li>
-						<button href="#footer-search_name">
-							<span class="search_name icon fa-search"></span>
-						</button>
-						<br>
-					</li>
-					<li>
-						<button href="#footer-search_date">
-							<span class="search_date icon fa-search"></span>
-						</button>
-						<br>
-					</li>
-					<li>
-						<button href="#footer-newLink" class="selected">
-							<span class="newLink icon fa-plus"></span>
-						</button>
-						<br>
-					</li>
-					<br>
-				</ul>
-			</nav>
-		</header>
-		<!-- Main -->
-		<div id="main">
+		<div class="popup popup__loading">
+			<div class="icon__loading"></div>
+			<div class="textLanding"></div>
 		</div>
 
-		<!-- footer-newLink -->
-		<footer id="footer-newLink" class="panel">
-			<div class="inner split">
-				<div>
-					<section>
-						<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
-						<h2 class="title"></h2>
-						<p class="description"></p>
-					</section>
-					<section>
-						<ul class="icons">
-							<ul class="icons">
-								<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
-								<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
-								<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-							</ul>
-						</ul>
-					</section>
-					<p class="copyright"><a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</p>
-					<ul class="icons">
+
+
+		<script>
+			window.onload = function() {
+				FB.init({
+					appId      : '238624763288222',
+					xfbml      : true,
+					version    : 'v2.9'
+				});
+				FB.AppEvents.logPageView();
+			};
+			(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+
+		</script>
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Header -->
+			<header id="header">
+				<h1>
+					<a href="/"><strong>loencontre.co</strong></a>
+					-
+					<span class="status"></span>
+				</h1>
+				<nav>
+					<ul>
 						<li>
-							<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+							<button href="#footer-search_name">
+								<span class="search_name icon fa-search"></span>
+							</button>
+							<br>
 						</li>
 						<li>
-							<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+							<button href="#footer-search_date">
+								<span class="search_date icon fa-search"></span>
+							</button>
+							<br>
 						</li>
+						<li>
+							<button href="#footer-newLink" class="selected">
+								<span class="newLink icon fa-plus"></span>
+							</button>
+							<br>
+						</li>
+						<br>
 					</ul>
-				</div>
-				<div>
-					<section>
-						<h2>
-							<span class="title_modal_new"></span>
-							<span class="sutitle_modal_new"></span>
-						</h2>
-						<!--<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">-->
-						<form method="post" action="#" id="new" onsubmit="newPostAction(); return false"  enctype="multipart/form-data">
-							<hr>
-							<div class="field first">
-								<!-- DRAG&DROP INTERACTIVO - ERROR CON PLANTILLA PENDIENTE -->
+				</nav>
+			</header>
+			<!-- Main -->
+			<div id="main">
+			</div>
+			<!-- footer-newLink -->
+			<footer id="footer-newLink" class="panel">
+				<div class="inner split">
+					<div>
+						<section>
+							<img src="images/logo_sin_nombre.png" alt="Logo loencontre.co">
+							<h2 class="title"></h2>
+							<p class="description"></p>
+						</section>
+						<section>
+							<ul class="icons">
+								<ul class="icons">
+									<li><a href="https://www.facebook.com/loencontreco-592182040975101/" class="icon fa-facebook" target="_blank"><span class="label">Twitter</span></a></li>
+									<li><a href="https://github.com/entregascontinuas/loencontre.co" class="icon fa-github" target="_blank"><span class="label">Github</span></a></li>
+									<li><a href="mailto:entregascontinuas@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+								</ul>
+							</ul>
+						</section>
+						<p class="copyright"><a href="https://www.facebook.com/ShellSystem-1850353855212383/" target="_blank">ShellSystem</a>.</p>
+						<ul class="icons">
+							<li>
+								<a href="#" class="icon fa-language" onclick="setLanguage('es');return false;">&nbsp;&nbsp;ESP </a>
+							</li>
+							<li>
+								<a href="#" class="icon fa-language" onclick="setLanguage('en');return false;">&nbsp;&nbsp;ENG </a>
+							</li>
+						</ul>
+					</div>
+					<div>
+						<section>
+							<h2>
+								<span class="title_modal_new"></span>
+								<span class="sutitle_modal_new"></span>
+							</h2>
+							<!--<form method="post" action="#" id="new" onsubmit="getOCRMicrosft(); return false"  enctype="multipart/form-data">-->
+							<form method="post" action="#" id="new" onsubmit="newPostAction(); return false"  enctype="multipart/form-data">
+								<hr>
+								<div class="field first">
+									<!-- DRAG&DROP INTERACTIVO - ERROR CON PLANTILLA PENDIENTE -->
 								<!-- <div id="drop-zone">
 									<span class="photo"></span>
 									<div id="clickHere">
@@ -297,7 +296,7 @@
 	<script src="assets/js/skel.min.js"></script>
 	
 	<script src="assets/notify/notify.min.js"></script>
-    <script src="assets/notify/notify-metro.js"></script>
+	<script src="assets/notify/notify-metro.js"></script>
 
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/jquery.bootpag.min.js"></script>
@@ -312,18 +311,19 @@
 	<script src="controllers/cleanString.js"></script>
 	<script src="controllers/controllerFacebook.js"></script>
 	<script src="controllers/mainController.js"></script>
+	<script src="controllers/lazyload.js"></script>
 	<script src="assets/js/datepicker.js"></script>
 	<!-- <script src="assets/js/dragdrop.js"></script> -->
 
 	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	
-	  ga('create', 'UA-100320056-1', 'auto');
-	  ga('send', 'pageview');
-	
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-100320056-1', 'auto');
+		ga('send', 'pageview');
+
 	</script>
 </body>
 

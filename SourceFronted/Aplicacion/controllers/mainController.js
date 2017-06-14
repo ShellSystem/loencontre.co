@@ -41,7 +41,7 @@ function setPost(data) {
     var fecha = new Date(post.date);
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     //console.log(post)
-    addPost(post, options, fecha)
+    addPost(post, options, fecha);
     //console.log("isas");
   }
   initScript();
@@ -50,6 +50,17 @@ function setPost(data) {
 
 function setPostAfter(data) {
   $("#main").html("");
+  for (var i in data) {
+    var post = data[i];
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    addPost(post, options, fecha)
+  }
+  setMain();
+  return true;
+}
+
+function setPostLoad(data) {
   for (var i in data) {
     var post = data[i];
     var fecha = new Date(post.date);
@@ -152,10 +163,8 @@ function newSearchName() {
  })
   .done(function(response)
   {
-    //console.log(response);
     if(response.status == 'success'){
       data = response.data;
-      //console.log(data);
       if(data.length == 0){
         $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
       } else {
@@ -202,7 +211,7 @@ function newSearchDate() {
       setPostAfter(data);
     }
 
-    }else{ // Error desde el servidor
+    }else{
       console.log(response.data);
       $.showNotify('Error', 'Ocurrió un error en la busqueda, intente mas tarde.', 'error');
     }
@@ -361,59 +370,6 @@ function probability(txtMicrosoft, txtFilter){
 
 
 var controller = new MainController()
-//test(controller);
-
-function test(controller) {
-  var countPass = 0;
-  var countNoPass = 0;
-
-//TEST 1
-if(controller){
-  console.log("Pass - Instancia controlador principal");
-  countPass++;
-}
-else{
-  console.log("No Pass - Instancia controlador principal"); 
-  countNoPass++;
-}
-
-//TEST 2
-if(controller.initData()){
-  console.log("Pass - Inicializacion paginacion");
-  countPass++;
-}
-else{
-  console.log("No Pass - Inicializacion paginacion"); 
-  countNoPass++;
-}
-
-//TEST 3
-if(setPost("")){
-  console.log("Pass - Renderizado post");
-  countPass++;
-}
-else{
-  console.log("No Pass - Renderizado post"); 
-  countNoPass++;
-}
-
-//TEST 4
-if(firtTime()){
-  console.log("Pass - Inicializacion datos index");
-  countPass++;
-}
-else{
-  console.log("No Pass - Inicializacion datos index"); 
-  countNoPass++;
-}
-
-console.log("Units Pass: " + countPass);
-console.log("Units No Pass: " + countNoPass);
-console.log("Units Evaluate: " + (countPass + countNoPass));
-}
-
-
-
 
 $.showNotify = function($title, $text, $style, $position) {
   if($style == "error"){
@@ -485,5 +441,3 @@ $.hiddenLoading = function(){
   $('body').css('overflow','auto');
   $('.popup__loading').removeClass('active');
 }
-
-
