@@ -20,7 +20,7 @@ class PostController extends Controller{
     $usuario->prueba();
   }
 
-  public $postAmountPerPage = 6;
+  public $postAmountPerPage = 9;
 
 
   # $_Post : name
