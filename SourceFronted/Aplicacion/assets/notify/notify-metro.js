@@ -10,16 +10,16 @@ $.notify.addStyle("metro", {
     classes: {
         error: {
             "color": "#fafafa !important",
-            "background-color": "#F71919",
+            "background-color": "#a53434",
             "border": "1px solid #FF0026"
         },
         success: {
-            "background-color": "#32CD32",
+            "background-color": "#34a58e",
             "border": "1px solid #4DB149"
         },
         info: {
             "color": "#fafafa !important",
-            "background-color": "#1E90FF",
+            "background-color": "#3488a5",
             "border": "1px solid #1E90FF"
         },
         warning: {
