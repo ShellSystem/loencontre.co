@@ -2,13 +2,19 @@ var pageNumber = 1;
 
 function load() {
   pageNumber++;
-  console.log(pageNumber);
   $.ajax({
     dataType: "json",
-    url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+pageNumber
+    url: base + "loencontre.co/SourceBackend/pagination"
   }).done(function(data) {
-    setPostLoad(data);
-  }); 
+    if (data.pageAmount>=pageNumber) {
+      $.ajax({
+        dataType: "json",
+        url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+pageNumber
+      }).done(function(data) {
+        setPostLoad(data);
+      }); 
+    }
+  });
 }
 
 $(function () {
