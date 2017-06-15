@@ -1,5 +1,24 @@
+// ###########################################################
+// Numero de pagina actual
+// ###########################################################
 var pageNumber = 1;
 
+
+// ###########################################################
+// Deteccion del borde inferior
+// ###########################################################
+$(function () {
+  var $win = $(window); 
+  $win.scroll(function () {
+    if ($win.height() + $win.scrollTop() == $(document).height())
+      load();
+  });
+});
+
+
+// ###########################################################
+// Carga de nueva pagina
+// ###########################################################
 function load() {
   pageNumber++;
   $.ajax({
@@ -16,13 +35,3 @@ function load() {
     }
   });
 }
-
-$(function () {
- var $win = $(window);
- 
- $win.scroll(function () {
-  if ($win.height() + $win.scrollTop() == $(document).height()){
-    load();
-  }
-});
-});

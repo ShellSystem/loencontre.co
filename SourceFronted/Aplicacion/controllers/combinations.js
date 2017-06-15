@@ -1,3 +1,6 @@
+// ###########################################################
+// Combinaciones de un nombre, apellidos y nombres
+// ###########################################################
 function combinations(array) {
     var combi = [];
     var temp= "";
