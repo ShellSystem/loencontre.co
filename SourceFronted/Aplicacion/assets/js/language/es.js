@@ -15,6 +15,6 @@ var language_es = {
     'contact_label': 'Contacto (*)',
     'send_button': 'Enviar',
     'search_button': 'Buscar',
-    'search_input': 'Buscar'
-
+    'search_input': 'Buscar',
+    'confirmPosts': ' Reportar entrega'
 }

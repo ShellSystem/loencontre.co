@@ -15,5 +15,6 @@ var language_en = {
     'contact_label': 'Contact (*)',
     'send_button': 'Send',
     'search_button': 'Search',
-    'search_input': 'Search'
+    'search_input': 'Search',
+    'confirmPosts': ' Report post'
 }
