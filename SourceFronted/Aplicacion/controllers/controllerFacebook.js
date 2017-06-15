@@ -1,60 +1,65 @@
+// ###########################################################
 // Id grupo UPTC
+// ###########################################################
 var idGroup = 5347104545 
+
 var members = new Array();
 var candidates = new Array();
 var name = new Array();
 var combinationsName = new Array();
 
+
+// ###########################################################
+// Activacion de la conexion con la cuenta de facebook
+// ###########################################################
 function newPostAction(){
   FB.getLoginStatus(function(response) {
     loginStatusVerificate(response);
   });
 }
 
+// ###########################################################
+// Extraccion de datos del usuario de la cuenta de facebook
+// ###########################################################
 function loginStatusVerificate(response){
   if(response.status != 'conected'){    
-    FB.login(function(response) { // Solicita inicio de sesion
-
+    FB.login(function(response) {
       if(response.status = 'connected'){
-
         FB.api('/me?fields=id,name,email', function(response) {
-
-          if(response.email != ''){ // Todo bien con los datos
-            $('.status').text('Conectado con facebook');
-        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
-
+          if(response.email != ''){ 
+            $.showLoading("Conectado con facebook")
             getOCRMicrosft(response);
           }else{
-        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
-
-            console.log('Error obtener datos de usuario desde facebook');
-            $('.status').text('Error obtener datos de usuario desde facebook');
+            $.showNotify('Error', 'Error obtener datos de usuario desde facebook. Intente de nuevo', 'error');
           }
 
         });
       }else{
-        $.showNotify('Error', 'Ocurrio un error durante la conexión con el servidor. Intente mas tarde!!!', 'error');
-        console.log("Error al iniciar sesión con facebook");
-        $('.status').text('Error al iniciar sesión con facebook');
+        $.showNotify('Error', 'Error al iniciar sesión con facebook', 'error');
       }
 
     });
   }else{
-    $('.status').text('No se pudo conectar con facebook');
+    $.showNotify('Error', 'No se pudo conectar con facebook', 'error');
   }
 }
 
+
+// ###########################################################
+// Desconexion de la cuenta de facebook
+// ###########################################################
 function exitFacebook(){
   FB.logout(function(response) {
-   console.log(response);
-   $('.status').text('Sesion de facebook cerrada');
+   $.showLoading("Sesion de facebook cerrada");
  });
 }
 
 
-// Obtencion de miembros del grupo UPTC
+// ###########################################################
+// Obtencion de miembros del grupo de facebook
+// ###########################################################
 function getMembersFacebook (nameDetect) {
-  $('.status').text('Obteniendo miembros');
+  $.showLoading('Obteniendo miembros ...');
   refresh('');
 
   function refresh(after) {
@@ -65,10 +70,10 @@ function getMembersFacebook (nameDetect) {
           members = members.concat(response.data);
           try {
             refresh(response.paging.cursors.after);
-            console.log(members.length);
+            $.showLoading('Numero de miembros: ' + members.length);
           }
           catch(e){
-            $('.status').text('Clasificando por nombre');
+            $.showLoading('Clasificando por nombre ...');
             classifierMembersFacebookName(nameDetect);
           }
         }
@@ -77,6 +82,10 @@ function getMembersFacebook (nameDetect) {
   }
 };
 
+
+// ###########################################################
+// Clasificacion de miembros del grupo de facebook por nombre
+// ###########################################################
 function classifierMembersFacebookName (nameDetect) {
   combinationsName = combinations(nameDetect);
   for (var i = members.length - 1; i >= 0; i--) {
@@ -85,7 +94,7 @@ function classifierMembersFacebookName (nameDetect) {
       {
         members[i].state = 'Activo';
         candidates.push(members[i]);
-        $('.status').text('Enviando mensaje a ' + members[i].name);
+        // $('.status').text('Enviando mensaje a ' + members[i].name);
         break;
       }
     }
@@ -115,21 +124,30 @@ function classifierMembersFacebookName (nameDetect) {
   //     // terminar esto
   //     classifierMembersFacebookPicture();
   //   }
-  };
+};
 
-//Deteccion de rostro candidatos
+
+// ###########################################################
+// Clasificacion de miembros del grupo de facebook por rostro
+// ###########################################################
 function classifierMembersFacebookPicture() {
   detectFaceMicrosft(-1);
 };
 
+// ###########################################################
+// Extraccion imagenes de los candidatos de su perfil
+// ###########################################################
 function detectFaceCandidates() {
   for (var i = candidates.length - 1; i >= 0; i--) {
     detectFaceMicrosft(candidates[i].picture.data.url,i);
   }
 };
 
-// comparacion de rostros
-//Retorna el id de la imagen, si retorna vacio no pertenece a un rostro.
+
+// ###########################################################
+// Extraccion de rostros
+// ###########################################################
+// Retorna el id de la imagen, si retorna vacio no pertenece a un rostro.
 function detectFaceMicrosft (index){
   img = $('#img').get(0).files[0];
 
@@ -160,10 +178,14 @@ function detectFaceMicrosft (index){
   }
 })
   .fail(function(err){
-    console.log(err);
+    $.showNotify('Error', 'Ocurrió un error en la deteccion de rostro, intente de nuevo.', 'error');
   });
 };
 
+
+// ###########################################################
+// Comparacion de rostros de los candidatos
+// ###########################################################
 function verifyFaceMicrosft (faceId1, index) {
   var data = {
     faceId1: faceId1,
@@ -186,10 +208,10 @@ function verifyFaceMicrosft (faceId1, index) {
       candidates[index].state = 'Eliminado';
     }
     else{
-      $('.status').text('Enviando mensaje a ' + candidates[index].name);
+      // $('.status').text('Enviando mensaje a ' + candidates[index].name);
     }
   })
   .fail(function(err){
-    console.log(err);
+    $.showNotify('Error', 'Ocurrió un error en la deteccion de rostro, intente de nuevo.', 'error');
   });
 };  
