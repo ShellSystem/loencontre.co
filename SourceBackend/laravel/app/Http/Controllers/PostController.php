@@ -22,6 +22,25 @@ class PostController extends Controller{
 
   public $postAmountPerPage = 11;
 
+  /**
+   * metodo que a aprtir del id de un suario busca los post correspondientes a el
+   * 
+  **/
+  public function userPosts(Request $request){
+    if($request->id){
+      $resultado = array(); 
+      $idUser = $request->id;
+      $posts = Post::all();  
+      foreach ($posts as $post){
+        if($post->user_id == $idUser){
+          array_push($resultado, $post);
+        }
+      }
+      return json_encode(['status' => 'success', 'data' => $resultado]);
+    } else {
+      return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
+    }
+  }
 
   # $_Post : name
   public function searchName(Request $request){
