@@ -21,10 +21,14 @@ class PostController extends Controller{
   }
 
   public $postAmountPerPage = 11;
+  /**
+   * meotod que permite cambiar el estado de una publicacion por medio
+   * del id
+  **/
   public function changeState(Request $request){
     if($request->id){
       Post::where('id', $request->id)
-          ->update(['state' => 1]);
+          ->update(['status' => 1]);
       return json_encode(['status' => 'success', 'data' => '1']);
     } else {
       return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
