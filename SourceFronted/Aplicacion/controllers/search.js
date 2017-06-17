@@ -40,10 +40,12 @@ function loginStatusVerificatePost(response){
                           $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
                       } else if(data.length == 1) {
                           $.showNotify('Busqueda completada', 'Se encontro '+data.length+' coincidencia', 'success');
-                          setPostAfter(data);
+                          setPostAfterId(data);
+                          $.showNotify('Ayuda', 'Oprima sobre la publicación que ha entregado','info');
                       } else {
                           $.showNotify('Busqueda completada', 'Se encontraron '+data.length+' coincidencias', 'success');
-                          setPostAfter(data);
+                          setPostAfterId(data);
+                          $.showNotify('Ayuda', 'Oprima sobre la publicación que ha entregado','info');
                       }
                   } else {
                       responseB = response.data;
@@ -71,6 +73,57 @@ function loginStatusVerificatePost(response){
     $.showNotify('Error', 'No se pudo conectar con facebook', 'error');
   }
 }
+// ###########################################################
+// Pintado de publicaciones luego de una busqueda
+// ###########################################################
+function setPostAfterId(data) {
+  $("#main").html("");
+  for (var i in data) {
+    var post = data[i];
+    var fecha = new Date(post.date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    addPostId(post, options, fecha)
+  }
+  setMain();
+  return true;
+}
+
+// ###########################################################
+// Creacion de elemento individual para cada publicacion
+// ###########################################################
+function addPostId(post, options, fecha){
+    $("#main").append('<article class="thumb">' +
+      '<a class="image" onclick="confirmDelivery('+post.id+'); return false"><img src="'+post.image+'" alt="" /></a>'+
+      '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
+      '</article>'); 
+}
+
+// ###########################################################
+// Metodo encargadao de recibir el id del post y enviar
+// una petición al servidor para el cambio de estado de dicha publicación
+// ###########################################################
+function confirmDelivery(idPost){
+  $.showConfirm("La publicación se reportará como entregada", "changeState", idPost,"info");
+}
+
+function changeState(idPost){
+  $.showLoading("Cambiando estado de publicación a Entregado");
+  $.ajax({
+    type: "POST",
+    url: base + "loencontre.co/SourceBackend/change-state?id=" + idPost,
+    data: idPost,
+    dataType: "json"
+  })
+  .done(function(response) {
+    $.hiddenLoading();
+    $.showNotify('OK', 'Se ha cambiado el estado a Entregado correctamente', 'success');
+  })
+  .fail(function(err){
+    $.hiddenLoading();
+    $.showNotify('Error', 'Ocurrió un error al buscar el post, intente mas tarde.', 'error');
+  });
+}
+
 // ###########################################################
 // Busqueda por nombre
 // ###########################################################

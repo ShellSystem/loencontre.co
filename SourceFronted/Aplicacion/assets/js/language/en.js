@@ -16,5 +16,6 @@ var language_en = {
     'send_button': 'Send',
     'search_button': 'Search',
     'search_input': 'Search',
-    'confirmPosts': ' Report post'
+    'confirmPosts': ' Report post',
+    'changeState': ' Delivered'
 }

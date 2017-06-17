@@ -15,6 +15,7 @@ function setLanguage(language) {
 	$('.search_name')._t('search_name');
 	$('.search_date')._t('search_date');
 	$('.confirmPosts')._t('confirmPosts');
+	$('.changeState')._t('changeState');
 	$('.start_date')._t('start_date');
 	$('.end_date')._t('end_date');
 	$('.title_modal_new')._t('title_modal_new');

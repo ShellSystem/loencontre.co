@@ -21,7 +21,15 @@ class PostController extends Controller{
   }
 
   public $postAmountPerPage = 11;
-
+  public function changeState(Request $request){
+    if($request->id){
+      Post::where('id', $request->id)
+          ->update(['state' => 1]);
+      return json_encode(['status' => 'success', 'data' => '1']);
+    } else {
+      return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
+    }
+  }
   /**
    * metodo que a aprtir del id de un suario busca los post correspondientes a el
    * 
@@ -33,7 +41,11 @@ class PostController extends Controller{
       $posts = Post::all();  
       foreach ($posts as $post){
         if($post->user_id == $idUser){
-          $post->image = asset('/laravel/storage/app/images/'.$post->image); 
+          $post->image = asset('/laravel/storage/app/images/'.$post->image);
+          $user = User::find($post->user_id);
+          if (!is_null($user)) {
+            $post->user = $user;
+          }
           array_push($resultado, $post);
         }
       }
