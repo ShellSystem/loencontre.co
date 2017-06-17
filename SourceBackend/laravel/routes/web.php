@@ -20,7 +20,7 @@ Route::get('date-range', 'PostController@dateRange');
 Route::any('add-post', 'PostController@addPost');
 Route::any('search-name', 'PostController@searchName');
 Route::any('user-posts', 'PostController@userPosts');
-Route::any('change-state', 'Postcontroller@changeState');
+Route::any('change-state', 'PostController@changeState');
 
 Route::any('prueba', 'PostController@prueba');
 
