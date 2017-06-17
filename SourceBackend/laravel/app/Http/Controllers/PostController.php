@@ -33,6 +33,7 @@ class PostController extends Controller{
       $posts = Post::all();  
       foreach ($posts as $post){
         if($post->user_id == $idUser){
+          $post->image = asset('/laravel/storage/app/images/'.$post->image); 
           array_push($resultado, $post);
         }
       }
