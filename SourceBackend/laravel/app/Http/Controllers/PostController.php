@@ -66,7 +66,7 @@ class PostController extends Controller{
     if($request->name){
       $nombrePeticion = explode(' ', $request->name);
       $post = -1;
-      $posts = Post::all();  
+      $posts = Post::where('status', 0)->get();  
       foreach ($posts as $post){
         $nombre = $post->name;
         $palabras = explode(' ', $nombre); # Separa el nombre
@@ -275,7 +275,7 @@ class PostController extends Controller{
     if ($request->pageNumber){
      
       #$posts = Post::all()->sortByDesc('Date'); # Pide todos los posts a la base de datos
-      $posts = Post::orderBy('date', 'desc')->get();
+      $posts = Post::where('status', 0)->orderBy('date', 'desc')->get();
       
       $amount = (int)(sizeof($posts) / $this->postAmountPerPage); # Cantidad  de paginas
       if((sizeof($posts) % $this->postAmountPerPage) > 0){ #Numero decimal
@@ -308,7 +308,7 @@ class PostController extends Controller{
   }
 
   public function pagination(){
-    $posts = Post::all();
+    $posts = Post::where('status', 0)->get();  
     $amount = (int)(sizeof($posts) / $this->postAmountPerPage); # Cantidad  de paginas
     if((sizeof($posts) % $this->postAmountPerPage) > 0){ #Numero decimal
       $amount += 1;
@@ -327,7 +327,7 @@ class PostController extends Controller{
       $endRange = $request->endRange;
       
       if ($endRange >= $startRange && $startRange <= $dateCurrent && $endRange <= $dateCurrent) { #prueba unitaria
-        $posts = Post::whereBetween('date', [$startRange, $endRange])->orderBy('date', 'desc')->get();
+        $posts = Post::whereBetween('date', [$startRange, $endRange])->where('status', 0)->orderBy('date', 'desc')->get();
         
         for ($i=0; $i < sizeof($posts); $i++) { 
           $posts[$i]->image = asset('/laravel/storage/app/images/'.$posts[$i]->image);
