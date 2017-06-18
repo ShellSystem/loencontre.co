@@ -5,7 +5,8 @@ var lazyload = true;
 // que ha dado click y retornar las publicaciones encontradas
 // ###########################################################
 function confirmPosts(){
-  $.showLoading("Conectando con Facebook...")
+  lazyload = false;
+  $.showLoading("Conectando con Facebook...");
   FB.getLoginStatus(function(response) {
     loginStatusVerificatePost(response);
   });
