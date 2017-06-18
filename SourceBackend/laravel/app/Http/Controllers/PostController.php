@@ -42,7 +42,7 @@ class PostController extends Controller{
     if($request->id){
       $resultado = array(); 
       $idUser = $request->id;
-      $posts = Post::all();  
+      $posts = Post::where('status', 0)->get();  
       foreach ($posts as $post){
         if($post->user_id == $idUser){
           $post->image = asset('/laravel/storage/app/images/'.$post->image);

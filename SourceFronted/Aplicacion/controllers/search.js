@@ -123,7 +123,39 @@ function changeState(idPost){
   })
   .done(function(response) {
     $.hiddenLoading();
-    $.showNotify('OK', 'Se ha cambiado el estado a Entregado correctamente', 'success');
+    $.showNotify('Correcto', 'Se ha cambiado el estado a Entregado', 'success');
+    $.showLoading("Cargando publicaciones");
+    //console.log("ID obtenido:"+response.id)
+    //llamado api
+    $.ajax({
+      type: "POST",
+      url: base + "loencontre.co/SourceBackend/user-posts?id=" + id,
+      data: id,
+      dataType: "json"
+    })
+    .done(function(response) {
+      $.hiddenLoading()
+      if(response.status == 'success'){
+        data = response.data;
+        if(data.length == 0){
+          $.showNotify('Reporte completado', '¡Ya no te quedan más carnés por entregar!', 'success');
+          
+        } else {
+          $.showNotify('Reporte completado', '¡Aún te quedan '+data.length+' por entregar', 'success');
+          setPostAfterId(data);
+        }
+      } else {
+        responseB = response.data;
+        if(responseB == 'Incorrect parameter'){
+          $.showNotify('Error', 'Ocurrió un error en el reporte del carné, intente mas tarde.', 'error');
+          }     
+      }
+      })
+      .fail(function(err){
+        $.hiddenLoading();
+        $.showNotify('Error', 'Ocurrió un error en el reporte del carné, intente mas tarde.', 'error');
+        
+      });
   })
   .fail(function(err){
     $.hiddenLoading();
