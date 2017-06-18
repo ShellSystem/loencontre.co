@@ -7,6 +7,7 @@ var lazyload = true;
 function confirmPosts(){
   lazyload = false;
   $.showLoading("Conectando con Facebook...");
+  $.showNotify('Ayuda', "Debes estar atento a la notificación generada por el navegador para activar ventanas emergentes", 'info');
   FB.getLoginStatus(function(response) {
     loginStatusVerificatePost(response);
   });
