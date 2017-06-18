@@ -90,21 +90,6 @@ function setPostAfter(data) {
 
 
 // ###########################################################
-// Pintado de publiaciones para lazyload
-// ###########################################################
-function setPostLoad(data) {
-  for (var i in data) {
-    var post = data[i];
-    var fecha = new Date(post.date);
-    var options = { year: 'numeric', month: 'long', day: 'numeric' };
-    addPost(post, options, fecha)
-  }
-  setMain();
-  return true;
-}
-
-
-// ###########################################################
 // Creacion de elemento individual para cada publicacion
 // ###########################################################
 function addPost(post, options, fecha){
