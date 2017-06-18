@@ -10,14 +10,15 @@ var pageNumber = 1;
 $(function () {
   var $win = $(window); 
   $win.scroll(function () {
-    if ($win.height() + $win.scrollTop() == $(document).height())
-      load();
+    if (lazyload)
+      if ($win.height() + $win.scrollTop() == $(document).height())
+        load();
   });
 });
 
 
 // ###########################################################
-// Carga de nueva pagina
+// Carga de nueva pagina de publicaciones
 // ###########################################################
 function load() {
   pageNumber++;

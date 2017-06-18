@@ -99,7 +99,6 @@ function setPostLoad(data) {
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     addPost(post, options, fecha)
   }
-  // CAMBIAR POR INIT SCRIP
   setMain();
   return true;
 }

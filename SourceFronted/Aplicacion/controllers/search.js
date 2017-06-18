@@ -1,7 +1,10 @@
+var lazyload = true;
+
 // ###########################################################
 // Busqueda por nombre
 // ###########################################################
 function newSearchName() {
+  lazyload = false;
   search = $("#search_input").val();
   $.showLoading("Realizando búsqueda por nombre")
   $.ajax({
@@ -42,6 +45,7 @@ function newSearchName() {
 // Busqueda por fecha
 // ###########################################################
 function newSearchDate() {
+  lazyload = false;
   startRange = $("#startRange").val();
   endRange = $("#endRange").val();
   $.ajax({
