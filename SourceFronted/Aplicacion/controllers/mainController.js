@@ -123,12 +123,6 @@ function addPost(post, options, fecha){
   }
 }
 
-// ###########################################################
-// Metodo donde verificara cuales son los post del usuario que ha dado click 
-// y retornar las publicaciones encontradas
-// ###########################################################
-function confirmPosts(){
-  console.log("Aca va la confirmación de posts :D");
-}
+
 
 var controller = new MainController();

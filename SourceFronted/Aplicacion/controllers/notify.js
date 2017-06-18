@@ -32,9 +32,10 @@ $.showNotify = function($title, $text, $style, $position) {
 
 
 // ###########################################################
-// ???????????????????????????????????
+// texto a mostrar en el mnsje, metodo si le da click a si, y los parametros
+//que tendria el meotod,y el estilo de la notifcacion
 // ###########################################################
-$.showConfirm = function($text, $link, $link__class, $style){
+$.showConfirm = function($text, $method, $parameterMethod, $style){
   $style || ( $style = 'warning' );
 
   if($style == "error"){
@@ -50,8 +51,8 @@ $.showConfirm = function($text, $link, $link__class, $style){
   }
 
   $.notify({
-    title: 'Esta seguro?',
-    text: $text+'<div class="clearfix"></div><br><a href="'+$link+'" class="btn btn-sm btn-primary notify__hidden '+$link__class+'">Si</a> <a class="btn btn-sm btn-danger notify__hidden">No</a>',
+    title: '¿Esta seguro?',
+    text: $text+'<div class="clearfix"></div><br><button onclick="'+$method+'('+$parameterMethod+'); return false" class="notify__hidden">Sí</button> <button class="notify__hidden">No</button>',
     image: "<i class='"+$icon+"'></i>"
   }, {
     style: 'metro',
@@ -61,7 +62,7 @@ $.showConfirm = function($text, $link, $link__class, $style){
     hideDuration: 0,
     autoHideDelay: 15000,
     autoHide: true,
-    clickToHide: false
+    clickToHide: true
   });
 }
 

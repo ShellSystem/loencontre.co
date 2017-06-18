@@ -21,7 +21,43 @@ class PostController extends Controller{
   }
 
   public $postAmountPerPage = 11;
-
+  /**
+   * meotod que permite cambiar el estado de una publicacion por medio
+   * del id
+  **/
+  public function changeState(Request $request){
+    if($request->id){
+      Post::where('id', $request->id)
+          ->update(['status' => 1]);
+      return json_encode(['status' => 'success', 'data' => '1']);
+    } else {
+      return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
+    }
+  }
+  /**
+   * metodo que a aprtir del id de un suario busca los post correspondientes a el
+   * 
+  **/
+  public function userPosts(Request $request){
+    if($request->id){
+      $resultado = array(); 
+      $idUser = $request->id;
+      $posts = Post::all();  
+      foreach ($posts as $post){
+        if($post->user_id == $idUser){
+          $post->image = asset('/laravel/storage/app/images/'.$post->image);
+          $user = User::find($post->user_id);
+          if (!is_null($user)) {
+            $post->user = $user;
+          }
+          array_push($resultado, $post);
+        }
+      }
+      return json_encode(['status' => 'success', 'data' => $resultado]);
+    } else {
+      return json_encode(['status' => 'error', 'data' => 'Incorrect parameter']);
+    }
+  }
 
   # $_Post : name
   public function searchName(Request $request){
