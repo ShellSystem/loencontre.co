@@ -14,7 +14,7 @@ class IntegrationTest extends TestCase
 
         $response = $this->call('GET', '/pagination')->getContent();
         
-        $contenido = $response;
+        $contenido = json_decode($response);
 
         $pageAmount = $contenido->pageAmount;
     
