@@ -94,27 +94,28 @@ function classifierMembersFacebookName (nameDetect) {
       {
         members[i].state = 'Activo';
         candidates.push(members[i]);
-        // $('.status').text('Enviando mensaje a ' + members[i].name);
+        console.log("texto");
+        console.log('Enviando mensaje a ' + candidates[index].name);
         break;
       }
     }
   }
   // POST######################################################
-  FB.api(
-    "/me/feed",
-    "POST",
-    {
-      "message": "Etiqueta al propietario."
-    },
-    function (response) {
-      if (response && !response.error) {
-        console.log(response); /* post id will be returned */
-      }
-      else{
-        console.log(response);
-      }
-    }
-    );
+  // FB.api(
+  //   "/me/feed",
+  //   "POST",
+  //   {
+  //     "message": "Etiqueta al propietario."
+  //   },
+  //   function (response) {
+  //     if (response && !response.error) {
+  //       console.log(response); /* post id will be returned */
+  //     }
+  //     else{
+  //       console.log(response);
+  //     }
+  //   }
+  //   );
   // POST######################################################
   // if (candidates.length == 1) {
   //   //REALIZAR POST AQUI
@@ -133,6 +134,7 @@ function classifierMembersFacebookName (nameDetect) {
 function classifierMembersFacebookPicture() {
   detectFaceMicrosft(-1);
 };
+
 
 // ###########################################################
 // Extraccion imagenes de los candidatos de su perfil

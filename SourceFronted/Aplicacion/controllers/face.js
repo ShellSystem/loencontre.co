@@ -10,9 +10,8 @@ function detectFaceMicrosft (index){
    url: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?',
    data: img,
    beforeSend: function(xhrObj){
-            // Request headers
             xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","2821aa93acd749ba8a7bc585ed2f10dd");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","b6ea34fcf4fe481da484c8463341d470");
           },
           processData: false
         })
@@ -51,9 +50,8 @@ function verifyFaceMicrosft (faceId1, index) {
    url: 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/verify?',
    data: data,
    beforeSend: function(xhrObj){
-            // Request headers
             xhrObj.setRequestHeader("Content-Type",'application/json');
-            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","07c4d54cefb847c999fde07d0ef6ca9e");
+            xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","0bd13b21afb34f1989e3369dc30c1419");
           }
         })
   .done(function(data)
@@ -63,6 +61,8 @@ function verifyFaceMicrosft (faceId1, index) {
     }
     else{
       // $('.status').text('Enviando mensaje a ' + candidates[index].name);
+      console.log("rostro");
+      console.log('Enviando mensaje a ' + candidates[index].name);
     }
   })
   .fail(function(err){
