@@ -13,7 +13,6 @@ var combinationsName = new Array();
 // Activacion de la conexion con la cuenta de facebook
 // ###########################################################
 function newPostAction(){
-  $.showNotify('Ayuda', "Debes estar atento a la notificación generada por el navegador para activar ventanas emergentes", 'info');
   FB.getLoginStatus(function(response) {
     loginStatusVerificate(response);
   });

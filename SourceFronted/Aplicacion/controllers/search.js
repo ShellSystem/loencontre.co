@@ -41,7 +41,7 @@ function loginStatusVerificatePost(response){
                   if(response.status == 'success'){
                       data = response.data;
                       if(data.length == 0){
-                          $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
+                          $.showNotify('Sin resultados', 'No se encontraron publicaciones pendientes', 'error');
                       } else if(data.length == 1) {
                           $.showNotify('Busqueda completada', 'Se encontro '+data.length+' coincidencia', 'success');
                           setPostAfterId(data);
