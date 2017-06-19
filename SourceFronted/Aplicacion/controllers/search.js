@@ -140,7 +140,7 @@ function changeState(idPost){
         data = response.data;
         if(data.length == 0){
           $.showNotify('Reporte completado', '¡Ya no te quedan más carnés por entregar!', 'success');
-          
+          firtTime();
         } else {
           $.showNotify('Reporte completado', '¡Aún te quedan '+data.length+' por entregar', 'success');
           setPostAfterId(data);
