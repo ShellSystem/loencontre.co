@@ -5,7 +5,9 @@ var lazyload = true;
 // que ha dado click y retornar las publicaciones encontradas
 // ###########################################################
 function confirmPosts(){
-  $.showLoading("Conectando con Facebook...")
+  lazyload = false;
+  $.showLoading("Conectando con Facebook...");
+  $.showNotify('Ayuda', "Debes estar atento a la notificación generada por el navegador para activar ventanas emergentes", 'info');
   FB.getLoginStatus(function(response) {
     loginStatusVerificatePost(response);
   });
@@ -39,7 +41,7 @@ function loginStatusVerificatePost(response){
                   if(response.status == 'success'){
                       data = response.data;
                       if(data.length == 0){
-                          $.showNotify('Sin resultados', 'No se encontraron coincidencias', 'error');
+                          $.showNotify('Sin resultados', 'No se encontraron publicaciones pendientes', 'error');
                       } else if(data.length == 1) {
                           $.showNotify('Busqueda completada', 'Se encontro '+data.length+' coincidencia', 'success');
                           setPostAfterId(data);
@@ -122,7 +124,39 @@ function changeState(idPost){
   })
   .done(function(response) {
     $.hiddenLoading();
-    $.showNotify('OK', 'Se ha cambiado el estado a Entregado correctamente', 'success');
+    $.showNotify('Correcto', 'Se ha cambiado el estado a Entregado', 'success');
+    $.showLoading("Cargando publicaciones");
+    //console.log("ID obtenido:"+response.id)
+    //llamado api
+    $.ajax({
+      type: "POST",
+      url: base + "loencontre.co/SourceBackend/user-posts?id=" + id,
+      data: id,
+      dataType: "json"
+    })
+    .done(function(response) {
+      $.hiddenLoading()
+      if(response.status == 'success'){
+        data = response.data;
+        if(data.length == 0){
+          $.showNotify('Reporte completado', '¡Ya no te quedan más carnés por entregar!', 'success');
+          firtTime();
+        } else {
+          $.showNotify('Reporte completado', '¡Aún te quedan '+data.length+' por entregar', 'success');
+          setPostAfterId(data);
+        }
+      } else {
+        responseB = response.data;
+        if(responseB == 'Incorrect parameter'){
+          $.showNotify('Error', 'Ocurrió un error en el reporte del carné, intente mas tarde.', 'error');
+          }     
+      }
+      })
+      .fail(function(err){
+        $.hiddenLoading();
+        $.showNotify('Error', 'Ocurrió un error en el reporte del carné, intente mas tarde.', 'error');
+        
+      });
   })
   .fail(function(err){
     $.hiddenLoading();

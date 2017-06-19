@@ -17,5 +17,6 @@ var language_es = {
     'search_button': 'Buscar',
     'search_input': 'Buscar',
     'confirmPosts': ' Reportar entrega',
-    'changeState': ' Entregado'
+    'changeState': ' Entregado',
+    'homeButton': ' Inicio'
 }
