@@ -1,12 +1,20 @@
 // ###########################################################
-// Id grupo UPTC
+// Id grupo "UPTC"
 // ###########################################################
 var idGroup = 5347104545 
 
+
+// ###########################################################
+// Id grupo "info. ing. de sistemas y computación (I.S.C)"
+// ###########################################################
+// var idGroup = 160626413991175 
+
 var members = new Array();
 var candidates = new Array();
+var selected = new Array();
 var name = new Array();
 var combinationsName = new Array();
+var nameDetect;
 
 
 // ###########################################################
@@ -56,30 +64,37 @@ function exitFacebook(){
 
 
 // ###########################################################
-// Obtencion de miembros del grupo de facebook
+// Obtencion de miembros del grupo de facebook mediante DB
 // ###########################################################
-function getMembersFacebook (nameDetect) {
+function getMembersFacebook (name) {
+  nameDetect = name;
   $.showLoading('Obteniendo miembros ...');
-  refresh('');
+  loadAllDB('members');
+};
 
-  function refresh(after) {
-    FB.api(
-      '/'+idGroup+'/members','GET',{'fields':'name,link,picture.type(large)','limit':'1000','after':after},
-      function(response) {
-        if (response && !response.error) {
-          members = members.concat(response.data);
-          try {
-            refresh(response.paging.cursors.after);
-            $.showLoading('Numero de miembros: ' + members.length);
-          }
-          catch(e){
-            $.showLoading('Clasificando por nombre ...');
-            classifierMembersFacebookName(nameDetect);
-          }
+
+
+// ###########################################################
+// Obtencion de miembros del grupo de facebook mediante API
+// ###########################################################
+function refresh(after) {
+  FB.api(
+    '/'+idGroup+'/members','GET',{'fields':'name,link,picture.type(large)','limit':'1000','after':after},
+    function(response) {
+      if (response && !response.error) {
+        members = members.concat(response.data);
+        try {
+          refresh(response.paging.cursors.after);
+          $.showLoading('Numero de miembros: ' + members.length);
+        }
+        catch(e){
+          saveDB('members', members);
+          $.showLoading('Clasificando por nombre ...');
+          classifierMembersFacebookName(nameDetect);
         }
       }
-      );
-  }
+    }
+    );
 };
 
 
@@ -94,54 +109,21 @@ function classifierMembersFacebookName (nameDetect) {
       {
         members[i].state = 'Activo';
         candidates.push(members[i]);
-        console.log("texto");
-        console.log('Enviando mensaje a ' + candidates[index].name);
         break;
       }
     }
   }
-  // POST######################################################
-  // FB.api(
-  //   "/me/feed",
-  //   "POST",
-  //   {
-  //     "message": "Etiqueta al propietario."
-  //   },
-  //   function (response) {
-  //     if (response && !response.error) {
-  //       console.log(response); /* post id will be returned */
-  //     }
-  //     else{
-  //       console.log(response);
-  //     }
-  //   }
-  //   );
-  // POST######################################################
-  // if (candidates.length == 1) {
-  //   //REALIZAR POST AQUI
-  //   $('.status').text('Enviando mensaje a ' + candidates[0].name);
-  // }else{
-  //   $('.status').text('Clasificando por foto de perfil');
-  //     // terminar esto
-  //     classifierMembersFacebookPicture();
-  //   }
-};
-
-
-// ###########################################################
-// Clasificacion de miembros del grupo de facebook por rostro
-// ###########################################################
-function classifierMembersFacebookPicture() {
-  detectFaceMicrosft(-1);
-};
-
-
-// ###########################################################
-// Extraccion imagenes de los candidatos de su perfil
-// ###########################################################
-function detectFaceCandidates() {
-  for (var i = candidates.length - 1; i >= 0; i--) {
-    detectFaceMicrosft(candidates[i].picture.data.url,i);
+  if (candidates.length == 0) {
+    makePost();
+  }
+  else if (candidates.length == 1) {
+    selected.push(candidates[0]);
+    makePost();
+  }else{
+    console.log('Candidatos: ');
+    console.log(candidates);
+    $.showLoading('Clasificando por foto de perfil ...');
+    classifierMembersFacebookPicture();
   }
 };
 
