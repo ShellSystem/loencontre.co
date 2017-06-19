@@ -118,7 +118,7 @@ function makePost() {
     console.log('Lista de seleccionados');
     console.log(selected);
   }
-  // newPost(name, userConnected);
+  newPost(name, userConnected);
 }
 
 

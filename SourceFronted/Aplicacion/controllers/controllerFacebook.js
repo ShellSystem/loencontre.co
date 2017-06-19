@@ -21,6 +21,8 @@ var nameDetect;
 // Activacion de la conexion con la cuenta de facebook
 // ###########################################################
 function newPostAction(){
+  $.showLoading("Conectando con Facebook...");
+  $.showNotify('Ayuda', "Debes estar atento a la notificación generada por el navegador para activar ventanas emergentes", 'info');
   FB.getLoginStatus(function(response) {
     loginStatusVerificate(response);
   });
