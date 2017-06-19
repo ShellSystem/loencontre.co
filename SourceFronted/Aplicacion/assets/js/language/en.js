@@ -17,5 +17,6 @@ var language_en = {
     'search_button': 'Search',
     'search_input': 'Search',
     'confirmPosts': ' Report post',
-    'changeState': ' Delivered'
+    'changeState': ' Delivered',
+    'homeButton': ' Home'
 }
