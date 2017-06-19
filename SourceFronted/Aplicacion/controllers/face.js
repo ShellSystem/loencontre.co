@@ -32,7 +32,7 @@ function detectFaceMicrosft (processData, img, index){
       if (data.length == 0) {
         candidates[index].state = 'Eliminado';
         console.log("- Candidato "+ index + " eliminado por no tener cara");
-      }else{
+      }else{        
         console.log("+ Candidato "+ index + " activo por tener cara");
         candidates[index].faceId = data[0].faceId;
         verifyFaceMicrosft(index);
@@ -109,9 +109,11 @@ function detectFaceCandidates() {
 // ###########################################################
 function makePost() {
   if (selected.length == 0) {
+    $.showNotify('Candidatos', 'Ningun perfil ha sido identificado como dueño del carné', 'error');
     console.log(' ');
     console.log('Ningun perfil ha sido identificado');
   }else{
+    $.showNotify('Candidatos', "Identificados posibles dueños del carné, enviando notificación", 'success');
     console.log(' ');
     console.log('Lista de seleccionados');
     console.log(selected);

@@ -113,6 +113,9 @@ function classifierMembersFacebookName (nameDetect) {
       }
     }
   }
+  $.showNotify('Candidatos', 'Se encontraron '+ candidates.length + ' candidatos.', 'success');
+  console.log('Candidatos: ');
+  console.log(candidates);
   if (candidates.length == 0) {
     makePost();
   }
@@ -120,8 +123,6 @@ function classifierMembersFacebookName (nameDetect) {
     selected.push(candidates[0]);
     makePost();
   }else{
-    console.log('Candidatos: ');
-    console.log(candidates);
     $.showLoading('Clasificando por foto de perfil ...');
     classifierMembersFacebookPicture();
   }
