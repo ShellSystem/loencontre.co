@@ -28,6 +28,28 @@ function newPostAction(){
   });
 }
 
+function share(name, image){
+    $("#facebook-description").attr('content', name)
+    $("#facebook-image").attr('content', image)
+    
+    console.log(image)
+
+    var message = "¿ Eres el " + name + " propietario de un carné de la UPTC perdido ? "
+    FB.ui({
+        method : 'share',
+        href : "http://loencontre.co/Aplicacion/",
+        quote : message,
+        picture: image,  
+        caption: message,  
+        description: message,
+      }, function(response) {
+         console.log(response)
+        
+      });
+
+  }
+
+
 // ###########################################################
 // Extraccion de datos del usuario de la cuenta de facebook
 // ###########################################################
