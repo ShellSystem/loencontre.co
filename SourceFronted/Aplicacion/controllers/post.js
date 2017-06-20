@@ -21,7 +21,7 @@ function newPost(txtFilter, user) {
   post.contact = $("#contact").val();
   var d = new Date();
   post.date = d.toString();
-  post.img = $('#img').get(0).files[0];  
+  post.img = $('#img').get(0).files[0];
   post.text = txtFilter;
   $("#name").val(txtFilter);
   $("#user_id").val(user.id);
@@ -44,7 +44,8 @@ function newPost(txtFilter, user) {
     if(response.status == 'success'){
       $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
       resetForm();
-      location.reload();
+      firtTime();
+      // location.reload();
     }else{
       $.showNotify('Error', data, 'error');
 
