@@ -111,10 +111,12 @@ function addPostId(post, options, fecha){
 // una petición al servidor para el cambio de estado de dicha publicación
 // ###########################################################
 function confirmDelivery(idPost){
-  $.showConfirm("La publicación se reportará como entregada", "changeState", idPost,"info");
+  $.showConfirm("¿Esta seguro?","La publicación se reportará como entregada", "changeState", idPost, false, "info");
 }
 
 function changeState(idPost){
+  if (!idPost)
+    return;
   $.showLoading("Cambiando estado de publicación a Entregado");
   $.ajax({
     type: "POST",

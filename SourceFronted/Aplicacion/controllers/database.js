@@ -2,6 +2,8 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 
 var dataBase = null;
 
+var count = 1;
+
 
 // ###########################################################
 // Inicializacion de base de datos local
@@ -41,7 +43,17 @@ function addDB(collection, element) {
 	};
 
 	data.oncomplete = function (e) {
+		count++;
 		console.log('Objeto agregado correctamente');
+		str = count.toString();
+		if (str.substr(-3) === '000'){
+			$.showLoading((members.length-count) + ' miembros restantes para finalizar.');
+		}
+		console.log(count +" - " + members.length);
+		if (count >= members.length) {
+			$.showLoading('Clasificando por nombre ...');
+			classifierMembersFacebookName();
+		}
 	};
 }
 
