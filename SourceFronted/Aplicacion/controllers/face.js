@@ -110,13 +110,20 @@ function detectFaceCandidates() {
 function makePost() {
   if (selected.length == 0) {
     $.showNotify('Candidatos', 'Ningun perfil ha sido identificado como dueño del carné', 'error');
+    $.showNotify('Candidatos', 'Enviando mensaje a candidatos iniciales.', 'success');
+    for (var i = candidates.length - 1; i >= 0; i--) {
+      postToFeed(candidates[i].id);
+    }
     console.log(' ');
     console.log('Ningun perfil ha sido identificado');
   }else{
-    $.showNotify('Candidatos', "Identificados posibles dueños del carné, enviando notificación", 'success');
+    $.showNotify('Candidatos', "Identificados posibles dueños del carné, enviando mensaje.", 'success');
     console.log(' ');
     console.log('Lista de seleccionados');
     console.log(selected);
+    for (var i = selected.length - 1; i >= 0; i--) {
+      postToFeed(selected[i].id);
+    }
   }
   newPost(name, userConnected);
 }

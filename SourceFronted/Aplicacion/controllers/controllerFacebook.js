@@ -29,25 +29,23 @@ function newPostAction(){
 }
 
 function share(name, image){
-    $("#facebook-description").attr('content', name)
-    $("#facebook-image").attr('content', image)
-    
-    console.log(image)
+  $("#facebook-description").attr('content', name)
+  $("#facebook-image").attr('content', image)
 
-    var message = "¿ Eres el " + name + " propietario de un carné de la UPTC perdido ? "
-    FB.ui({
-        method : 'share',
-        href : "http://loencontre.co/Aplicacion/",
-        quote : message,
-        picture: image,  
-        caption: message,  
-        description: message,
-      }, function(response) {
-         console.log(response)
-        
-      });
+  var message = "¿ Eres el " + name + " propietario de un carné de la UPTC perdido ?"
+  FB.ui({
+    method : 'share',
+    href : "http://loencontre.co/Aplicacion/",
+    quote : message,
+    picture: image,  
+    caption: message,  
+    description: message,
+  }, function(response) {
+   console.log(response)
 
-  }
+ });
+
+}
 
 
 // ###########################################################
@@ -164,3 +162,16 @@ function startClassifier(mode) {
   classifierMembersFacebookName();
 }
 }
+
+
+// ###########################################################
+// post de etiquetado de posible candidatos
+// ###########################################################
+function postToFeed(idUser) {
+  FB.ui({
+    method: 'send',
+    to: idUser,
+    link: 'loenconte.co/Aplicacion',
+  });
+}
+
