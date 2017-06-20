@@ -11,7 +11,7 @@ use App\Post;
 use App\User;
 use Validator;
 
-
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller{
 
@@ -39,6 +39,7 @@ class PostController extends Controller{
    * 
   **/
   public function userPosts(Request $request){
+
     if($request->id){
       $resultado = array(); 
       $idUser = $request->id;
@@ -61,6 +62,9 @@ class PostController extends Controller{
 
   # $_Post : name
   public function searchName(Request $request){
+
+    $log = "Busqueda por nombre desde  " . $request->ip();
+    Log::info($log);
     //return $request->input();
     $resultado = array();    
     if($request->name){
@@ -149,6 +153,9 @@ class PostController extends Controller{
   }
   
   public function addPost(Request $request){
+
+    
+
     //return $request->input();    
     $user = ($this->userVerification($request));
 
@@ -185,6 +192,11 @@ class PostController extends Controller{
         }
         
         if(!$this->repeated($post->name)){# No hay un post con el mismo link
+
+          $log = "Nuevo post desde " . $request->ip() . " con nombre : " . $post->name;
+          Log::info($log);
+
+
           $post->save();
           return json_encode(['status' => 'success', 'data' => '1']);
         }else{
@@ -271,9 +283,14 @@ class PostController extends Controller{
 
   
   public function getPage(Request $request){   
+
+
     #return  json_encode($request->input());
     if ($request->pageNumber){
      
+      $log = "Peticion de página   " . $request->pageNumber  . " desde " . $request->ip();
+      Log::info($log);
+
       #$posts = Post::all()->sortByDesc('Date'); # Pide todos los posts a la base de datos
       $posts = Post::where('status', 0)->orderBy('date', 'desc')->get();
       
@@ -307,7 +324,12 @@ class PostController extends Controller{
     }
   }
 
-  public function pagination(){
+  public function pagination(Request $request){
+    
+    $log = "Paginación desde " . $request->ip();
+    Log::info($log);
+
+
     $posts = Post::where('status', 0)->get();  
     $amount = (int)(sizeof($posts) / $this->postAmountPerPage); # Cantidad  de paginas
     if((sizeof($posts) % $this->postAmountPerPage) > 0){ #Numero decimal
@@ -319,12 +341,19 @@ class PostController extends Controller{
 
 
   public function dateRange(Request $request){
+
+
+
     $validation = ($this->validarFechas($request)); #Prueba unitaria
     $dateCurrent = str_replace("-","/",date('Y-m-d')); 
     //return json_encode([$dateCurrent.' - '.$request->startRange.' - '.$request->endRange]); 
     if ($validation == 1) {
       $startRange = $request->startRange;
       $endRange = $request->endRange;
+
+
+       $log = "Busqueda en un rango de fechas desde  " . $request->ip();
+      Log::info($log);
       
       if ($endRange >= $startRange && $startRange <= $dateCurrent && $endRange <= $dateCurrent) { #prueba unitaria
         $posts = Post::whereBetween('date', [$startRange, $endRange])->where('status', 0)->orderBy('date', 'desc')->get();
