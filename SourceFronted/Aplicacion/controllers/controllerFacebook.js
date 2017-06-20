@@ -18,6 +18,21 @@ function newPostAction(){
   });
 }
 
+function share(name, image){
+    $("#facebook-description").attr('content', name)
+    $("#facebook-image").attr('content', image)
+    
+    FB.ui({
+        method : 'share',
+        href : "http://loencontre.co/Aplicacion/",
+      }, function(response) {
+         console.log(response)
+        
+      });
+
+  }
+
+
 // ###########################################################
 // Extraccion de datos del usuario de la cuenta de facebook
 // ###########################################################

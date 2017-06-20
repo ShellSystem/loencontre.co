@@ -98,12 +98,14 @@ function addPost(post, options, fecha){
       '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
       '<p><a target="_blank" href="https://www.facebook.com/app_scoped_user_id/'+post.user_id+'"> ¡Contactame para la devolución! </a></p>' +
+      '<p><a target="_blank" onclick="share(\''+post.name+'\', \''+post.image+'\')" >Compartir en Facebook</a></p>' +
       '</article>'); 
   }else{
     $("#main").append('<article class="thumb">' +
       '<a class="image" href="'+post.image+'"><img src="'+post.image+'" alt="" /></a>'+
       '<h2>'+fecha.toLocaleDateString("es-ES", options)+'</h2>' +
       '<p> <a target="_blank" href="https://www.facebook.com/groups/5347104545/photos/"> Fuente</a></p>' +
+      '<p><a target="_blank" onclick="share(\''+post.name+'\', \''+post.image+'\')" >Compartir en Facebook</a></p>' +
       '</article>'); 
   }
 }
