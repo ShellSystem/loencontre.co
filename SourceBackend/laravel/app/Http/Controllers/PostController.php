@@ -178,7 +178,7 @@ class PostController extends Controller{
           
           $imagen = $request->img;
           // $nombreImagen = $imagen->getClientOriginalName();
-          $nombreImagen = $request->user_id . date('Y/m/d') . $imagen->getClientOriginalName();
+          $nombreImagen = $request->user_id . date("Y-m-d-H-i-s") . $imagen->getClientOriginalName();
           $rutaDestino = 'images'.'/'.$nombreImagen;
           $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
           
