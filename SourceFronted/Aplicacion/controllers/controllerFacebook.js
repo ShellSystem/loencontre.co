@@ -37,7 +37,8 @@ function share(name, image){
     FB.ui({
         method : 'share',
         href : "http://loencontre.co/Aplicacion/",
-        quote : 
+        quote : name,
+        picture: image
       }, function(response) {
          console.log(response)
         
