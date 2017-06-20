@@ -27,9 +27,6 @@ function newPost(txtFilter, user) {
   $("#user_id").val(user.id);
   $("#user_name").val(user.name);
   $("#user_email").val(user.email);
-  var f = new Date();
-  post.img.name = user.id + f.getDate() + ".jpg";
-  console.log(post.img);
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
