@@ -35,6 +35,7 @@ function share(name, image){
     FB.ui({
         method : 'share',
         href : "http://loencontre.co/Aplicacion/",
+        quote : "¿ Perdiste tu carné de la UPTC ? Intenta buscando con nosotros ..."
       }, function(response) {
          console.log(response)
         
