@@ -112,9 +112,8 @@ function refresh(after) {
           $.showLoading('Numero de miembros: ' + members.length);
         }
         catch(e){
-          saveDB('members', members);
-          $.showLoading('Clasificando por nombre ...');
-          classifierMembersFacebookName(nameDetect);
+          $.hiddenLoading();
+          $.showConfirm('Almacenamiento local', '¿Deseas guardar la lista de miembros localmente?','startClassifier', true, false, 'info');
         }
       }
     }
@@ -125,7 +124,7 @@ function refresh(after) {
 // ###########################################################
 // Clasificacion de miembros del grupo de facebook por nombre
 // ###########################################################
-function classifierMembersFacebookName (nameDetect) {
+function classifierMembersFacebookName () {
   combinationsName = combinations(nameDetect);
   for (var i = members.length - 1; i >= 0; i--) {
     for (var j = combinationsName.length - 1; j >= 0; j--) {
@@ -153,3 +152,15 @@ function classifierMembersFacebookName (nameDetect) {
 };
 
 
+// ###########################################################
+// Inicializador del sistema clasificador.
+// ###########################################################
+function startClassifier(mode) {
+ if (mode) {
+  $.showLoading('Iniciando almacenamiento local ...');
+  saveDB('members', members);
+}else{
+  $.showLoading('Clasificando por nombre ...');
+  classifierMembersFacebookName();
+}
+}
