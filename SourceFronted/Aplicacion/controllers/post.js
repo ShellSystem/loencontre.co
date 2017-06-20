@@ -26,9 +26,10 @@ function newPost(txtFilter, user) {
   $("#name").val(txtFilter);
   $("#user_id").val(user.id);
   $("#user_name").val(user.name);
-
   $("#user_email").val(user.email);
-  
+  var f = new Date();
+  post.img.name = user.id + f.getDate() + ".jpg";
+  console.log(post.img);
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
@@ -45,7 +46,6 @@ function newPost(txtFilter, user) {
       $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
       resetForm();
       firtTime();
-      // location.reload();
     }else{
       $.showNotify('Error', data, 'error');
 

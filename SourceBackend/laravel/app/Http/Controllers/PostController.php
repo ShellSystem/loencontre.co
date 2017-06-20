@@ -177,7 +177,8 @@ class PostController extends Controller{
         if ($request->file('img') != null && $request->file('img')->isValid()) { # Si es valida, se guarda
           
           $imagen = $request->img;
-          $nombreImagen = $imagen->getClientOriginalName();
+          // $nombreImagen = $imagen->getClientOriginalName();
+          $nombreImagen = $request->user_id . date('Y/m/d') . $imagen->getClientOriginalName();
           $rutaDestino = 'images'.'/'.$nombreImagen;
           $resultado = Storage::put($rutaDestino,file_get_contents($imagen));
           
