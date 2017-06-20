@@ -24,7 +24,7 @@ $.showNotify = function($title, $text, $style, $position) {
     showAnimation: "show",
     showDuration: 0,
     hideDuration: 0,
-    autoHideDelay: 8000,
+    autoHideDelay: 15000,
     autoHide: true,
     clickToHide: true
   });

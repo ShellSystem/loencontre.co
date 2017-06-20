@@ -1,3 +1,13 @@
+// ###########################################################
+// User facebook conectado
+// ###########################################################
+var userConnected; 
+
+// ###########################################################
+// User facebook conectado
+// ###########################################################
+var name = ""; 
+
 
 // ###########################################################
 // Nueva publicacion
@@ -11,7 +21,7 @@ function newPost(txtFilter, user) {
   post.contact = $("#contact").val();
   var d = new Date();
   post.date = d.toString();
-  post.img = $('#img').get(0).files[0];
+  post.img = $('#img').get(0).files[0];  
   post.text = txtFilter;
   $("#name").val(txtFilter);
   $("#user_id").val(user.id);
@@ -33,8 +43,7 @@ function newPost(txtFilter, user) {
     data = response.data;
     if(response.status == 'success'){
       $.showNotify('Publicación exitosa', 'El carné fue publicado', 'success');
-      var $panels = $('.panel');
-      $panels.trigger('---hide');
+      resetForm();
       location.reload();
     }else{
       $.showNotify('Error', data, 'error');
@@ -78,6 +87,8 @@ document.getElementById('img').addEventListener('change', archivo, false);
 // Extraccion de texto
 // ###########################################################
 function getOCRMicrosft(user){
+  userConnected = user;
+  hidePanel();
   img = $('#img').get(0).files[0];
   params = {
     'language': 'es',
@@ -114,18 +125,12 @@ function getOCRMicrosft(user){
       });
       txtFilter = pln(txtMicrosoft);
       var nameDetect = txtFilter.filterText;
-      var name = "";
       for (var index = 0; index < txtFilter.filterText.length; index++) {
        name = name + " " + txtFilter.filterText[index];
      }
      getMembersFacebook(nameDetect);
-     newPost(name, user);
-     document.getElementById("new").reset();
-     document.getElementById("list").innerHTML = "";
    } else {
      newPost("NN", user);
-     document.getElementById("new").reset();
-     document.getElementById("list").innerHTML = "";
    }
  })
   .fail(function(err){
@@ -182,7 +187,7 @@ function pln(txt){
 
 // ###########################################################
 // Valores de probabilidad del texto extraido
-// ###########################################################s
+// ###########################################################
 function probability(txtMicrosoft, txtFilter){
   var lengthMicrosoft = txtMicrosoft.split('-').length;
   var lengthFilter = txtFilter.length;
@@ -200,4 +205,22 @@ function probability(txtMicrosoft, txtFilter){
   }
 
   return probability;
+}
+
+
+// ###########################################################
+// Reinicio al formulario de una nueva publicacion
+// ###########################################################
+function resetForm() {
+  document.getElementById("new").reset();
+  document.getElementById("list").innerHTML = "";
+}
+
+
+// ###########################################################
+// Ocultamiento del panel footer
+// ###########################################################
+function hidePanel() {
+  var $panels = $('.panel');
+  $panels.trigger('---hide');
 }
