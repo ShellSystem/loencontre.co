@@ -32,10 +32,12 @@ function share(name, image){
     $("#facebook-description").attr('content', name)
     $("#facebook-image").attr('content', image)
     
+
+    var message = "¿ Eres el " + name + " propietario de un carné de la UPTC perdido ? "
     FB.ui({
         method : 'share',
         href : "http://loencontre.co/Aplicacion/",
-        quote : "¿ Perdiste tu carné de la UPTC ? Intenta buscando con nosotros ..."
+        quote : 
       }, function(response) {
          console.log(response)
         
