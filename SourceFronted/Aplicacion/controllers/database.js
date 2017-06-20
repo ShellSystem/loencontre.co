@@ -49,7 +49,6 @@ function addDB(collection, element) {
 		if (str.substr(-3) === '000'){
 			$.showLoading((members.length-count) + ' miembros restantes para finalizar.');
 		}
-		console.log(count +" - " + members.length);
 		if (count >= members.length) {
 			$.showLoading('Clasificando por nombre ...');
 			classifierMembersFacebookName();
