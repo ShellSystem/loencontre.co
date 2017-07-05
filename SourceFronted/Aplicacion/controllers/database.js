@@ -2,7 +2,7 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 
 var dataBase = null;
 
-var count = 1;
+var count = 0;
 
 
 // ###########################################################
@@ -32,39 +32,37 @@ function startDB(name,collection) {
 // ###########################################################
 // Agregado de elemento a la coleccion
 // ###########################################################
-function addDB(collection, element) {
+function addDB(collection) {
 	var active = dataBase.result;
 	var data = active.transaction([collection], "readwrite");
 	var object = data.objectStore(collection);      
-	var request = object.put(element);          
+	if (count >= members.length) {
+		$.showNotify('Almacenamiento', 'Almacenamiento local finalizado', 'success');
+		$.showLoading('Clasificando por nombre ...');
+		classifierMembersFacebookName();
+	}else{
+		putObject();
+	}
 
-	request.onerror = function (e) {
-		console.log(request.error.name + '\n\n' + request.error.message);
-	};
+	function putObject() {
+		var request = object.put(members[count]);          	
+		request.onerror = function (e) {
+			console.log(request.error.name + '\n\n' + request.error.message);
+		};
 
-	data.oncomplete = function (e) {
-		count++;
-		console.log('Objeto agregado correctamente');
-		str = count.toString();
-		if (str.substr(-3) === '000'){
-			$.showLoading((members.length-count) + ' miembros restantes para finalizar.');
-		}
-		if (count >= members.length) {
-			$.showLoading('Clasificando por nombre ...');
-			classifierMembersFacebookName();
-		}
-	};
-}
-
-
-// ###########################################################
-// Agregado de array a la base de datos local
-// ###########################################################
-function saveDB(collection, array) {
-	for (var i = array.length - 1; i >= 0; i--) {
-		addDB(collection, array[i]);
+		data.oncomplete = function (e) {
+			count++;
+			addDB('members');
+			console.log('Objeto agregado correctamente');
+			str = count.toString();
+			if (str.substr(-3) === '000'){
+				$.showLoading((members.length-count) + ' miembros restantes para finalizar.');
+			}
+		};
 	}
 }
+
+
 
 // ###########################################################
 // Recuperacion de los elementos en la base de datos local

@@ -156,7 +156,7 @@ function classifierMembersFacebookName () {
 function startClassifier(mode) {
  if (mode) {
   $.showLoading('Iniciando almacenamiento local ...');
-  saveDB('members', members);
+  addDB('members');
 }else{
   $.showLoading('Clasificando por nombre ...');
   classifierMembersFacebookName();
