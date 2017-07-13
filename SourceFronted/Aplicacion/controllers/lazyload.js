@@ -27,12 +27,15 @@ function load() {
     url: base + "loencontre.co/SourceBackend/pagination"
   }).done(function(data) {
     if (data.pageAmount>=pageNumber) {
+      $.showNotify('Información', 'Cargando publicaciones...', 'info');
       $.ajax({
         dataType: "json",
         url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+pageNumber
       }).done(function(data) {
         setPostLoad(data);
       }); 
+    } else {
+      $.showNotify('Alerta', 'Ya no quedan más publicaciones por mostrar', 'error');
     }
   });
 }
