@@ -26,14 +26,14 @@ class MainController {
     firtTime();
     $.ajax({
       dataType: "json",
-      url: base + "loencontre.co/SourceBackend/pagination"
+      url: base + "loencontre/SourceBackend/pagination"
     }).done(function(pages) {
       $('#pagination-here').bootpag({
         total: pages.pageAmount
       }).on("page", function(event, num){
         $.ajax({
           dataType: "json",
-          url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+num
+          url: base + "loencontre/SourceBackend/get-page?pageNumber="+num
         }).done(function(data) {
           setPost(data);
         });
@@ -50,7 +50,7 @@ class MainController {
 function firtTime() {
   $.ajax({
     dataType: "json",
-    url: base + "loencontre.co/SourceBackend/get-page?pageNumber=1"
+    url: base + "loencontre/SourceBackend/get-page?pageNumber=1"
   }).done(function(data) {
     setPost(data);
   });
