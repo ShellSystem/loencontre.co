@@ -24,13 +24,13 @@ function load() {
   pageNumber++;
   $.ajax({
     dataType: "json",
-    url: base + "loencontre.co/SourceBackend/pagination"
+    url: base + "loencontre/SourceBackend/pagination"
   }).done(function(data) {
     if (data.pageAmount>=pageNumber) {
       $.showNotify('Información', 'Cargando publicaciones...', 'info');
       $.ajax({
         dataType: "json",
-        url: base + "loencontre.co/SourceBackend/get-page?pageNumber="+pageNumber
+        url: base + "loencontre/SourceBackend/get-page?pageNumber="+pageNumber
       }).done(function(data) {
         setPostLoad(data);
       }); 
