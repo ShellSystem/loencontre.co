@@ -30,7 +30,7 @@ function newPost(txtFilter, user) {
   post = new FormData($("#new")[0]);
   $.ajax({
    type: "POST",
-   url: base + "loencontre.co/SourceBackend/add-post",
+   url: base + "loencontre/SourceBackend/add-post",
    data: post,
    contentType: false,
    processData: false
