@@ -32,7 +32,7 @@ function loginStatusVerificatePost(response){
               //llamado api
               $.ajax({
                   type: "POST",
-                  url: base + "loencontre.co/SourceBackend/user-posts?id=" + id,
+                  url: base + "loencontre/SourceBackend/user-posts?id=" + id,
                   data: id,
                   dataType: "json"
               })
@@ -120,7 +120,7 @@ function changeState(idPost){
   $.showLoading("Cambiando estado de publicación a Entregado");
   $.ajax({
     type: "POST",
-    url: base + "loencontre.co/SourceBackend/change-state?id=" + idPost,
+    url: base + "loencontre/SourceBackend/change-state?id=" + idPost,
     data: idPost,
     dataType: "json"
   })
@@ -132,7 +132,7 @@ function changeState(idPost){
     //llamado api
     $.ajax({
       type: "POST",
-      url: base + "loencontre.co/SourceBackend/user-posts?id=" + id,
+      url: base + "loencontre/SourceBackend/user-posts?id=" + id,
       data: id,
       dataType: "json"
     })
@@ -176,7 +176,7 @@ function newSearchName() {
   $.showLoading("Realizando búsqueda por nombre")
   $.ajax({
    type: "POST",
-   url: base + "loencontre.co/SourceBackend/search-name?name=" + search,
+   url: base + "loencontre/SourceBackend/search-name?name=" + search,
    data: search,
    dataType: "json"
  })
@@ -217,7 +217,7 @@ function newSearchDate() {
   endRange = $("#endRange").val();
   $.ajax({
     dataType: "json",
-    url: base + "loencontre.co/SourceBackend/date-range?startRange",
+    url: base + "loencontre/SourceBackend/date-range?startRange",
     data : {startRange : startRange, endRange : endRange}
   })
   .done(function(response)
