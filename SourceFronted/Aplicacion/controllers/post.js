@@ -25,7 +25,6 @@ function newPost(txtFilter, user) {
     $("#user_name").val(user.name);
     $("#user_email").val(user.email);
     post = new FormData($("#new")[0]);
-    console.log(post);
     $.ajax({
         type: "POST",
         url: base + "loencontre/SourceBackend/add-post",
@@ -76,7 +75,7 @@ function getOCR(user) {
     var formData = new FormData($('#new')[0]);
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/upload',
+        url: 'http://loencontre.co:8000/upload',
         data: formData,
         contentType: false,
         cache: false,
@@ -142,7 +141,7 @@ function pipeline(id) {
     var steps = ["crop_morphology", "enhance_basic_sharpness", "enhance_basic_brightness", "negative", "histogram_equalization"];
     $.ajax({
         type: 'POST',
-        url: 'http://localhost:8000/pipeline/' + id,
+        url: 'http://loencontre.co:8000/pipeline/' + id,
         data: JSON.stringify({
             steps: steps
         }),
@@ -159,7 +158,7 @@ function pipeline(id) {
 function ocr(id) {
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:8000/ocr-individual/' + id,
+        url: 'http://loencontre.co:8000/ocr-individual/' + id,
     }).done(function(data) {
         textDetect = data.results.text;
         txtFilter = pln(textDetect);
@@ -168,9 +167,7 @@ function ocr(id) {
             name = name + " " + txtFilter.filterText[index];
         }
         // getMembersFacebook(nameDetect);
-        console.log(nameDetect);
-        console.log(userConnected);
-        newPost(nameDetect, userConnected);
+        newPost(name, userConnected);
     }).fail(function(err) {
         console.log(err);
         $.showNotify('Error', 'Ocurrió un error en el procesamiento del texto, intente mas tarde.', 'error');
