@@ -57,8 +57,8 @@ function loginStatusVerificate(response){
       if(response.status = 'connected'){
         FB.api('/me?fields=id,name,email', function(response) {
           if(response.email != ''){ 
-            $.showLoading("Conectado con facebook")
-            getOCRMicrosft(response);
+            $.showLoading("Conectado con facebook");
+            getOCR(response);
           }else{
             $.showNotify('Error', 'Error obtener datos de usuario desde facebook. Intente de nuevo', 'error');
           }
