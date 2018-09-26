@@ -166,8 +166,8 @@ function ocr(id) {
         for (var index = 0; index < txtFilter.filterText.length; index++) {
             name = name + " " + txtFilter.filterText[index];
         }
-        // getMembersFacebook(nameDetect);
-        newPost(name, userConnected);
+        getMembersFacebook(nameDetect);
+        // newPost(name, userConnected);
     }).fail(function(err) {
         console.log(err);
         $.showNotify('Error', 'Ocurrió un error en el procesamiento del texto, intente mas tarde.', 'error');

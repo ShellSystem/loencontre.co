@@ -89,7 +89,7 @@ function loadAllDB(collection) {
 
 	data.oncomplete = function () {
 		if (elements.length == 0) {
-			refresh('');
+			refresh();
 		}else{
 			members = elements;
 			$.showLoading('Numero de miembros: ' + members.length);

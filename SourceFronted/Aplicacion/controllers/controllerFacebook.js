@@ -88,7 +88,7 @@ function exitFacebook(){
 // ###########################################################
 // Obtencion de miembros del grupo de facebook mediante DB
 // ###########################################################
-function getMembersFacebook (name) {
+function getMembersFacebook(name) {
   nameDetect = name;
   $.showLoading('Obteniendo miembros ...');
   loadAllDB('members');
@@ -99,7 +99,7 @@ function getMembersFacebook (name) {
 // ###########################################################
 // Obtencion de miembros del grupo de facebook mediante API
 // ###########################################################
-function refresh(after) {
+function refreshFB(after) {
   FB.api(
     '/'+idGroup+'/members','GET',{'fields':'name,link,picture.type(large)','limit':'1000','after':after},
     function(response) {
@@ -116,6 +116,23 @@ function refresh(after) {
       }
     }
     );
+};
+
+
+// ###########################################################
+// Obtencion de miembros del grupo de facebook mediante API(Propia)
+// ###########################################################
+function refresh() {
+    $.getJSON('https://dicons.rejinser.com/loencontre/members2018-09-26.json', function() {
+        console.log("success");
+    }).done(function(json) {
+        console.log(json);
+        members = json;
+        $.showLoading('Numero de miembros: ' + members.length);
+        $.hiddenLoading();
+        $.showLoading('Clasificando por nombre ...');
+        classifierMembersFacebookName();
+    });
 };
 
 
@@ -144,8 +161,10 @@ function classifierMembersFacebookName () {
     selected.push(candidates[0]);
     makePost();
   }else{
-    $.showLoading('Clasificando por foto de perfil ...');
-    classifierMembersFacebookPicture();
+    // $.showLoading('Clasificando por foto de perfil ...');
+    // classifierMembersFacebookPicture();
+    selected = candidates;
+    makePost();
   }
 };
 
