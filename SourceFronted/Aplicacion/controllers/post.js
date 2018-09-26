@@ -23,7 +23,7 @@ function newPost(txtFilter, user) {
     $("#name").val(txtFilter);
     $("#user_id").val(user.id);
     $("#user_name").val(user.name);
-    $("#user_email").val(user.email);
+    $("#user_email").val('');
     post = new FormData($("#new")[0]);
     $.ajax({
         type: "POST",
