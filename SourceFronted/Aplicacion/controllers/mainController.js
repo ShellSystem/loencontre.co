@@ -4,7 +4,7 @@
 // var base = "/"
 // var base = "http://loencontre.co/"
 // var base = "http://localhost/"
-var base = "http://dicons.rejinser.com/"
+var base = "https://dicons.rejinser.com/"
 
 
 class MainController {
