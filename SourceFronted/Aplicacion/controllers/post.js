@@ -75,7 +75,7 @@ function getOCR(user) {
     var formData = new FormData($('#new')[0]);
     $.ajax({
         type: 'POST',
-        url: 'http://loencontre.co:8000/upload',
+        url: 'https://loencontre.co:8000/upload',
         data: formData,
         contentType: false,
         cache: false,
@@ -141,7 +141,7 @@ function pipeline(id) {
     var steps = ["crop_morphology", "enhance_basic_sharpness", "enhance_basic_brightness", "negative", "histogram_equalization"];
     $.ajax({
         type: 'POST',
-        url: 'http://loencontre.co:8000/pipeline/' + id,
+        url: 'https://loencontre.co:8000/pipeline/' + id,
         data: JSON.stringify({
             steps: steps
         }),
@@ -158,7 +158,7 @@ function pipeline(id) {
 function ocr(id) {
     $.ajax({
         type: 'GET',
-        url: 'http://loencontre.co:8000/ocr-individual/' + id,
+        url: 'https://loencontre.co:8000/ocr-individual/' + id,
     }).done(function(data) {
         textDetect = data.results.text;
         txtFilter = pln(textDetect);

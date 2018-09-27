@@ -2,7 +2,7 @@
 // Diferentes bases de url para el despliegue de la aplicacion
 // ###########################################################
 // var base = "/"
-// var base = "http://loencontre.co/"
+// var base = "https://loencontre.co/"
 // var base = "http://localhost/"
 var base = "https://dicons.rejinser.com/"
 

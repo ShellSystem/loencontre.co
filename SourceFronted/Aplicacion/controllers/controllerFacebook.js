@@ -35,7 +35,7 @@ function share(name, image){
   var message = "¿ Eres el " + name + " propietario de un carné de la UPTC perdido ?"
   FB.ui({
     method : 'share',
-    href : "http://loencontre.co/Aplicacion/",
+    href : "https://loencontre.co/Aplicacion/",
     quote : message,
     picture: image,  
     caption: message,  
